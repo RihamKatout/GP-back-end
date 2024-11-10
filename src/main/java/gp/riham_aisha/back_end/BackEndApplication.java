@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end;
 
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

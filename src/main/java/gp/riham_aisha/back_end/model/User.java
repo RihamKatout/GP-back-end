@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -11,7 +11,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

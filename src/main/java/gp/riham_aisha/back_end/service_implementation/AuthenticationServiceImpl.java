@@ -1,8 +1,8 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dta.AuthenticationResponse;
-import gp.riham_aisha.back_end.dta.LoginRequest;
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.AuthenticationResponse;
+import gp.riham_aisha.back_end.dto.LoginRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.UserRepository;

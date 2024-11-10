@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +36,13 @@ public class AdminController {
     public ResponseEntity<Object> deleteSupport(@PathVariable Long id) {
         adminService.deleteSupport(id);
         log.info("Deleting support with id: " + id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/reset-password/{id}")
+    public ResponseEntity<Object> resetPassword(@PathVariable Long id, @RequestBody String newPassword) {
+        adminService.resetPassword(id, newPassword);
+        log.info("Resetting password for user with id: " + id);
         return ResponseEntity.ok().build();
     }
 }

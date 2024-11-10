@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.exception.ValidationException;
 import gp.riham_aisha.back_end.model.User;
@@ -29,15 +29,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Boolean deleteSupport(Long id) {
+    public void deleteSupport(Long id) {
         User support = userService.getUser(id).orElseThrow();
         Role[] userRoles = support.getRoles();
         for (var role : userRoles) {
             if (role.equals(Role.SUPPORT)) {
                 userService.deleteUser(id);
-                return true;
+                return;
             }
         }
         throw new ValidationException(Map.of("error", "User is not a support"));
+    }
+
+    @Override
+    public void resetPassword(Long id, String newPassword) {
+        userService.resetPassword(id, newPassword);
     }
 }

@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("/api/store-category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

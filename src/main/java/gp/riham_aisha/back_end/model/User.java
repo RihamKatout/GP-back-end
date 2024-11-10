@@ -24,14 +24,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @Table(name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(name = "unique_phone_number",columnNames = "phoneNumber"),
-                @UniqueConstraint(name = "unique_username",columnNames = "username"),
-                @UniqueConstraint(name = "unique_email",columnNames = "email")
+                @UniqueConstraint(name = "unique_phone_number", columnNames = "phoneNumber"),
+                @UniqueConstraint(name = "unique_username", columnNames = "username"),
+                @UniqueConstraint(name = "unique_email", columnNames = "email")
         }
 )
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Pattern(regexp = "\\w+", message = "invalid username")
@@ -125,6 +125,7 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public User(RegistrationRequest request) {
         this.username = request.username();
         this.firstName = request.firstName();

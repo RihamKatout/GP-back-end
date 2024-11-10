@@ -67,6 +67,7 @@ public class User implements UserDetails {
     private LocalDateTime signUpDate;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(roles)
                 .map(role -> new SimpleGrantedAuthority(role.name()))

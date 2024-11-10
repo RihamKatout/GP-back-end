@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static org.springframework.util.StringUtils.capitalize;
@@ -54,7 +55,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler({IllegalArgumentException.class})
+    @ExceptionHandler({IllegalArgumentException.class, NoSuchElementException.class})
     public ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(ex.getMessage()));
     }
@@ -72,7 +73,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                     .body(new ErrorsResponse("An unexpected error occurred."));
         }
     }
-
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

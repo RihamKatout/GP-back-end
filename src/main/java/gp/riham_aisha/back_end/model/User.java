@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -11,7 +11,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -25,14 +24,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @Table(name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(name = "unique_phone_number",columnNames = "phoneNumber"),
-                @UniqueConstraint(name = "unique_username",columnNames = "username"),
-                @UniqueConstraint(name = "unique_email",columnNames = "email")
+                @UniqueConstraint(name = "unique_phone_number", columnNames = "phoneNumber"),
+                @UniqueConstraint(name = "unique_username", columnNames = "username"),
+                @UniqueConstraint(name = "unique_email", columnNames = "email")
         }
 )
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Pattern(regexp = "\\w+", message = "invalid username")
@@ -67,6 +66,7 @@ public class User implements UserDetails {
     private LocalDateTime signUpDate;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(roles)
                 .map(role -> new SimpleGrantedAuthority(role.name()))
@@ -125,6 +125,7 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public User(RegistrationRequest request) {
         this.username = request.username();
         this.firstName = request.firstName();

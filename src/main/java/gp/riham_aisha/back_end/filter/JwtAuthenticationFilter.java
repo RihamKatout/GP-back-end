@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@Slf4j
 // tell it's a managed bean
 @Component
 @RequiredArgsConstructor
@@ -49,7 +47,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // bearer token should always start with "Bearer " word
         // missing JWT token
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            log.info("JwtAuthenticationFilter --> doFilterInternal --> token doesn't exist");
             filterChain.doFilter(request, response);
             return;
         }
@@ -57,18 +54,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // extract token from header
         // start after "Bearer " word
         jwt = authHeader.substring(7);
-        log.info("JwtAuthenticationFilter --> doFilterInternal --> token: " + jwt);
 
         // extract userEmail from JWT token using JwtService
         try {
             userEmail = jwtService.extractUsername(jwt);
-            log.info("JwtAuthenticationFilter --> doFilterInternal --> userEmail: " + userEmail);
             // check if the user is already authenticated
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // the user is not authenticated
                 User userDetails = (User) this.userDetailsService.loadUserByUsername(userEmail);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
-                    log.info("JwtAuthenticationFilter --> doFilterInternal --> the token is valid");
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities()
                     );
@@ -84,7 +78,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             PrintWriter writer = response.getWriter();
             writer.write("{\"error\": \"" + e.getMessage() + "\"}");
             writer.flush();
-            log.error("JwtAuthenticationFilter --> doFilterInternal --> invalid token", e);
             return;
         }
 

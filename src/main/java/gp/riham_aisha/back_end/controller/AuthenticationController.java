@@ -1,8 +1,8 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dta.AuthenticationResponse;
-import gp.riham_aisha.back_end.dta.LoginRequest;
-import gp.riham_aisha.back_end.dta.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.AuthenticationResponse;
+import gp.riham_aisha.back_end.dto.LoginRequest;
+import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.util.Validator;
@@ -27,10 +27,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegistrationRequest request, BindingResult result) throws Exception {
-        log.info("AuthenticationController -->registering a user with username: " + request.username());
         Validator.validateBody(result);
-        System.out.println(request);
         AuthenticationResponse response = authenticationService.register(request, Role.CUSTOMER);
+        log.info("Registering a user with username: " + request.username());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Authorization", "Bearer " + response.token())
                 .body(response.user());
@@ -38,8 +37,8 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest request) {
-        log.info("AuthenticationController --> logging a user with email: " + request.email());
         AuthenticationResponse response = authenticationService.authenticate(request);
+        log.info("Logging a user with email: " + request.email());
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + response.token())
                 .body(response.user());

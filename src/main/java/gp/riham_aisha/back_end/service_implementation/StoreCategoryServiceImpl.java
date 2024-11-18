@@ -3,6 +3,7 @@ package gp.riham_aisha.back_end.service_implementation;
 import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.repository.StoreCategoryRepository;
 import gp.riham_aisha.back_end.service.StoreCategoryService;
+import gp.riham_aisha.back_end.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class StoreCategoryServiceImpl implements StoreCategoryService {
     public StoreCategory addNewStoreCategory(String storeCategory) {
         StoreCategory newStoreCategory = new StoreCategory(storeCategory);
         storeCategoryRepository.save(newStoreCategory);
-        log.info("New category added: {}", newStoreCategory.getCategoryName());
+        log.info("New category added: {} by: {}", newStoreCategory.getCategoryName(), AuthUtil.getCurrentUser());
         return newStoreCategory;
     }
 
@@ -29,7 +30,7 @@ public class StoreCategoryServiceImpl implements StoreCategoryService {
         StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow();
         storeCategory.setCategoryName(storeCategoryName);
         storeCategoryRepository.save(storeCategory);
-        log.info("Category updated: {}", storeCategory.getCategoryName());
+        log.info("Category updated: {} by: {}", storeCategory.getCategoryName(), AuthUtil.getCurrentUser());
         return storeCategory;
     }
 
@@ -42,7 +43,7 @@ public class StoreCategoryServiceImpl implements StoreCategoryService {
     public void deleteStoreCategory(Long id) {
         StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow();
         storeCategoryRepository.delete(storeCategory);
-        log.info("Category deleted: {}", id);
+        log.info("Category deleted: {} by: {}", id, AuthUtil.getCurrentUser());
     }
 
     @Override

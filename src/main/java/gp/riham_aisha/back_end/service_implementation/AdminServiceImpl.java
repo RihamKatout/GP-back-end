@@ -7,6 +7,7 @@ import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.AdminService;
 import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.service.UserService;
+import gp.riham_aisha.back_end.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public User addNewAdmin(RegistrationRequest request) {
         User newAdmin = (User) authenticationService.register(request, Role.ADMIN, Role.SUPPORT, Role.CUSTOMER).user();
-        log.info("Adding a new admin with username: " + newAdmin.getUsername());
+        log.info("Adding a new admin with username: {} by: {}", newAdmin.getUsername(), AuthUtil.getCurrentUser());
         return newAdmin;
     }
 
     @Override
     public User addNewSupport(RegistrationRequest request) {
         User newSupport = (User) authenticationService.register(request, Role.SUPPORT, Role.CUSTOMER).user();
-        log.info("Adding a new support with username: " + newSupport.getUsername());
+        log.info("Adding a new support with username: {} by: {}", newSupport.getUsername(), AuthUtil.getCurrentUser());
         return newSupport;
     }
 
@@ -49,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
         }
         if (count == 1) {
             userService.deleteUser(id);
-            log.info("Deleting support with id: " + id);
+            log.info("Deleting support with id: {} by: {}", id, AuthUtil.getCurrentUser());
             return;
         }
         throw new ValidationException(Map.of("error", "User is not a support"));
@@ -58,6 +59,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void resetPassword(Long id, String newPassword) {
         userService.resetPassword(id, newPassword);
-        log.info("Resetting password for user with id: " + id);
+        log.info("Resetting password for user with id: {} by: {}", id, AuthUtil.getCurrentUser());
     }
 }

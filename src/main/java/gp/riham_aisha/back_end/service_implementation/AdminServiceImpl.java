@@ -8,10 +8,12 @@ import gp.riham_aisha.back_end.service.AdminService;
 import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
@@ -20,23 +22,35 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public User addNewAdmin(RegistrationRequest request) {
-        return (User) authenticationService.register(request, Role.ADMIN).user();
+        User newAdmin = (User) authenticationService.register(request, Role.ADMIN, Role.SUPPORT, Role.CUSTOMER).user();
+        log.info("Adding a new admin with username: " + newAdmin.getUsername());
+        return newAdmin;
     }
 
     @Override
     public User addNewSupport(RegistrationRequest request) {
-        return (User) authenticationService.register(request, Role.SUPPORT).user();
+        User newSupport = (User) authenticationService.register(request, Role.SUPPORT, Role.CUSTOMER).user();
+        log.info("Adding a new support with username: " + newSupport.getUsername());
+        return newSupport;
     }
 
     @Override
     public void deleteSupport(Long id) {
         User support = userService.getUser(id).orElseThrow();
         Role[] userRoles = support.getRoles();
+        int count = 0;
         for (var role : userRoles) {
             if (role.equals(Role.SUPPORT)) {
-                userService.deleteUser(id);
-                return;
+                count++;
             }
+            if (role.equals(Role.ADMIN)) {
+                count++;
+            }
+        }
+        if (count == 1) {
+            userService.deleteUser(id);
+            log.info("Deleting support with id: " + id);
+            return;
         }
         throw new ValidationException(Map.of("error", "User is not a support"));
     }
@@ -44,5 +58,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void resetPassword(Long id, String newPassword) {
         userService.resetPassword(id, newPassword);
+        log.info("Resetting password for user with id: " + id);
     }
 }

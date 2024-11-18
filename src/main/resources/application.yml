@@ -22,9 +22,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
-    show-sql: true
+  #    show-sql: true
   app:
     jwtSecret: hiImRiham12
     jwtExpirationMs: 121800000
 
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

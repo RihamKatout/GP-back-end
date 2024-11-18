@@ -10,6 +10,7 @@ import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.util.JwtUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -41,6 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new EntityNotFoundException("User with email: " + request.email() + " is not found");
         }
         String jwtToken = jwtService.generateToken(user.get());
+        log.info("Logging a user with email: " + request.email());
         return new AuthenticationResponse(jwtToken, user.get());
     }
 
@@ -52,6 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setRoles(roles);
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+        log.info("Registering a user with username: " + request.username());
         return new AuthenticationResponse(jwtToken, user);
 
     }

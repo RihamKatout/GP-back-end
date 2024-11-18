@@ -34,9 +34,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorsResponse(ex.getMessage()));
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorsResponse(ex.getMessage()), HttpStatus.FORBIDDEN);
+    @ExceptionHandler({AccessDeniedException.class, SecurityException.class})
+    public ResponseEntity<Object> handleAccessDeniedException(RuntimeException ex, WebRequest request) {
+        return new ResponseEntity<>(new ErrorsResponse(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(TransactionSystemException.class)
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler({IllegalArgumentException.class, NoSuchElementException.class, BadCredentialsException.class})
+    @ExceptionHandler({IllegalArgumentException.class, NoSuchElementException.class, BadCredentialsException.class, IllegalStateException.class})
     public ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(ex.getMessage()));
     }
@@ -78,7 +78,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<Object> handleGeneralException(Exception ex, WebRequest request) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorsResponse("An error occurred: " + ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorsResponse("An error occurred: " + ex.getMessage()));
     }
 
     private String extractPropertyFromExceptionMessage(String message) {

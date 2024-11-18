@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @ToString
 @Entity
@@ -64,6 +66,8 @@ public class User implements UserDetails {
 
     private String userImageURL;
     private LocalDateTime signUpDate;
+
+    private int numberOfStores;
 
     @Override
     @JsonIgnore
@@ -134,5 +138,27 @@ public class User implements UserDetails {
         this.password = request.password();
         this.phoneNumber = request.phoneNumber();
         this.signUpDate = LocalDateTime.now();
+        numberOfStores = 0;
+    }
+
+    public void addStore() {
+        numberOfStores++;
+    }
+
+    public void removeStore() {
+        if (--numberOfStores == 0)
+            removeRole(Role.STORE_MANAGER);
+    }
+
+    public void addRole(Role role) {
+        Set<Role> rolesSet = new LinkedHashSet<>(Arrays.asList(roles));
+        rolesSet.add(role);
+        roles = rolesSet.toArray(new Role[0]);
+    }
+
+    public void removeRole(Role role) {
+        Set<Role> rolesSet = new LinkedHashSet<>(Arrays.asList(roles));
+        rolesSet.remove(role);
+        roles = rolesSet.toArray(new Role[0]);
     }
 }

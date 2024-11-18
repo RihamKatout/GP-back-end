@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Entity
 @ToString
 @Getter
@@ -18,7 +20,7 @@ import lombok.ToString;
                 @UniqueConstraint(name = "unique_store_category_name", columnNames = "categoryName"),
         }
 )
-public class StoreCategory {
+public class StoreCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +32,6 @@ public class StoreCategory {
     public StoreCategory(String categoryName) {
         this.categoryName = categoryName;
     }
+
 }
 

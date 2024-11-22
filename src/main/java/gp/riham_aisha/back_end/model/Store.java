@@ -43,7 +43,7 @@ public class Store implements Serializable {
 
     @JsonIgnore
     @ToString.Exclude
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "manager_id", nullable = false)
     private User manager;
 

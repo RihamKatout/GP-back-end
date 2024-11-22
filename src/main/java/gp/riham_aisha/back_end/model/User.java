@@ -8,12 +8,13 @@ import gp.riham_aisha.back_end.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 @ToString
@@ -34,15 +35,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "\\w+", message = "invalid username")
+    @Pattern(regexp = "\\p{L}+", message = "invalid username")
     @NotEmpty(message = "empty username")
     private String username;
 
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "invalid first name")
+    @Pattern(regexp = "\\p{L}+", message = "invalid first name")
     @NotEmpty(message = "empty first name")
     private String firstName;
 
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "invalid last name")
+    @Pattern(regexp = "\\p{L}+", message = "invalid last name")
     @NotEmpty(message = "empty last name")
     private String lastName;
 
@@ -60,12 +61,14 @@ public class User implements UserDetails {
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     private String userImageURL;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date signUpDate = new Date();
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime signUpDate;
 
     private int numberOfStores = 0;
 

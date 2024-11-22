@@ -12,10 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.Date;
 import java.util.Set;
 
 @ToString
@@ -62,17 +60,19 @@ public class User implements UserDetails {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Role[] roles;
+    private Set<Role> roles;
 
     private String userImageURL;
-    private LocalDateTime signUpDate;
 
-    private int numberOfStores;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date signUpDate = new Date();
+
+    private int numberOfStores = 0;
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(roles)
+        return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .toList();
     }
@@ -137,8 +137,6 @@ public class User implements UserDetails {
         this.email = request.email();
         this.password = request.password();
         this.phoneNumber = request.phoneNumber();
-        this.signUpDate = LocalDateTime.now();
-        numberOfStores = 0;
     }
 
     public void addStore() {
@@ -151,14 +149,14 @@ public class User implements UserDetails {
     }
 
     public void addRole(Role role) {
-        Set<Role> rolesSet = new LinkedHashSet<>(Arrays.asList(roles));
-        rolesSet.add(role);
-        roles = rolesSet.toArray(new Role[0]);
+        roles.add(role);
     }
 
     public void removeRole(Role role) {
-        Set<Role> rolesSet = new LinkedHashSet<>(Arrays.asList(roles));
-        rolesSet.remove(role);
-        roles = rolesSet.toArray(new Role[0]);
+        roles.remove(role);
+    }
+
+    public Boolean hasRole(Role role) {
+        return roles.contains(role);
     }
 }

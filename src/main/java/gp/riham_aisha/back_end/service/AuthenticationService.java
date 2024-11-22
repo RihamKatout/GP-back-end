@@ -7,9 +7,11 @@ import gp.riham_aisha.back_end.enums.Role;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 public interface AuthenticationService {
     AuthenticationResponse authenticate(LoginRequest request) throws AuthenticationException;
 
     @Transactional
-    AuthenticationResponse register(RegistrationRequest request, Role... roles);
+    AuthenticationResponse register(RegistrationRequest request, Set<Role> roles);
 }

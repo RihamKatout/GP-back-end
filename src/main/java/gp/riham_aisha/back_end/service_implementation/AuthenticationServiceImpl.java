@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -49,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Transactional
     @Override
-    public AuthenticationResponse register(RegistrationRequest request, Role... roles) {
+    public AuthenticationResponse register(RegistrationRequest request, Set<Role> roles) {
         User user = new User(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roles);

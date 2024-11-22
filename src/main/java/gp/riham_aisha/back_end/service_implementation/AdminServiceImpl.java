@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -23,14 +24,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public User addNewAdmin(RegistrationRequest request) {
-        User newAdmin = (User) authenticationService.register(request, Role.ADMIN, Role.SUPPORT, Role.CUSTOMER).user();
+        User newAdmin = (User) authenticationService.register(request, Set.of(Role.ADMIN, Role.SUPPORT, Role.CUSTOMER)).user();
         log.info("Adding a new admin with username: {} by: {}", newAdmin.getUsername(), AuthUtil.getCurrentUser());
         return newAdmin;
     }
 
     @Override
     public User addNewSupport(RegistrationRequest request) {
-        User newSupport = (User) authenticationService.register(request, Role.SUPPORT, Role.CUSTOMER).user();
+        User newSupport = (User) authenticationService.register(request, Set.of(Role.SUPPORT, Role.CUSTOMER)).user();
         log.info("Adding a new support with username: {} by: {}", newSupport.getUsername(), AuthUtil.getCurrentUser());
         return newSupport;
     }
@@ -38,17 +39,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteSupport(Long id) {
         User support = userService.getUser(id).orElseThrow();
-        Role[] userRoles = support.getRoles();
-        int count = 0;
-        for (var role : userRoles) {
-            if (role.equals(Role.SUPPORT)) {
-                count++;
-            }
-            if (role.equals(Role.ADMIN)) {
-                count++;
-            }
-        }
-        if (count == 1) {
+        if (Boolean.FALSE.equals(support.hasRole(Role.ADMIN))
+                && Boolean.TRUE.equals(support.hasRole(Role.SUPPORT))) {
             userService.deleteUser(id);
             log.info("Deleting support with id: {} by: {}", id, AuthUtil.getCurrentUser());
             return;

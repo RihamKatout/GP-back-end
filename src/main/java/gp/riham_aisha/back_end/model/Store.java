@@ -28,10 +28,12 @@ public class Store implements Serializable {
     private String description;
     private String logoURL;
     private String coverURL;
-    private Date creationDate;
-    private StoreStatus status;
-    private int numberOfReviews;
-    private double rating;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate = new Date();
+    private StoreStatus status = StoreStatus.UNDER_REVIEW;
+    private int numberOfReviews = 0;
+    private double rating = 0;
 
     @JsonBackReference
     @ToString.Exclude
@@ -50,10 +52,6 @@ public class Store implements Serializable {
         description = storeDto.description();
         logoURL = storeDto.logoURL();
         coverURL = storeDto.coverURL();
-        creationDate = new Date();
-        status = StoreStatus.UNDER_REVIEW;
-        numberOfReviews = 0;
-        rating = 0;
         this.storeCategory = storeCategory;
         this.manager = manager;
     }

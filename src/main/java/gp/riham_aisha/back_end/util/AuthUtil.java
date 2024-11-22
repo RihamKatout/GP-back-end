@@ -7,7 +7,8 @@ public class AuthUtil {
     }
 
     public static String getCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null ? authentication.getName() : "System";
     }
 
     public static boolean isCurrentUser(String username) {

@@ -36,8 +36,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/store/**").permitAll()
                         .requestMatchers("/api/store/**").authenticated()
                         .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/api/store-category").permitAll()
-                        .requestMatchers("/api/store-category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())
+                        .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
+                        .requestMatchers("/api/category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

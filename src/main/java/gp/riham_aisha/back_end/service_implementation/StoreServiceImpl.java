@@ -7,7 +7,7 @@ import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.StoreRepository;
-import gp.riham_aisha.back_end.service.StoreCategoryService;
+import gp.riham_aisha.back_end.service.CategoryService;
 import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
-    private final StoreCategoryService storeCategoryService;
+    private final CategoryService storeCategoryService;
     private final UserService userService;
 
     private static final String IS_NOT_FOUND = " is not found";

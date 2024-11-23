@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -28,6 +30,10 @@ public class StoreCategory implements Serializable {
     @Pattern(regexp = "^[a-zA-Z]+$", message = "invalid store category name")
     @NotEmpty(message = "empty store category")
     private String categoryName;
+
+    @OneToMany(mappedBy = "storeCategory", orphanRemoval = true)
+    @ToString.Exclude
+    private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
     public StoreCategory(String categoryName) {
         this.categoryName = categoryName;

@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "\\p{L}+", message = "invalid username")
+    @Pattern(regexp = "\\w+", message = "invalid username")
     @NotEmpty(message = "empty username")
     private String username;
 

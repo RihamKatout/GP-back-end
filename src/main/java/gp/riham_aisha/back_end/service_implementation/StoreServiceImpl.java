@@ -36,9 +36,7 @@ public class StoreServiceImpl implements StoreService {
                 () -> new EntityNotFoundException("User with id: " + managerId + IS_NOT_FOUND));
         manager.addRole(Role.STORE_MANAGER);
         Long categoryId = storeDto.categoryId();
-        StoreCategory category = storeCategoryService.getStoreCategory(categoryId).orElseThrow(
-                () -> new EntityNotFoundException("Store category with id: " + categoryId + IS_NOT_FOUND));
-
+        StoreCategory category = storeCategoryService.getStoreCategory(categoryId);
         Store store = new Store(storeDto, category, manager);
         storeRepository.save(store);
         manager.addStore();
@@ -49,13 +47,12 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Store updateStore(Long id, StoreDto storeDto) {
         Store store = getStore(id);
-        validateOwner(store);
+        AuthUtil.validateStoreOwner(store);
         store.setName(storeDto.name());
         store.setDescription(storeDto.description());
         store.setLogoURL(storeDto.logoURL());
         store.setCoverURL(storeDto.coverURL());
-        store.setStoreCategory(storeCategoryService.getStoreCategory(storeDto.categoryId()).orElseThrow(
-                () -> new EntityNotFoundException("Store category with id: " + storeDto.categoryId() + IS_NOT_FOUND)));
+        store.setStoreCategory(storeCategoryService.getStoreCategory(storeDto.categoryId()));
         storeRepository.save(store);
         log.info("Store with id: {} is updated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
         return store;
@@ -72,7 +69,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public void unbanStore(Long id) {
         Store store = getStore(id);
-        if(store.getStatus() != StoreStatus.BANNED) {
+        if (store.getStatus() != StoreStatus.BANNED) {
             throw new IllegalStateException("Store is not banned");
         }
         store.setStatus(StoreStatus.ACTIVE);
@@ -82,23 +79,25 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public void activateStore(Long id) {
+        // 1- check kif the user is admin or support -> activate it
+        // 2- check if the user is the store manager -> send a request to admin to activate it
         Store store = getStore(id);
-        if(store.getStatus() != StoreStatus.INACTIVE) {
-            throw new IllegalStateException("Store is not inactive");
+        if (AuthUtil.doesCurrentUserHasAuthority(Role.ADMIN) || AuthUtil.doesCurrentUserHasAuthority(Role.SUPPORT)) {
+            store.setStatus(StoreStatus.ACTIVE);
+            storeRepository.save(store);
+            log.info("Store with id: {} is activated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
+            return;
         }
-        validateOwner(store);
-        store.setStatus(StoreStatus.ACTIVE);
-        storeRepository.save(store);
-        log.info("Store with id: {} is activated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
+        //TODO: send a request to admin to activate the store
     }
 
     @Override
     public void deactivateStore(Long id) {
         Store store = getStore(id);
-        if(store.getStatus() != StoreStatus.ACTIVE) {
+        if (store.getStatus() != StoreStatus.ACTIVE) {
             throw new IllegalStateException("Store is not active");
         }
-        validateOwner(store);
+        AuthUtil.validateStoreOwner(store);
         store.setStatus(StoreStatus.INACTIVE);
         storeRepository.save(store);
         log.info("Store with id: {} is deactivated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
@@ -106,7 +105,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public void deleteStore(Long id) {
-        User manager = validateOwner(getStore(id));
+        User manager = AuthUtil.validateStoreOwner(getStore(id));
         manager.removeStore();
         storeRepository.deleteById(id);
         log.info("Store with id: {} is deleted successfully by: {}", id, AuthUtil.getCurrentUser());
@@ -119,13 +118,4 @@ public class StoreServiceImpl implements StoreService {
         );
     }
 
-    private User validateOwner(Store store) {
-        User manager = store.getManager();
-        // check if the current user is the manager of the store
-
-        if (AuthUtil.isCurrentUser(manager.getUsername())) {
-            throw new SecurityException("You are not authorized to update this store information");
-        }
-        return manager;
-    }
 }

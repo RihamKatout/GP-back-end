@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -32,6 +34,11 @@ public class ProductCategory implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "store_category_id", nullable = false)
     private StoreCategory storeCategory;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Product> products = new LinkedHashSet<>();
 
     public ProductCategory(String name, StoreCategory storeCategory) {
         this.name = name;

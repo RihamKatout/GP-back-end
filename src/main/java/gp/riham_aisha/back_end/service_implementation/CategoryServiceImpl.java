@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,6 +20,8 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService {
     private final StoreCategoryRepository storeCategoryRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private static final String STORE_IS_NOT_FOUND = "Store category with id: {} is not found";
+    private static final String PRODUCT_IS_NOT_FOUND = "Product category with id: {} is not found";
 
     /*------------------------------- Store Category -------------------------------*/
     @Override
@@ -33,7 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public StoreCategory updateStoreCategory(Long id, String storeCategoryName) {
-        StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow();
+        StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
+        );
         storeCategory.setCategoryName(storeCategoryName);
         storeCategoryRepository.save(storeCategory);
         log.info("Category updated: {} by: {}", storeCategory.getCategoryName(), AuthUtil.getCurrentUser());
@@ -41,13 +44,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<StoreCategory> getStoreCategory(Long id) {
-        return storeCategoryRepository.findById(id);
+    public StoreCategory getStoreCategory(Long id) {
+        return storeCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
+        );
     }
 
     @Override
     public void deleteStoreCategory(Long id) {
-        StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow();
+        StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
+        );
         storeCategoryRepository.delete(storeCategory);
         log.info("Category deleted: {} by: {}", id, AuthUtil.getCurrentUser());
     }
@@ -60,8 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     /*------------------------------ Product Category ------------------------------*/
     @Override
     public ProductCategory addNewProductCategory(ProductCategoryDTO productCategoryDTO) {
-        StoreCategory storeCategory = getStoreCategory(productCategoryDTO.storeCategoryId()).orElseThrow(
-                () -> new EntityNotFoundException("Store category with id: " + productCategoryDTO.storeCategoryId() + " is not found"));
+        StoreCategory storeCategory = getStoreCategory(productCategoryDTO.storeCategoryId());
         ProductCategory newProductCategory = new ProductCategory(productCategoryDTO.name(), storeCategory);
         productCategoryRepository.save(newProductCategory);
         log.info("New product category added: {} by: {}", newProductCategory.getName(), AuthUtil.getCurrentUser());
@@ -75,9 +81,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ProductCategory updateProductCategory(Long id, ProductCategoryDTO productCategoryDTO) {
-        StoreCategory storeCategory = getStoreCategory(productCategoryDTO.storeCategoryId()).orElseThrow(
-                () -> new EntityNotFoundException("Store category with id: " + productCategoryDTO.storeCategoryId() + " is not found"));
-        ProductCategory productCategory = productCategoryRepository.findById(id).orElseThrow();
+        StoreCategory storeCategory = getStoreCategory(productCategoryDTO.storeCategoryId());
+        ProductCategory productCategory = productCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(PRODUCT_IS_NOT_FOUND, id))
+        );
         productCategory.setName(productCategoryDTO.name());
         productCategory.setStoreCategory(storeCategory);
         productCategoryRepository.save(productCategory);
@@ -87,9 +94,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteProductCategory(Long id) {
-        ProductCategory productCategory = productCategoryRepository.findById(id).orElseThrow();
+        ProductCategory productCategory = productCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(PRODUCT_IS_NOT_FOUND, id))
+        );
         productCategoryRepository.delete(productCategory);
         log.info("Product category deleted: {} by: {}", id, AuthUtil.getCurrentUser());
+    }
+
+    @Override
+    public ProductCategory getProductCategory(Long id) {
+        return productCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(PRODUCT_IS_NOT_FOUND, id))
+        );
     }
 
 

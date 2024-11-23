@@ -41,7 +41,7 @@ public class StoreController {
         storeService.banStore(id);
     }
 
-    @PreAuthorize("hasAuthority('STORE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPPORT', 'STORE_MANAGER')")
     @PutMapping("/{id}/activate")
     public void activateStore(@PathVariable Long id) {
         storeService.activateStore(id);

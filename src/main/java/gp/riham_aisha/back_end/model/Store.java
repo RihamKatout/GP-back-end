@@ -12,6 +12,8 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -46,6 +48,9 @@ public class Store implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "manager_id", nullable = false)
     private User manager;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Product> products = new LinkedHashSet<>();
 
     public Store(StoreDto storeDto, StoreCategory storeCategory, User manager) {
         name = storeDto.name();

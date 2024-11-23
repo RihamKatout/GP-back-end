@@ -5,7 +5,6 @@ import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.StoreCategory;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
     /*------------------------------- Store Category -------------------------------*/
@@ -13,7 +12,7 @@ public interface CategoryService {
 
     StoreCategory updateStoreCategory(Long id, String storeCategory);
 
-    Optional<StoreCategory> getStoreCategory(Long id);
+    StoreCategory getStoreCategory(Long id);
 
     void deleteStoreCategory(Long id);
 
@@ -28,4 +27,5 @@ public interface CategoryService {
 
     void deleteProductCategory(Long id);
 
+    ProductCategory getProductCategory(Long id);
 }

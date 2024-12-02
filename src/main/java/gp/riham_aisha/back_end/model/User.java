@@ -37,6 +37,7 @@ public class User implements UserDetails {
 
     @Pattern(regexp = "\\w+", message = "invalid username")
     @NotEmpty(message = "empty username")
+    @Size(min = 4, max = 20)
     private String username;
 
     @Pattern(regexp = "\\p{L}+", message = "invalid first name")

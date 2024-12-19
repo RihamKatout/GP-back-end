@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CategoryService {
     /*------------------------------- Store Category -------------------------------*/
-    StoreCategory addNewStoreCategory(String storeCategory);
+    StoreCategory addNewStoreCategory(String storeCategory, String imageURL);
 
     StoreCategory updateStoreCategory(Long id, String storeCategory);
 

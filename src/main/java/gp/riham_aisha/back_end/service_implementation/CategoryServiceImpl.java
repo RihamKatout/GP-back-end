@@ -25,8 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     /*------------------------------- Store Category -------------------------------*/
     @Override
-    public StoreCategory addNewStoreCategory(String storeCategory) {
-        StoreCategory newStoreCategory = new StoreCategory(storeCategory);
+    public StoreCategory addNewStoreCategory(String storeCategory, String imageURL) {
+        StoreCategory newStoreCategory = new StoreCategory(storeCategory, imageURL);
         storeCategoryRepository.save(newStoreCategory);
         log.info("New category added: {} by: {}", newStoreCategory.getCategoryName(), AuthUtil.getCurrentUser());
         return newStoreCategory;

@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -27,16 +28,19 @@ public class StoreCategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "invalid store category name")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "invalid store category name")
     @NotEmpty(message = "empty store category")
     private String categoryName;
 
     @OneToMany(mappedBy = "storeCategory", orphanRemoval = true)
     @ToString.Exclude
+    @JsonIgnore
     private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
-    public StoreCategory(String categoryName) {
+    private String imageURL;
+    public StoreCategory(String categoryName, String imageURL) {
         this.categoryName = categoryName;
+        this.imageURL = imageURL;
     }
 
 }

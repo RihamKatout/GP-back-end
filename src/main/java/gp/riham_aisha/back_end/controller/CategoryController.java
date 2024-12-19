@@ -20,8 +20,8 @@ public class CategoryController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<Object> addNewStoreCategory(@RequestBody String newCategoryName) {
-        return ResponseEntity.ok(storeCategoryService.addNewStoreCategory(newCategoryName));
+    public ResponseEntity<Object> addNewStoreCategory(@RequestBody String newCategoryName, @RequestBody String imageURL) {
+        return ResponseEntity.ok(storeCategoryService.addNewStoreCategory(newCategoryName, imageURL));
     }
 
     @PutMapping("/store/{id}")

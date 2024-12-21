@@ -6,7 +6,6 @@ import gp.riham_aisha.back_end.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AuthUtil {
@@ -18,7 +17,7 @@ public class AuthUtil {
         return authentication != null ? authentication.getName() : "System";
     }
 
-    public static Boolean doesCurrentUserHasAuthority(Role role){
+    public static Boolean doesCurrentUserHasAuthority(Role role) {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet())

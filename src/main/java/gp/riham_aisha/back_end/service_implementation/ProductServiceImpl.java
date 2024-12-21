@@ -29,16 +29,6 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
 
     @Override
-    public List<Product> getAllProductsForStore(Long id) {
-        return productRepository.findAllByStoreId(id);
-    }
-
-    @Override
-    public List<Product> getAllProductsForCategory(Long id) {
-        return List.of();
-    }
-
-    @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Product with id: " + id + " not found")

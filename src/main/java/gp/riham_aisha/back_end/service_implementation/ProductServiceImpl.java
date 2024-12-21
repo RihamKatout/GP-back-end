@@ -1,17 +1,21 @@
 package gp.riham_aisha.back_end.service_implementation;
 
 import gp.riham_aisha.back_end.dto.ProductDto;
+import gp.riham_aisha.back_end.dto.SearchProductParameters;
 import gp.riham_aisha.back_end.model.Product;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.Store;
-import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.ProductRepository;
 import gp.riham_aisha.back_end.service.CategoryService;
 import gp.riham_aisha.back_end.service.ProductService;
 import gp.riham_aisha.back_end.service.StoreService;
+import gp.riham_aisha.back_end.service.specification.ProductSpecification;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +48,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product addProduct(ProductDto product) {
         Store store = storeService.getStore(product.storeId());
-        System.out.println(store.getManager().getUsername());
         AuthUtil.validateStoreOwner(store);
         ProductCategory category = categoryService.getProductCategory(product.productCategoryId());
         Product newProduct = new Product(product, store, category);
@@ -71,6 +74,20 @@ public class ProductServiceImpl implements ProductService {
         AuthUtil.validateStoreOwner(product.getStore());
         productRepository.delete(product);
         log.info("Product with id: {} was deleted by: {}", product.getId(), AuthUtil.getCurrentUser());
+    }
+
+    @Override
+    public Page<Product> searchProducts(SearchProductParameters parameters, Pageable pageable) {
+        Specification<Product> specification = Specification.where(ProductSpecification.hasKeyWord(parameters.keyWord()))
+                .and(ProductSpecification.hasCategory(parameters.categoryId()))
+                .and(ProductSpecification.hasStore(parameters.storeId()))
+                .and(ProductSpecification.hasStoreCategory(parameters.storeCategoryId()))
+                .and(ProductSpecification.isAvailable(parameters.isAvailable()))
+                .and(ProductSpecification.hasMinPrice(parameters.minPrice()))
+                .and(ProductSpecification.hasMaxPrice(parameters.maxPrice()))
+                .and(ProductSpecification.hasMinRating(parameters.minRating()))
+                .and(ProductSpecification.hasId(parameters.id()));
+        return productRepository.findAll(specification, pageable);
     }
 
 }

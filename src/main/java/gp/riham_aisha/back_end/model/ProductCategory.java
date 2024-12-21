@@ -26,7 +26,7 @@ public class ProductCategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "invalid store category name")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "invalid store category name")
     @NotEmpty(message = "empty store category")
     private String name;
 

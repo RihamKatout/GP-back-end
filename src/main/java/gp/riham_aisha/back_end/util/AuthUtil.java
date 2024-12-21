@@ -32,7 +32,7 @@ public class AuthUtil {
     public static User validateStoreOwner(Store store) {
         User manager = store.getManager();
         // check if the current user is the manager of the store
-        if (!AuthUtil.isCurrentUser(manager.getUsername())) {
+        if (!getCurrentUser().equals("System") && !AuthUtil.isCurrentUser(manager.getUsername())) {
             throw new SecurityException("You are not authorized to update this store information or products");
         }
         return manager;

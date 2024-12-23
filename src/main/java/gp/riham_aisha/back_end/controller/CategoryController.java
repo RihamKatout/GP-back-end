@@ -36,9 +36,9 @@ public class CategoryController {
     }
 
     /*------------------------------- Product Category -------------------------------*/
-    @GetMapping("/product")
-    public ResponseEntity<Object> getAllProductCategories() {
-        return ResponseEntity.ok(storeCategoryService.getAllProductCategories());
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Object> getAllProductCategories(@PathVariable Long id) {
+        return ResponseEntity.ok(storeCategoryService.getAllProductCategoriesForStoreCategory(id));
     }
 
     @PostMapping("/product")

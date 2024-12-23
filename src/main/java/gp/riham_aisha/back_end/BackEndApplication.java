@@ -11,11 +11,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import java.util.Set;
 
 @Slf4j
 @SpringBootApplication
+@EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class BackEndApplication {
 
     public static void main(String[] args) {
@@ -23,7 +25,7 @@ public class BackEndApplication {
     }
 
     @Bean
-    CommandLineRunner initDB(AdminService adminService, CategoryService storeCategoryService, AuthenticationService authenticationService,
+    CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService,
                              StoreService storeService, ProductService productService) {
         return args -> {
             log.info("---------- The application has started on port 1218 ----------");
@@ -32,11 +34,11 @@ public class BackEndApplication {
             adminService.addNewAdmin(new RegistrationRequest("rihamkatout", "Riham", "Katout",
                     "rihamkatm@gmail.com", password, "0599119482"));
             // add store categories
-            storeCategoryService.addNewStoreCategory("General", null);
-            storeCategoryService.addNewStoreCategory("Sweets", "https://drive.google.com/thumbnail?id=1eUBDdHDLWdXbU7mTpF0Y7VvBcsnEEDL8");
-            storeCategoryService.addNewStoreCategory("Jewelry", "https://drive.google.com/thumbnail?id=1NHs5LnU9AINY08IPaVAPBO2Exb8cHqrc");
-            storeCategoryService.addNewStoreCategory("Toys", "https://drive.google.com/thumbnail?id=1e6WlsCPcCctzMkpPqU6lZxL5ZZIirTzx");
-            storeCategoryService.addNewStoreCategory("Home Decor", "https://drive.google.com/thumbnail?id=1KA8EF6JMU9ft42r6akR6DTZTgWPjUDnS");
+            categoryService.addNewStoreCategory("General", null);
+            categoryService.addNewStoreCategory("Sweets", "https://drive.google.com/thumbnail?id=1eUBDdHDLWdXbU7mTpF0Y7VvBcsnEEDL8");
+            categoryService.addNewStoreCategory("Jewelry", "https://drive.google.com/thumbnail?id=1NHs5LnU9AINY08IPaVAPBO2Exb8cHqrc");
+            categoryService.addNewStoreCategory("Toys", "https://drive.google.com/thumbnail?id=1e6WlsCPcCctzMkpPqU6lZxL5ZZIirTzx");
+            categoryService.addNewStoreCategory("Home Decor", "https://drive.google.com/thumbnail?id=1KA8EF6JMU9ft42r6akR6DTZTgWPjUDnS");
 
             // add users
             authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout",
@@ -47,25 +49,25 @@ public class BackEndApplication {
             // add stores
             storeService.addNewStore(new StoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 2L, 4L));
             storeService.addNewStore(new StoreDto("Riham Store", "bla bla bla bla", null, null, 1L, 5L));
-            storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", null, null, 2L, 4L));
+            storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", null, null, 2L, 2L));
 
             // add product categories
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cookies", 2L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Chocolate", 2L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Macarons", 2L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Ring", 3L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Necklace", 3L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Earring", 3L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Watches", 3L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Dolls", 4L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Plush Toys", 4L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Wall Art", 5L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Vases", 5L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Rugs", 5L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Candles", 5L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Mirrors", 5L));
-            storeCategoryService.addNewProductCategory(new ProductCategoryDTO(null, "Clocks", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cookies", 2L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Chocolate", 2L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Macarons", 2L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Ring", 3L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Necklace", 3L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Earring", 3L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Watches", 3L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Dolls", 4L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Plush Toys", 4L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Wall Art", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Vases", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Rugs", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Candles", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Mirrors", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Clocks", 5L));
 
             // add products
             // cake

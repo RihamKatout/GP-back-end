@@ -75,8 +75,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<ProductCategory> getAllProductCategories() {
-        return productCategoryRepository.findAll();
+    public List<ProductCategory> getAllProductCategoriesForStoreCategory(Long storeCategoryId) {
+        return productCategoryRepository.findByStoreCategory_Id(storeCategoryId);
     }
 
     @Override

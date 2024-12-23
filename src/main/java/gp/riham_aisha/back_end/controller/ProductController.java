@@ -33,6 +33,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.searchProducts(searchProductParameters, pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
 
     @PostMapping("")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDto product) {

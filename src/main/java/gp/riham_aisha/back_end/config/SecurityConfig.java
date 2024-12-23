@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
                         .requestMatchers("/api/category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())
-                        .requestMatchers(HttpMethod.GET, "/api/product").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
                         .requestMatchers( "/api/product/**").hasAnyAuthority(Role.STORE_MANAGER.name(), Role.STORE_ASSISTANT.name())
                         .anyRequest().authenticated()
                 )

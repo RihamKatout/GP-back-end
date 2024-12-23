@@ -21,7 +21,7 @@ public interface CategoryService {
     /*------------------------------ Product Category ------------------------------*/
     ProductCategory addNewProductCategory(ProductCategoryDTO productCategoryDTO);
 
-    List<ProductCategory> getAllProductCategories();
+    List<ProductCategory> getAllProductCategoriesForStoreCategory(Long storeCategoryId);
 
     ProductCategory updateProductCategory(Long id, ProductCategoryDTO productCategoryDTO);
 

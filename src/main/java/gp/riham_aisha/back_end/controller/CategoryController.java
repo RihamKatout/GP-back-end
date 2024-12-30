@@ -19,9 +19,14 @@ public class CategoryController {
         return ResponseEntity.ok(storeCategoryService.getAllStoreCategories());
     }
 
+    @GetMapping("/store/{id}")
+    public ResponseEntity<Object> getStoreCategoryById(@PathVariable Long id) {
+        return ResponseEntity.ok(storeCategoryService.getStoreCategoryById(id));
+    }
+
     @PostMapping("/store")
-    public ResponseEntity<Object> addNewStoreCategory(@RequestBody String newCategoryName, @RequestBody String imageURL) {
-        return ResponseEntity.ok(storeCategoryService.addNewStoreCategory(newCategoryName, imageURL));
+    public ResponseEntity<Object> addNewStoreCategory(@RequestBody String newCategoryName, @RequestBody String imageurl) {
+        return ResponseEntity.ok(storeCategoryService.addNewStoreCategory(newCategoryName, imageurl));
     }
 
     @PutMapping("/store/{id}")

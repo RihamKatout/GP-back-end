@@ -35,7 +35,7 @@ public class Product implements Serializable {
 
     @NotNull
     private int stock = 0;
-    private String imageURL;
+    private String imageurl;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate = new Date();
@@ -67,7 +67,7 @@ public class Product implements Serializable {
         this.description = productDto.description();
         this.price = productDto.price();
         this.stock = productDto.stock();
-        this.imageURL = productDto.imageURL();
+        this.imageurl = productDto.imageurl();
         this.isAvailable = productDto.isAvailable();
         this.isCustomizable = productDto.isCustomizable();
         this.model3dURL = productDto.model3dURL();

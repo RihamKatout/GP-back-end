@@ -27,6 +27,20 @@ public class ProductSpecification {
                 criteriaBuilder.equal(root.get("isAvailable"), isAvailable);
     }
 
+    public static Specification<Product> has3DModel(Boolean has3DModel) {
+        return (root, query, criteriaBuilder) -> {
+            if (has3DModel == null) {
+                return null;
+            }
+            return has3DModel ? criteriaBuilder.isNotNull(root.get("model3dURL")) : criteriaBuilder.isNull(root.get("model3dURL"));
+        };
+    }
+
+    public static Specification<Product> isCustomizable(Boolean isCustomizable) {
+        return (root, query, criteriaBuilder) -> isCustomizable == null ? null :
+                criteriaBuilder.equal(root.get("isCustomizable"), isCustomizable);
+    }
+
     public static Specification<Product> hasMinPrice(Double price) {
         return (root, query, criteriaBuilder) -> price == null ? null :
                 criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
@@ -46,6 +60,7 @@ public class ProductSpecification {
         return (root, query, criteriaBuilder) -> id == null ? null :
                 criteriaBuilder.equal(root.get("id"), id);
     }
+
 
     public static Specification<Product> hasKeyWord(String keyWord) {
         return (root, query, criteriaBuilder) -> keyWord == null ? null :

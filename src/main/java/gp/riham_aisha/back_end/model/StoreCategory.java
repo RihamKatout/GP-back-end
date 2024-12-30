@@ -30,17 +30,18 @@ public class StoreCategory implements Serializable {
 
     @Pattern(regexp = "^[a-zA-Z ]+$", message = "invalid store category name")
     @NotEmpty(message = "empty store category")
-    private String categoryName;
+    private String name;
 
     @OneToMany(mappedBy = "storeCategory", orphanRemoval = true)
     @ToString.Exclude
     @JsonIgnore
     private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
-    private String imageURL;
-    public StoreCategory(String categoryName, String imageURL) {
-        this.categoryName = categoryName;
-        this.imageURL = imageURL;
+    private String imageurl;
+
+    public StoreCategory(String name, String imageurl) {
+        this.name = name;
+        this.imageurl = imageurl;
     }
 
 }

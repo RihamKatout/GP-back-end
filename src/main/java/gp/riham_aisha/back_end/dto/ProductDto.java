@@ -27,7 +27,7 @@ public record ProductDto(
         int stock,
 
         @URL(message = "Image URL must be valid")
-        String imageURL,
+        String imageurl,
 
         @NotNull(message = "Availability must be specified")
         Boolean isAvailable,

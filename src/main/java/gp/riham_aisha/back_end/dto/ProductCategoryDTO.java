@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 public record ProductCategoryDTO(
         Long id,
         @NotBlank @Size(min = 3) String name,
-        @NotNull Long storeCategoryId
+        @NotNull Long storeCategoryId,
+        String imageurl
 ) {
 }

@@ -1,6 +1,7 @@
 package gp.riham_aisha.back_end.service_implementation;
 
 import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.StoreCategoryDTO;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.repository.ProductCategoryRepository;
@@ -25,10 +26,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     /*------------------------------- Store Category -------------------------------*/
     @Override
-    public StoreCategory addNewStoreCategory(String storeCategory, String imageURL) {
-        StoreCategory newStoreCategory = new StoreCategory(storeCategory, imageURL);
+    public StoreCategoryDTO getStoreCategoryById(Long id) {
+        StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
+        );
+        return new StoreCategoryDTO(storeCategory.getId(), storeCategory.getName(),
+                storeCategory.getImageurl(), storeCategory.getProductCategories());
+    }
+
+    @Override
+    public StoreCategory addNewStoreCategory(String storeCategory, String imageurl) {
+        StoreCategory newStoreCategory = new StoreCategory(storeCategory, imageurl);
         storeCategoryRepository.save(newStoreCategory);
-        log.info("New category added: {} by: {}", newStoreCategory.getCategoryName(), AuthUtil.getCurrentUser());
+        log.info("New category added: {} by: {}", newStoreCategory.getName(), AuthUtil.getCurrentUser());
         return newStoreCategory;
     }
 
@@ -37,9 +47,9 @@ public class CategoryServiceImpl implements CategoryService {
         StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
         );
-        storeCategory.setCategoryName(storeCategoryName);
+        storeCategory.setName(storeCategoryName);
         storeCategoryRepository.save(storeCategory);
-        log.info("Category updated: {} by: {}", storeCategory.getCategoryName(), AuthUtil.getCurrentUser());
+        log.info("Category updated: {} by: {}", storeCategory.getName(), AuthUtil.getCurrentUser());
         return storeCategory;
     }
 
@@ -68,7 +78,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ProductCategory addNewProductCategory(ProductCategoryDTO productCategoryDTO) {
         StoreCategory storeCategory = getStoreCategory(productCategoryDTO.storeCategoryId());
-        ProductCategory newProductCategory = new ProductCategory(productCategoryDTO.name(), storeCategory);
+        ProductCategory newProductCategory = new ProductCategory(productCategoryDTO.name(), storeCategory, productCategoryDTO.imageurl());
         productCategoryRepository.save(newProductCategory);
         log.info("New product category added: {} by: {}", newProductCategory.getName(), AuthUtil.getCurrentUser());
         return newProductCategory;

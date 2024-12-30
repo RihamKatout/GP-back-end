@@ -52,26 +52,26 @@ public class BackEndApplication {
             storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", null, null, 2L, 2L));
 
             // add product categories
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cookies", 2L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Chocolate", 2L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Macarons", 2L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Ring", 3L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Necklace", 3L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Earring", 3L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Watches", 3L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Dolls", 4L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Plush Toys", 4L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Wall Art", 5L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Vases", 5L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Rugs", 5L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Candles", 5L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Mirrors", 5L));
-            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Clocks", 5L));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L, "https://drive.google.com/thumbnail?id=1gMy5DYxIIIB5QSX0y4HTRwb-sL55INpc"));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cookies", 2L, "https://drive.google.com/thumbnail?id=1UAqkCZeAj7rplnrs3AI3DfmJgm_D6kk7"));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Chocolate", 2L, "https://drive.google.com/thumbnail?id=1m60ogeEJRYfQUf-c5UmVA5iM6_ATMHcH"));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Macarons", 2L, "https://drive.google.com/thumbnail?id=13xEgjolFzPAZ-r34yZsGnHbPi5veN4Gh"));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Ring", 3L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Necklace", 3L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Earring", 3L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Watches", 3L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Dolls", 4L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Plush Toys", 4L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Wall Art", 5L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Vases", 5L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Rugs", 5L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Candles", 5L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Mirrors", 5L, null));
+            categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Clocks", 5L, null));
 
             // add products
             // cake
-            productService.addProduct(new ProductDto("Chocolate Cake", "Delicious chocolate cake", 15.0, 50,
+            productService.addProduct(new ProductDto("Customizable Chocolate Cake", "Delicious chocolate cake", 15.0, 50,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
                     true, true, null, 1L, 3L));
 
@@ -79,6 +79,12 @@ public class BackEndApplication {
             productService.addProduct(new ProductDto("Classic cookies", "The best cookies ever", 1.0, 100,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
                     true, false, null, 2L, 3L));
+            productService.addProduct(new ProductDto("Classic cookies not available", "The best cookies ever", 2.0, 100,
+                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    false, false, null, 2L, 3L));
+            productService.addProduct(new ProductDto("Classic cookies with 3d model customizable", "The best cookies ever", 3.0, 100,
+                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    true, true, "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 2L, 3L));
 
             // chocolate
             productService.addProduct(new ProductDto("Vanilla Chocolate", "Creamy vanilla chocolate", 5.0, 200,

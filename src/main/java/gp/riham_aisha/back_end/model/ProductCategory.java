@@ -30,6 +30,7 @@ public class ProductCategory implements Serializable {
     @NotEmpty(message = "empty store category")
     private String name;
 
+    private String imageurl;
     @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "store_category_id", nullable = false)
@@ -40,8 +41,9 @@ public class ProductCategory implements Serializable {
     @OneToMany(mappedBy = "productCategory", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Product> products = new LinkedHashSet<>();
 
-    public ProductCategory(String name, StoreCategory storeCategory) {
+    public ProductCategory(String name, StoreCategory storeCategory, String imageurl) {
         this.name = name;
         this.storeCategory = storeCategory;
+        this.imageurl = imageurl;
     }
 }

@@ -65,7 +65,7 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    private String userImageURL;
+    private String userImageUrl;
 
     @CreatedDate
     @Column(updatable = false)

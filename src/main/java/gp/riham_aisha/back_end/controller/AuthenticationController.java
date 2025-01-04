@@ -4,6 +4,7 @@ import gp.riham_aisha.back_end.dto.AuthenticationResponse;
 import gp.riham_aisha.back_end.dto.LoginRequest;
 import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
+import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.util.Validator;
 import jakarta.validation.Valid;
@@ -11,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -25,8 +23,13 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
+    @GetMapping
+    public ResponseEntity<User> getCurrentUser() {
+        return ResponseEntity.ok(authenticationService.getCurrentUser());
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@Valid @RequestBody RegistrationRequest request, BindingResult result){
+    public ResponseEntity<Object> register(@Valid @RequestBody RegistrationRequest request, BindingResult result) {
         Validator.validateBody(result);
         AuthenticationResponse response = authenticationService.register(request, Set.of(Role.CUSTOMER));
         return ResponseEntity.status(HttpStatus.CREATED)

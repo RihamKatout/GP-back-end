@@ -14,7 +14,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @ToString
@@ -72,6 +74,11 @@ public class User implements UserDetails {
     private LocalDateTime signUpDate;
 
     private int numberOfStores = 0;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
+    private List<CartItem> cart = new ArrayList<>();
 
     @Override
     @JsonIgnore
@@ -143,6 +150,7 @@ public class User implements UserDetails {
         this.phoneNumber = request.phoneNumber();
     }
 
+    //----------------- user's store management
     public void addStore() {
         numberOfStores++;
     }
@@ -152,6 +160,7 @@ public class User implements UserDetails {
             removeRole(Role.STORE_MANAGER);
     }
 
+    //----------------- user's roles management
     public void addRole(Role role) {
         roles.add(role);
     }
@@ -163,4 +172,6 @@ public class User implements UserDetails {
     public Boolean hasRole(Role role) {
         return roles.contains(role);
     }
+
+
 }

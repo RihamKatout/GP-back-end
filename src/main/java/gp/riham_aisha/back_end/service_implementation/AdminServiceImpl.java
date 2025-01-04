@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteSupport(Long id) {
-        User support = userService.getUser(id).orElseThrow();
+        User support = userService.getUser(id);
         if (Boolean.FALSE.equals(support.hasRole(Role.ADMIN))
                 && Boolean.TRUE.equals(support.hasRole(Role.SUPPORT))) {
             userService.deleteUser(id);

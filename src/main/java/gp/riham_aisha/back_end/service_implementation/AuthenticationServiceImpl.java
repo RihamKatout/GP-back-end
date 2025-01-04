@@ -7,6 +7,7 @@ import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.UserRepository;
 import gp.riham_aisha.back_end.service.AuthenticationService;
+import gp.riham_aisha.back_end.util.AuthUtil;
 import gp.riham_aisha.back_end.util.JwtUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
+
+    @Override
+    public User getCurrentUser() {
+        return userRepository.findByUsername(AuthUtil.getCurrentUser())
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
 
     @Override
     public AuthenticationResponse authenticate(LoginRequest request) throws AuthenticationException {

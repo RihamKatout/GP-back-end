@@ -32,8 +32,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Store addNewStore(StoreDto storeDto) {
         Long managerId = storeDto.managerId();
-        User manager = userService.getUser(managerId).orElseThrow(
-                () -> new EntityNotFoundException("User with id: " + managerId + IS_NOT_FOUND));
+        User manager = userService.getUser(managerId);
         manager.addRole(Role.STORE_MANAGER);
         Long categoryId = storeDto.categoryId();
         StoreCategory category = storeCategoryService.getStoreCategory(categoryId);

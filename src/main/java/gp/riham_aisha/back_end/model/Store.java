@@ -49,6 +49,7 @@ public class Store implements Serializable {
     @JoinColumn(name = "manager_id", nullable = false)
     private User manager;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Product> products = new LinkedHashSet<>();
 

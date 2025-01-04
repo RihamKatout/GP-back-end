@@ -4,12 +4,11 @@ import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.UserRepository;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -20,8 +19,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Optional<User> getUser(Long id) {
-        return userRepository.findById(id);
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     @Override
@@ -36,5 +35,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
         log.info("Password for user with id: {} has been reset by: {}", id, AuthUtil.getCurrentUser());
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 }

@@ -72,18 +72,18 @@ public class BackEndApplication {
             // add products
             // cake
             productService.addProduct(new ProductDto("Customizable Chocolate Cake", "Delicious chocolate cake", 15.0, 50,
-                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB",
                     true, true, null, 1L, 3L));
 
             // cookies
             productService.addProduct(new ProductDto("Classic cookies", "The best cookies ever", 1.0, 100,
-                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
                     true, false, null, 2L, 3L));
             productService.addProduct(new ProductDto("Classic cookies not available", "The best cookies ever", 2.0, 100,
-                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
                     false, false, null, 2L, 3L));
             productService.addProduct(new ProductDto("Classic cookies with 3d model customizable", "The best cookies ever", 3.0, 100,
-                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
+                    "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
                     true, true, "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 2L, 3L));
 
             // chocolate

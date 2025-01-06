@@ -57,9 +57,13 @@ public class Product implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+    private String storeName;
+    private Long storeIdTmp;
 
     public Product(ProductDto productDto, Store store, ProductCategory productCategory) {
         update(productDto, store, productCategory);
+        this.storeName = store.getName();
+        this.storeIdTmp = store.getId();
     }
 
     public void update(ProductDto productDto, Store store, ProductCategory productCategory){

@@ -7,6 +7,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import org.hibernate.validator.constraints.URL;
 
+import java.util.List;
+import java.util.Map;
+
 @Builder
 public record ProductDto(
 
@@ -41,6 +44,8 @@ public record ProductDto(
         Long productCategoryId,
 
         @NotNull(message = "Store ID cannot be null")
-        Long storeId
-) {
+        Long storeId,
+
+        List<String> colors,
+        Map<gp.riham_aisha.back_end.enums.Size, Double> sizePrices) {
 }

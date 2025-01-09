@@ -2,7 +2,9 @@ package gp.riham_aisha.back_end.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.ProductDto;
+import gp.riham_aisha.back_end.enums.Size;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -12,6 +14,8 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @ToString
@@ -46,6 +50,11 @@ public class Product implements Serializable {
     private Boolean isCustomizable = false;
     private String model3dURL;
 
+    private Boolean inWishlist = false;
+    private List<String> colors;
+    @ElementCollection
+    private Map<Size, Double> sizePrices;
+
     @JsonIgnore
     @ToString.Exclude
     @ManyToOne(optional = false)
@@ -57,16 +66,27 @@ public class Product implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
-    private String storeName;
-    private Long storeIdTmp;
+
+    @JsonProperty("storeName")
+    public String getStoreName() {
+        return store.getName();
+    }
+
+    @JsonProperty("storeIdTmp")
+    public Long getStoreIdTmp() {
+        return store.getId();
+    }
+
+    @JsonProperty("storeLogoUrl")
+    public String getStoreLogoUrl() {
+        return store.getLogoURL();
+    }
 
     public Product(ProductDto productDto, Store store, ProductCategory productCategory) {
         update(productDto, store, productCategory);
-        this.storeName = store.getName();
-        this.storeIdTmp = store.getId();
     }
 
-    public void update(ProductDto productDto, Store store, ProductCategory productCategory){
+    public void update(ProductDto productDto, Store store, ProductCategory productCategory) {
         this.name = productDto.name();
         this.description = productDto.description();
         this.price = productDto.price();
@@ -77,5 +97,7 @@ public class Product implements Serializable {
         this.model3dURL = productDto.model3dURL();
         this.store = store;
         this.productCategory = productCategory;
+        this.colors = productDto.colors();
+        this.sizePrices = productDto.sizePrices();
     }
 }

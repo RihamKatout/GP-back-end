@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
+import gp.riham_aisha.back_end.model.Product;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.UserRepository;
 import gp.riham_aisha.back_end.service.UserService;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -40,5 +43,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+    @Override
+    public List<Product> getWishlist(String username) {
+        return getUserByUsername(username).getWishlist();
+    }
+
+    @Override
+    public void addProductToWishlist(String username, Product product) {
+        User user = getUserByUsername(username);
+        user.addProductToWishlist(product);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeProductFromWishlist(String username, Long productId) {
+        User user = getUserByUsername(username);
+        user.removeProductFromWishlist(productId);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void clearWishlist(String username) {
+        User user = getUserByUsername(username);
+        user.clearWishlist();
+        userRepository.save(user);
+    }
+
+    @Override
+    public boolean isProductInWishlist(String username, Long productId) {
+        return getUserByUsername(username).isProductInWishlist(productId);
     }
 }

@@ -80,6 +80,13 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<CartItem> cart = new ArrayList<>();
 
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(name = "wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> wishlist = new ArrayList<>();
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -173,5 +180,22 @@ public class User implements UserDetails {
         return roles.contains(role);
     }
 
+    //----------------- user's wishlist management
+    public Boolean isProductInWishlist(Long productId) {
+        return wishlist.stream().anyMatch(product -> product.getId().equals(productId));
+    }
 
+    public void addProductToWishlist(Product product) {
+        if (Boolean.TRUE.equals(isProductInWishlist(product.getId())))
+            return;
+        wishlist.add(product);
+    }
+
+    public void removeProductFromWishlist(Long productId) {
+        wishlist.removeIf(product -> product.getId().equals(productId));
+    }
+
+    public void clearWishlist() {
+        wishlist.clear();
+    }
 }

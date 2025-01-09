@@ -9,6 +9,7 @@ import gp.riham_aisha.back_end.repository.ProductRepository;
 import gp.riham_aisha.back_end.service.CategoryService;
 import gp.riham_aisha.back_end.service.ProductService;
 import gp.riham_aisha.back_end.service.StoreService;
+import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.service.specification.ProductSpecification;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,13 +26,22 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final StoreService storeService;
     private final CategoryService categoryService;
+    private final UserService userService;
+
+    private boolean isProductInWishlist(Long productId) {
+        if (AuthUtil.getCurrentUser() == null) return false;
+        return userService.isProductInWishlist(AuthUtil.getCurrentUser(), productId);
+    }
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(
+        Product product = productRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Product with id: " + id + " not found")
         );
+        product.setInWishlist(isProductInWishlist(id));
+        return product;
     }
+
 
     @Override
     public Product addProduct(ProductDto product) {

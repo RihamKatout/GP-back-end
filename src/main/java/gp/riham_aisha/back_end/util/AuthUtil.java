@@ -14,7 +14,7 @@ public class AuthUtil {
 
     public static String getCurrentUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null ? authentication.getName() : "System";
+        return (authentication != null && !authentication.getName().equals("anonymousUser")) ? authentication.getName() : "System";
     }
 
     public static Boolean doesCurrentUserHasAuthority(Role role) {

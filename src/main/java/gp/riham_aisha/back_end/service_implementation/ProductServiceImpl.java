@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     private final UserService userService;
 
     private boolean isProductInWishlist(Long productId) {
-        if (AuthUtil.getCurrentUser() == null) return false;
+        if (AuthUtil.getCurrentUser().equals("System")) return false;
         return userService.isProductInWishlist(AuthUtil.getCurrentUser(), productId);
     }
 

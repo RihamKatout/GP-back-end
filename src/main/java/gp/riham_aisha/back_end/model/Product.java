@@ -45,6 +45,7 @@ public class Product implements Serializable {
     private Date creationDate = new Date();
 
     private double rating = 0;
+    private int numberOfReviews = 0;
 
     private Boolean isAvailable = true;
     private Boolean isCustomizable = false;

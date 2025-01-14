@@ -2,6 +2,7 @@ package gp.riham_aisha.back_end.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.StoreDto;
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import jakarta.persistence.*;
@@ -52,6 +53,11 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Product> products = new LinkedHashSet<>();
+
+    @JsonProperty("productCategories")
+    public Set<ProductCategory> getProductCategories() {
+        return storeCategory.getProductCategories();
+    }
 
     public Store(StoreDto storeDto, StoreCategory storeCategory, User manager) {
         name = storeDto.name();

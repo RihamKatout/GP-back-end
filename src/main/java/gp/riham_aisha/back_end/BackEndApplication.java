@@ -50,9 +50,9 @@ public class BackEndApplication {
                     "reem@gp.com", password, "0987764321"), Set.of(Role.CUSTOMER));
 
             // add stores
-            storeService.addNewStore(new StoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 2L, 4L));
+            storeService.addNewStore(new StoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 1L, 4L));
             storeService.addNewStore(new StoreDto("Riham Store", "bla bla bla bla", null, null, 1L, 5L));
-            storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 2L, 2L));
+            storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 1L, 2L));
 
             // add product categories
             categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L, "https://drive.google.com/thumbnail?id=1gMy5DYxIIIB5QSX0y4HTRwb-sL55INpc"));

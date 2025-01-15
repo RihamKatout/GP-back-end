@@ -3,6 +3,8 @@ package gp.riham_aisha.back_end.service;
 import gp.riham_aisha.back_end.dto.StoreDto;
 import gp.riham_aisha.back_end.model.Store;
 
+import java.util.List;
+
 public interface StoreService {
     Store addNewStore(StoreDto storeDto);
 
@@ -19,4 +21,5 @@ public interface StoreService {
     void deleteStore(Long id);
 
     Store getStore(Long id);
+    List<Store> getStoresByManagerId(Long managerId);
 }

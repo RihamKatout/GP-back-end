@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -115,6 +117,11 @@ public class StoreServiceImpl implements StoreService {
         return storeRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format(NOT_FOUND, id))
         );
+    }
+
+    @Override
+    public List<Store> getStoresByManagerId(Long managerId) {
+        return storeRepository.findByManagerId(managerId);
     }
 
 }

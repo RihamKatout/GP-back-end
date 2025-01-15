@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/cart/**").hasAnyAuthority(Role.CUSTOMER.name())
                         .requestMatchers("/api/category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())
                         .requestMatchers("/api/product/**").hasAnyAuthority(Role.STORE_MANAGER.name(), Role.STORE_ASSISTANT.name())
+                        .requestMatchers("/api/store-manager/**").hasAnyAuthority(Role.STORE_MANAGER.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.controller;
 
 
-import gp.riham_aisha.back_end.dto.store_manager.ManagerStoresDto;
+import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
 import gp.riham_aisha.back_end.service.StoreManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class StoreManagerController {
     private final StoreManagerService storeManagerService;
 
     @GetMapping
-    public ResponseEntity<List<ManagerStoresDto>> getAllStoresForManager() {
+    public ResponseEntity<List<GetStoresDto>> getAllStoresForManager() {
         return ResponseEntity.ok().body(storeManagerService.getAllStoresForManager());
     }
 }

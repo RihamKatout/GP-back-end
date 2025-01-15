@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end;
 import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
 import gp.riham_aisha.back_end.dto.ProductDto;
 import gp.riham_aisha.back_end.dto.RegistrationRequest;
-import gp.riham_aisha.back_end.dto.StoreDto;
+import gp.riham_aisha.back_end.dto.AddStoreDto;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.enums.Size;
 import gp.riham_aisha.back_end.service.*;
@@ -50,9 +50,9 @@ public class BackEndApplication {
                     "reem@gp.com", password, "0987764321"), Set.of(Role.CUSTOMER));
 
             // add stores
-            storeService.addNewStore(new StoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 1L, 4L));
-            storeService.addNewStore(new StoreDto("Riham Store", "bla bla bla bla", null, null, 1L, 5L));
-            storeService.addNewStore(new StoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 1L, 2L));
+            storeService.addNewStore(new AddStoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 1L, 4L));
+            storeService.addNewStore(new AddStoreDto("Riham Store", "bla bla bla bla", null, null, 1L, 5L));
+            storeService.addNewStore(new AddStoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 1L, 2L));
 
             // add product categories
             categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Cake", 2L, "https://drive.google.com/thumbnail?id=1gMy5DYxIIIB5QSX0y4HTRwb-sL55INpc"));

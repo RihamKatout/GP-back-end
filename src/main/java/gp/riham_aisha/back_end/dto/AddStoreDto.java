@@ -4,7 +4,7 @@ package gp.riham_aisha.back_end.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record StoreDto(
+public record AddStoreDto(
 
         @NotNull(message = "Name cannot be null")
         @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")

@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.store_manager.ManagerStoresDto;
+import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.StoreManagerService;
@@ -26,8 +26,8 @@ public class StoreManagerServiceImpl implements StoreManagerService {
 
 
     @Override
-    public List<ManagerStoresDto> getAllStoresForManager() {
+    public List<GetStoresDto> getAllStoresForManager() {
         List<Store> stores = storeService.getStoresByManagerId(getCurrentUser().getId());
-        return ManagerStoresDto.fromStores(stores);
+        return GetStoresDto.fromStores(stores);
     }
 }

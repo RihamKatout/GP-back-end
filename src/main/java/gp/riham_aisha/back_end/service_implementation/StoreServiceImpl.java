@@ -1,6 +1,7 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.StoreDto;
+import gp.riham_aisha.back_end.dto.AddStoreDto;
+import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import gp.riham_aisha.back_end.model.Store;
@@ -32,13 +33,13 @@ public class StoreServiceImpl implements StoreService {
 
     @Transactional
     @Override
-    public Store addNewStore(StoreDto storeDto) {
-        Long managerId = storeDto.managerId();
+    public Store addNewStore(AddStoreDto addStoreDto) {
+        Long managerId = addStoreDto.managerId();
         User manager = userService.getUser(managerId);
         manager.addRole(Role.STORE_MANAGER);
-        Long categoryId = storeDto.categoryId();
+        Long categoryId = addStoreDto.categoryId();
         StoreCategory category = storeCategoryService.getStoreCategory(categoryId);
-        Store store = new Store(storeDto, category, manager);
+        Store store = new Store(addStoreDto, category, manager);
         storeRepository.save(store);
         manager.addStore();
         log.info("Store with id: {} is added successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
@@ -46,14 +47,14 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Store updateStore(Long id, StoreDto storeDto) {
+    public Store updateStore(Long id, AddStoreDto addStoreDto) {
         Store store = getStore(id);
         AuthUtil.validateStoreOwner(store);
-        store.setName(storeDto.name());
-        store.setDescription(storeDto.description());
-        store.setLogoURL(storeDto.logoURL());
-        store.setCoverURL(storeDto.coverURL());
-        store.setStoreCategory(storeCategoryService.getStoreCategory(storeDto.categoryId()));
+        store.setName(addStoreDto.name());
+        store.setDescription(addStoreDto.description());
+        store.setLogoURL(addStoreDto.logoURL());
+        store.setCoverURL(addStoreDto.coverURL());
+        store.setStoreCategory(storeCategoryService.getStoreCategory(addStoreDto.categoryId()));
         storeRepository.save(store);
         log.info("Store with id: {} is updated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
         return store;
@@ -122,6 +123,14 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<Store> getStoresByManagerId(Long managerId) {
         return storeRepository.findByManagerId(managerId);
+    }
+
+    @Override
+    public List<GetStoresDto> getStoresByCategoryId(Long categoryId) {
+        List<Store> stores;
+        stores = (categoryId == null) ? storeRepository.findAllByOrderByRatingDesc()
+                : storeRepository.findByStoreCategory_Id(categoryId);
+        return GetStoresDto.fromStores(stores);
     }
 
 }

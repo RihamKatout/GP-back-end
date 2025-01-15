@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dto.StoreDto;
+import gp.riham_aisha.back_end.dto.AddStoreDto;
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -59,11 +59,11 @@ public class Store implements Serializable {
         return storeCategory.getProductCategories();
     }
 
-    public Store(StoreDto storeDto, StoreCategory storeCategory, User manager) {
-        name = storeDto.name();
-        description = storeDto.description();
-        logoURL = storeDto.logoURL();
-        coverURL = storeDto.coverURL();
+    public Store(AddStoreDto addStoreDto, StoreCategory storeCategory, User manager) {
+        name = addStoreDto.name();
+        description = addStoreDto.description();
+        logoURL = addStoreDto.logoURL();
+        coverURL = addStoreDto.coverURL();
         this.storeCategory = storeCategory;
         this.manager = manager;
     }

@@ -1,14 +1,15 @@
 package gp.riham_aisha.back_end.service;
 
-import gp.riham_aisha.back_end.dto.StoreDto;
+import gp.riham_aisha.back_end.dto.AddStoreDto;
+import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
 import gp.riham_aisha.back_end.model.Store;
 
 import java.util.List;
 
 public interface StoreService {
-    Store addNewStore(StoreDto storeDto);
+    Store addNewStore(AddStoreDto addStoreDto);
 
-    Store updateStore(Long id, StoreDto storeDto);
+    Store updateStore(Long id, AddStoreDto addStoreDto);
 
     void banStore(Long id);
 
@@ -22,4 +23,5 @@ public interface StoreService {
 
     Store getStore(Long id);
     List<Store> getStoresByManagerId(Long managerId);
+    List<GetStoresDto> getStoresByCategoryId(Long categoryId);
 }

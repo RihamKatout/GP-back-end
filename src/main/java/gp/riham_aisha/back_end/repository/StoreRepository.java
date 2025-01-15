@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByManagerId(Long managerId);
+    List<Store> findByStoreCategory_Id(Long id);
+    List<Store> findAllByOrderByRatingDesc();
 }

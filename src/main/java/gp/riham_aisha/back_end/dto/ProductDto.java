@@ -43,6 +43,7 @@ public record ProductDto(
         @NotNull(message = "Category ID cannot be null")
         Long productCategoryId,
 
+        Integer stockEdge,
         @NotNull(message = "Store ID cannot be null")
         Long storeId,
 

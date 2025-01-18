@@ -1,9 +1,9 @@
 package gp.riham_aisha.back_end;
 
+import gp.riham_aisha.back_end.dto.AddStoreDto;
 import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
 import gp.riham_aisha.back_end.dto.ProductDto;
 import gp.riham_aisha.back_end.dto.RegistrationRequest;
-import gp.riham_aisha.back_end.dto.AddStoreDto;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.enums.Size;
 import gp.riham_aisha.back_end.service.*;
@@ -76,41 +76,41 @@ public class BackEndApplication {
             // cake
             productService.addProduct(new ProductDto("Customizable Chocolate Cake", "Delicious chocolate cake", 15.0, 50,
                     "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB",
-                    true, true, null, 1L, 3L, null, Map.of(Size.S, 15.0, Size.M, 20.0, Size.L, 25.0)));
+                    true, true, null, 1L, 40, 3L, null, Map.of(Size.S, 15.0, Size.M, 20.0, Size.L, 25.0)));
 
             // cookies
             productService.addProduct(new ProductDto("Classic cookies", "The best cookies ever", 1.0, 100,
                     "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
-                    true, false, null, 2L, 3L, List.of("red", "brown", "#caa179"), Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
+                    true, false, null, 2L, 50, 3L, List.of("red", "brown", "#caa179"), Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
             productService.addProduct(new ProductDto("Classic cookies not available", "The best cookies ever", 2.0, 100,
                     "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
-                    false, false, null, 2L, 3L, null, Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
+                    false, false, null, 2L, 120, 3L, null, Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
             productService.addProduct(new ProductDto("Classic cookies with 3d model customizable", "The best cookies ever", 3.0, 100,
                     "https://drive.google.com/thumbnail?id=1LtKw1BnmKyf6oG-sabBHydIIewVJmHcM",
-                    true, true, "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 2L, 3L, null, Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
+                    true, true, "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 2L, 120, 3L, null, Map.of(Size.S, 1.0, Size.M, 1.5, Size.L, 2.0)));
 
             // chocolate
             productService.addProduct(new ProductDto("Vanilla Chocolate", "Creamy vanilla chocolate", 5.0, 200,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-                    true, false, null, 3L, 3L, List.of("white"), Map.of(Size.S, 5.0, Size.M, 7.0, Size.L, 10.0)));
+                    true, false, null, 3L, 100, 3L, List.of("white"), Map.of(Size.S, 5.0, Size.M, 7.0, Size.L, 10.0)));
 
             // dolls
             productService.addProduct(new ProductDto("Doll", "Beautiful doll", 10.0, 150,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-                    true, true, null, 9L, 1L, List.of("pink", "blue", "yellow", "green"), null));
+                    true, true, null, 9L, 100, 1L, List.of("pink", "blue", "yellow", "green"), null));
 
             productService.addProduct(new ProductDto("Plush Toy", "Beautiful plush toy", 6.0, 50,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-                    true, false, null, 10L, 1L, List.of("pink"), Map.of(Size.S, 6.0, Size.M, 8.0, Size.L, 10.0)));
+                    true, false, null, 10L, 60, 1L, List.of("pink"), Map.of(Size.S, 6.0, Size.M, 8.0, Size.L, 10.0)));
 
             // home decor
             productService.addProduct(new ProductDto("Wall Art", "Beautiful art", 20.0, 50,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-                    true, true, null, 11L, 2L, List.of("pink", "blue", "yellow", "green", "brown"), null));
+                    true, true, null, 11L, 50, 2L, List.of("pink", "blue", "yellow", "green", "brown"), null));
 
             productService.addProduct(new ProductDto("Vase", "Beautiful pink vase", 20.0, 50,
                     "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-                    true, true, null, 12L, 2L, List.of("pink"), null));
+                    true, true, null, 12L, 75, 2L, List.of("pink"), null));
 
         };
     }

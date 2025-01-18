@@ -41,16 +41,13 @@ public class Product implements Serializable {
     private int stock = 0;
     private String imageurl;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate = new Date();
-
     private double rating = 0;
     private int numberOfReviews = 0;
 
     private Boolean isAvailable = true;
     private Boolean isCustomizable = false;
     private String model3dURL;
-
+    private Integer stockEdge;
     private Boolean inWishlist = false;
     private List<String> colors;
     @ElementCollection
@@ -83,6 +80,10 @@ public class Product implements Serializable {
         return store.getLogoURL();
     }
 
+    @JsonProperty("categoryId")
+    public Long getCategoryId() {
+        return productCategory.getId();
+    }
     public Product(ProductDto productDto, Store store, ProductCategory productCategory) {
         update(productDto, store, productCategory);
     }
@@ -100,5 +101,6 @@ public class Product implements Serializable {
         this.productCategory = productCategory;
         this.colors = productDto.colors();
         this.sizePrices = productDto.sizePrices();
+        this.stockEdge = productDto.stockEdge();
     }
 }

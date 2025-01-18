@@ -19,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -88,6 +90,11 @@ public class ProductServiceImpl implements ProductService {
                 .and(ProductSpecification.hasMinRating(parameters.minRating()))
                 .and(ProductSpecification.hasId(parameters.id()));
         return productRepository.findAll(specification, pageable);
+    }
+
+    @Override
+    public List<Product> lowStockProducts(Long storeId) {
+        return productRepository.findLowStockProductsByStoreNative(storeId);
     }
 
 }

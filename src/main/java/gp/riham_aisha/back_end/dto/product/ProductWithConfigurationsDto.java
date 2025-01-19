@@ -12,4 +12,5 @@ import java.util.List;
 // TODO: add lists of features
 public record ProductWithConfigurationsDto(Product product, Long storeId,
                                            List<Configuration> configurations, Long categoryId) {
+
 }

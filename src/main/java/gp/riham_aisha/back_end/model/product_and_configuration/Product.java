@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,17 +35,18 @@ public class Product implements Serializable {
     @NotNull
     private String description;
 
+    @NotNull
     private String mainImageURL;
 
     @NotNull
     private double basePrice = 0;
 
     // ------------------ Product availability ------------------
-    @NotNull
     private Integer stock = 0;
 
     private Integer stockEdge = 0;
 
+    @NotNull
     private Boolean needStock = false;
 
     private Boolean isAvailable = true;
@@ -79,9 +81,10 @@ public class Product implements Serializable {
         return productCategory != null ? productCategory.getId() : null;
     }
 
-    // ------------------ Product features ------------------
+    // ------------------ Product configurations ------------------
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Configuration> configurations;
+    private List<Configuration> configurations = new ArrayList<>();
 
     // Constructor to create a product with necessary details and configurations
     public Product(ProductWithConfigurationsDto productDto, Store store, ProductCategory productCategory) {

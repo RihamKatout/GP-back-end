@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Embeddable
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Choice {
+public class Choice  implements Serializable {
     private String name;
     private Double priceImpact;
 }

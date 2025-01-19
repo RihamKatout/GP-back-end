@@ -1,7 +1,9 @@
 package gp.riham_aisha.back_end.controller;
 
 import gp.riham_aisha.back_end.dto.SearchProductParameters;
+import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
+import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.service.ProductService;
 import jakarta.validation.Valid;
@@ -20,7 +22,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Product>> getProducts(
+    public ResponseEntity<Page<ProductWithStoreDto>> getProducts(
             @RequestParam(required = false) String keyWord, @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Long storeId, @RequestParam(required = false) Long storeCategoryId,
             @RequestParam(required = false) Boolean available, @RequestParam(required = false) Double minPrice,
@@ -36,18 +38,18 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getProductById(id));
+    public ResponseEntity<ProductDetailsDto> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductDetailsById(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductWithConfigurationsDto productDto) {
+    public ResponseEntity<ProductWithConfigurationsDto> addProduct(@RequestBody @Valid ProductWithConfigurationsDto productDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductWithConfigurationsDto productAndFeatures) {
-        return ResponseEntity.ok(productService.updateProduct(id, productAndFeatures));
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductWithConfigurationsDto productDto) {
+        return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
     @DeleteMapping("/{id}")

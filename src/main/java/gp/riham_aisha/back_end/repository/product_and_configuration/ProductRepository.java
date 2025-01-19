@@ -1,6 +1,6 @@
-package gp.riham_aisha.back_end.repository;
+package gp.riham_aisha.back_end.repository.product_and_configuration;
 
-import gp.riham_aisha.back_end.model.Product;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

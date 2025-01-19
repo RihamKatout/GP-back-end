@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -33,6 +34,9 @@ import java.util.Set;
         }
 )
 public class User implements UserDetails {
+    // ----------------- user's basic info
+    // username, first name, last name, email, password, phone number
+    // roles, user image url, sign up date, number of stores
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -75,6 +79,8 @@ public class User implements UserDetails {
 
     private int numberOfStores = 0;
 
+
+    // ----------------- user's cart, wishlist
     @ToString.Exclude
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     @JsonIgnore
@@ -116,7 +122,7 @@ public class User implements UserDetails {
     }
 
     //----------------- to make password, email deserializable but not serializable
-
+    //TODO: delete unused methods
     @Override
     @JsonIgnore
     public String getPassword() {
@@ -171,11 +177,9 @@ public class User implements UserDetails {
     public void addRole(Role role) {
         roles.add(role);
     }
-
     public void removeRole(Role role) {
         roles.remove(role);
     }
-
     public Boolean hasRole(Role role) {
         return roles.contains(role);
     }

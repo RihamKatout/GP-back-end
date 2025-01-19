@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.service.specification;
 
-import gp.riham_aisha.back_end.model.Product;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecification {

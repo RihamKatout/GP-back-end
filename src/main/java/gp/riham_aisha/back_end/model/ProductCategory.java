@@ -1,6 +1,7 @@
 package gp.riham_aisha.back_end.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

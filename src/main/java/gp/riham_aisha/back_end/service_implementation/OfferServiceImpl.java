@@ -50,7 +50,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer addProductsToOffer(Long offerId, Long... productId) {
-        return
+        return null;
     }
 
     @Override

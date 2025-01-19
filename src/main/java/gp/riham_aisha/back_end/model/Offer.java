@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.model;
 
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,9 @@ public class Offer {
     private String imageurl;
     private Double discount;
     private Timestamp endDate;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "offer", orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "offer", orphanRemoval = true)
+//    private List<Product> products = new ArrayList<>();
 
     @ToString.Exclude
     @ManyToOne(optional = false)

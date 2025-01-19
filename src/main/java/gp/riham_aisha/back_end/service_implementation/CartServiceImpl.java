@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.service_implementation;
 
 import gp.riham_aisha.back_end.model.CartItem;
-import gp.riham_aisha.back_end.model.Product;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.CartRepository;
 import gp.riham_aisha.back_end.service.CartService;

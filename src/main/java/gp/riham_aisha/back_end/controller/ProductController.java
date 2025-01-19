@@ -1,14 +1,15 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dto.ProductDto;
 import gp.riham_aisha.back_end.dto.SearchProductParameters;
-import gp.riham_aisha.back_end.model.Product;
+import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +41,13 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDto product) {
-        return ResponseEntity.ok(productService.addProduct(product));
+    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductWithConfigurationsDto productDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDto product) {
-        return ResponseEntity.ok(productService.updateProduct(id, product));
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductWithConfigurationsDto productAndFeatures) {
+        return ResponseEntity.ok(productService.updateProduct(id, productAndFeatures));
     }
 
     @DeleteMapping("/{id}")

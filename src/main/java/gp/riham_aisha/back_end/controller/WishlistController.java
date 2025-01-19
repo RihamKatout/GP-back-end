@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.model.Product;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

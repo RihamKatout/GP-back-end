@@ -36,4 +36,9 @@ public class AuthUtil {
         }
         return manager;
     }
+
+
+    public static boolean isCurrentUserSupport() {
+        return doesCurrentUserHasAuthority(Role.SUPPORT);
+    }
 }

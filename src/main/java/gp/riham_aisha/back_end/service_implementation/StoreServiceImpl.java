@@ -84,7 +84,7 @@ public class StoreServiceImpl implements StoreService {
         // 1- check kif the user is admin or support -> activate it
         // 2- check if the user is the store manager -> send a request to admin to activate it
         Store store = getStore(id);
-        if (AuthUtil.doesCurrentUserHasAuthority(Role.ADMIN) || AuthUtil.doesCurrentUserHasAuthority(Role.SUPPORT)) {
+        if (AuthUtil.isCurrentUserSupport()) {
             store.setStatus(StoreStatus.ACTIVE);
             storeRepository.save(store);
             log.info("Store with id: {} is activated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());

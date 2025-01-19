@@ -1,6 +1,5 @@
 package gp.riham_aisha.back_end.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.ProductDto;
@@ -13,7 +12,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +63,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
+
     @JsonProperty("storeName")
     public String getStoreName() {
         return store.getName();
@@ -84,6 +86,7 @@ public class Product implements Serializable {
     public Long getCategoryId() {
         return productCategory.getId();
     }
+
     public Product(ProductDto productDto, Store store, ProductCategory productCategory) {
         update(productDto, store, productCategory);
     }

@@ -13,4 +13,13 @@ import java.util.List;
 public record ProductWithConfigurationsDto(Product product, Long storeId,
                                            List<Configuration> configurations, Long categoryId) {
 
+
+    public static ProductWithConfigurationsDto fromProduct(Product product) {
+        return new ProductWithConfigurationsDto(
+                product,
+                product.getStore().getId(),
+                product.getConfigurations(),
+                product.getCategoryId()
+        );
+    }
 }

@@ -16,9 +16,9 @@ public interface ProductService {
 
     ProductDetailsDto getProductDetailsById(Long id);
 
-    ProductWithConfigurationsDto addProduct(ProductWithConfigurationsDto product);
+    Long addProduct(ProductWithConfigurationsDto product);
 
-    Product updateProduct(Long id, ProductWithConfigurationsDto product);
+    ProductWithConfigurationsDto updateProduct(Long id, ProductWithConfigurationsDto product);
 
     void deleteProduct(Long id);
 

@@ -4,7 +4,6 @@ import gp.riham_aisha.back_end.dto.SearchProductParameters;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
-import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,12 +42,13 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ProductWithConfigurationsDto> addProduct(@RequestBody @Valid ProductWithConfigurationsDto productDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productDto));
+    public ResponseEntity<Long> addProduct(@RequestBody @Valid ProductWithConfigurationsDto productDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(productService.addProduct(productDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductWithConfigurationsDto productDto) {
+    public ResponseEntity<ProductWithConfigurationsDto> updateProduct(@PathVariable Long id, @RequestBody ProductWithConfigurationsDto productDto) {
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 

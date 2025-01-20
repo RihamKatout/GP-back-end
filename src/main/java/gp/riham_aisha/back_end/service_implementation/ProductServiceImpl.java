@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductWithConfigurationsDto addProduct(ProductWithConfigurationsDto productDto) {
+    public Long addProduct(ProductWithConfigurationsDto productDto) {
         // 1- validate store owner
         Store store = storeService.getStore(productDto.storeId());
         AuthUtil.validateStoreOwner(store);
@@ -100,30 +100,32 @@ public class ProductServiceImpl implements ProductService {
         entityManager.flush();
         entityManager.refresh(product);
         log.info("Product with id: {} was added by: {}", product.getId(), AuthUtil.getCurrentUser());
-        return new ProductWithConfigurationsDto(product, productDto.storeId(), product.getConfigurations(), productDto.categoryId());
+        return product.getId();
     }
 
     @Override
     @Transactional
-    public Product updateProduct(Long id, ProductWithConfigurationsDto productDto) {
-        // 1- Validate store owner
+    public ProductWithConfigurationsDto updateProduct(Long id, ProductWithConfigurationsDto productDto) {
+        // 1- Get the existed product by id
+        Product existedProduct = getProductById(id);
+        if(productDto == null) {
+            return ProductWithConfigurationsDto.fromProduct(existedProduct);
+        }
+        // 2- Validate store owner
         Store store = storeService.getStore(productDto.storeId());
         AuthUtil.validateStoreOwner(store);
 
-        // 2- Validate category
+        // 3- Validate category
         ProductCategory category = categoryService.getProductCategory(productDto.categoryId());
 
-        // 3- Get the existing product by id
-        Product existingProduct = getProductById(id);
-
         // 4- Update product with new data
-        existingProduct.update(productDto, category);
-        productRepository.save(existingProduct);
+        existedProduct.update(productDto, category);
+        productRepository.save(existedProduct);
 
         // 5- Update configurations
         productDto.configurations().forEach(configDto -> {
             // Find existing configuration for this product
-            Configuration existingConfig = existingProduct.getConfigurations().stream()
+            Configuration existingConfig = existedProduct.getConfigurations().stream()
                     .filter(config -> config.getName().equals(configDto.getName()))
                     .findFirst()
                     .orElse(null);
@@ -159,9 +161,10 @@ public class ProductServiceImpl implements ProductService {
                 });
             }
         });
-
-        log.info("Product with id: {} was updated by: {}", existingProduct.getId(), AuthUtil.getCurrentUser());
-        return existingProduct;
+        entityManager.flush();
+        entityManager.refresh(existedProduct);
+        log.info("Product with id: {} was updated by: {}", existedProduct.getId(), AuthUtil.getCurrentUser());
+        return ProductWithConfigurationsDto.fromProduct(existedProduct);
     }
 
     @Override

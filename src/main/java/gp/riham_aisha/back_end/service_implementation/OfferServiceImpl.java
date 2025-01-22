@@ -33,7 +33,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer addOffer(Offer offer) {
-        if (offer.getPublicOffer()) {
+        if (Boolean.TRUE.equals(offer.getPublicOffer())) {
             if (AuthUtil.isCurrentUserSupport()) {
                 offerRepository.save(offer);
                 return offer;

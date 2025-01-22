@@ -8,6 +8,7 @@ import gp.riham_aisha.back_end.model.Store;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -29,9 +30,11 @@ public class Product implements Serializable {
     private Long id;
 
     @NotBlank(message = "Product name is required")
+    @Size(max = 40, message = "Name must be 40 characters or fewer")
     private String name;
 
     @NotBlank(message = "Description is required")
+    @Size(max = 255, message = "Description must be 255 characters or fewer")
     private String description;
 
     @NotBlank(message = "Main image URL is required")

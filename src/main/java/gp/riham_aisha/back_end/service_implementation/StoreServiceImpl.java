@@ -88,7 +88,6 @@ public class StoreServiceImpl implements StoreService {
             store.setStatus(StoreStatus.ACTIVE);
             storeRepository.save(store);
             log.info("Store with id: {} is activated successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
-            return;
         }
         //TODO: send a request to admin to activate the store
     }

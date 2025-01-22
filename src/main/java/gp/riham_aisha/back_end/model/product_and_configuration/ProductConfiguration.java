@@ -2,6 +2,7 @@ package gp.riham_aisha.back_end.model.product_and_configuration;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,17 +19,17 @@ import java.util.List;
 @Table(name = "configurations")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Configuration implements Serializable {
+public class ProductConfiguration implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "Configuration name is required")
     private String name;
 
     @NotNull
-    private Boolean allowsMultipleUnits;
+    private Boolean allowsMultipleUnits = false;
 
     private Double unitPriceImpact = 0.0;
 

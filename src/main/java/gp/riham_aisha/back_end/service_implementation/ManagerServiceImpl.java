@@ -6,7 +6,7 @@ import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.ProductService;
-import gp.riham_aisha.back_end.service.StoreManagementService;
+import gp.riham_aisha.back_end.service.ManagerService;
 import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StoreManagementServiceImpl implements StoreManagementService {
+public class ManagerServiceImpl implements ManagerService {
     private final StoreService storeService;
     private final UserService userService;
     private final ProductService productService;
@@ -39,6 +39,6 @@ public class StoreManagementServiceImpl implements StoreManagementService {
         Store store = storeService.getStore(id);
         AuthUtil.validateStoreOwner(store);
         List<Product> lowStock = productService.lowStockProducts(id);
-        return new StoreAnalytics(store.getName(), store.getStoreCategory().getId(), lowStock);
+        return new StoreAnalytics(store.getName(), store.getStoreCategory().getId(), lowStock, store.getProductCategories());
     }
 }

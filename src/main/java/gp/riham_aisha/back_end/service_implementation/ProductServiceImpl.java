@@ -2,11 +2,11 @@ package gp.riham_aisha.back_end.service_implementation;
 
 import gp.riham_aisha.back_end.dto.SearchProductParameters;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
-import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
+import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.Store;
-import gp.riham_aisha.back_end.model.product_and_configuration.Configuration;
+import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfiguration;
 import gp.riham_aisha.back_end.model.product_and_configuration.ConfigurationAttributes;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ConfigurationAttributesRepository;
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Long addProduct(ProductWithConfigurationsDto productDto) {
+    public Long addProduct(ProductManagementDto productDto) {
         // 1- validate store owner
         Store store = storeService.getStore(productDto.storeId());
         AuthUtil.validateStoreOwner(store);
@@ -80,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
 
         // Add configurations
         productDto.configurations().forEach(configDto -> {
-            Configuration configuration = new Configuration();
+            ProductConfiguration configuration = new ProductConfiguration();
             configuration.setName(configDto.getName());
             configuration.setAllowsMultipleUnits(configDto.getAllowsMultipleUnits());
             configuration.setUnitPriceImpact(configDto.getUnitPriceImpact());
@@ -105,11 +105,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductWithConfigurationsDto updateProduct(Long id, ProductWithConfigurationsDto productDto) {
+    public ProductManagementDto updateProduct(Long id, ProductManagementDto productDto) {
         // 1- Get the existed product by id
         Product existedProduct = getProductById(id);
         if(productDto == null) {
-            return ProductWithConfigurationsDto.fromProduct(existedProduct);
+            return ProductManagementDto.fromProduct(existedProduct);
         }
         // 2- Validate store owner
         Store store = storeService.getStore(productDto.storeId());
@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
         // 5- Update configurations
         productDto.configurations().forEach(configDto -> {
             // Find existing configuration for this product
-            Configuration existingConfig = existedProduct.getConfigurations().stream()
+            ProductConfiguration existingConfig = existedProduct.getConfigurations().stream()
                     .filter(config -> config.getName().equals(configDto.getName()))
                     .findFirst()
                     .orElse(null);
@@ -164,7 +164,7 @@ public class ProductServiceImpl implements ProductService {
         entityManager.flush();
         entityManager.refresh(existedProduct);
         log.info("Product with id: {} was updated by: {}", existedProduct.getId(), AuthUtil.getCurrentUser());
-        return ProductWithConfigurationsDto.fromProduct(existedProduct);
+        return ProductManagementDto.fromProduct(existedProduct);
     }
 
     @Override

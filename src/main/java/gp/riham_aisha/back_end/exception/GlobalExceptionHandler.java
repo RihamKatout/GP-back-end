@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -55,8 +56,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
     }
 
+    @ExceptionHandler({jakarta.validation.ValidationException.class})
+    public ResponseEntity<Object> handleJakartaBadRequestException(RuntimeException ex, WebRequest request) {
+        if (ex instanceof jakarta.validation.ConstraintViolationException) {
+            jakarta.validation.ConstraintViolationException violationException = (jakarta.validation.ConstraintViolationException) ex;
+            List<String> errorMessages = violationException.getConstraintViolations().stream()
+                    .map(ConstraintViolation::getMessage)
+                    .toList();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorsResponse(errorMessages.toArray(new String[0])));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorsResponse(ex.getMessage()));
+    }
 
-    @ExceptionHandler({IllegalArgumentException.class, NoSuchElementException.class, BadCredentialsException.class, IllegalStateException.class})
+    @ExceptionHandler({IllegalArgumentException.class, NoSuchElementException.class,
+            BadCredentialsException.class, IllegalStateException.class})
     public ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(ex.getMessage()));
     }

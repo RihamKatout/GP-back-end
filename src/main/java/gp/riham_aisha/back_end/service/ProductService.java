@@ -2,7 +2,7 @@ package gp.riham_aisha.back_end.service;
 
 import gp.riham_aisha.back_end.dto.SearchProductParameters;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
-import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
+import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import org.springframework.data.domain.Page;
@@ -16,9 +16,9 @@ public interface ProductService {
 
     ProductDetailsDto getProductDetailsById(Long id);
 
-    Long addProduct(ProductWithConfigurationsDto product);
+    Long addProduct(ProductManagementDto product);
 
-    ProductWithConfigurationsDto updateProduct(Long id, ProductWithConfigurationsDto product);
+    ProductManagementDto updateProduct(Long id, ProductManagementDto product);
 
     void deleteProduct(Long id);
 

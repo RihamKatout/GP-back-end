@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model.product_and_configuration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import gp.riham_aisha.back_end.enums.AttributeType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class ConfigurationAttributes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "Attribute name is required")
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -42,5 +42,5 @@ public class ConfigurationAttributes implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "configuration_id")
-    private Configuration configuration;
+    private ProductConfiguration configuration;
 }

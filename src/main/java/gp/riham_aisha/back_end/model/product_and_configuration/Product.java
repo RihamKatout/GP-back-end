@@ -2,15 +2,13 @@ package gp.riham_aisha.back_end.model.product_and_configuration;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dto.product.ProductWithConfigurationsDto;
+import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.Store;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products")
 public class Product implements Serializable {
 
@@ -29,13 +28,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "Product name is required")
     private String name;
 
-    @NotNull
+    @NotBlank(message = "Description is required")
     private String description;
 
-    @NotNull
+    @NotBlank(message = "Main image URL is required")
     private String mainImageURL;
 
     @NotNull
@@ -84,10 +83,10 @@ public class Product implements Serializable {
     // ------------------ Product configurations ------------------
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Configuration> configurations = new ArrayList<>();
+    private List<ProductConfiguration> configurations = new ArrayList<>();
 
     // Constructor to create a product with necessary details and configurations
-    public Product(ProductWithConfigurationsDto productDto, Store store, ProductCategory productCategory) {
+    public Product(ProductManagementDto productDto, Store store, ProductCategory productCategory) {
         if (productDto == null || store == null || productCategory == null) {
             throw new IllegalArgumentException("Product data, store, and category cannot be null");
         }
@@ -96,7 +95,7 @@ public class Product implements Serializable {
     }
 
     // Method to update the product with new data
-    public void update(ProductWithConfigurationsDto productDto, ProductCategory productCategory) {
+    public void update(ProductManagementDto productDto, ProductCategory productCategory) {
         if (productDto == null || store == null || productCategory == null) {
             throw new IllegalArgumentException("Product data, store, and category cannot be null");
         }

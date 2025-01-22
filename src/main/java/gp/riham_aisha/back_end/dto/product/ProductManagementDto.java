@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.dto.product;
 
-import gp.riham_aisha.back_end.model.product_and_configuration.Configuration;
+import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfiguration;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 
 import java.util.List;
@@ -10,12 +10,12 @@ import java.util.List;
 // | mainly used for adding and updating products                   |
 //  ----------------------------------------------------------------
 // TODO: add lists of features
-public record ProductWithConfigurationsDto(Product product, Long storeId,
-                                           List<Configuration> configurations, Long categoryId) {
+public record ProductManagementDto(Product product, Long storeId,
+                                   List<ProductConfiguration> configurations, Long categoryId) {
 
 
-    public static ProductWithConfigurationsDto fromProduct(Product product) {
-        return new ProductWithConfigurationsDto(
+    public static ProductManagementDto fromProduct(Product product) {
+        return new ProductManagementDto(
                 product,
                 product.getStore().getId(),
                 product.getConfigurations(),

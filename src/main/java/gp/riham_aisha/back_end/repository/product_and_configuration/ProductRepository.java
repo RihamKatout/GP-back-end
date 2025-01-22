@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
     List<Product> findAllByStoreId(Long id);
 
-    @Query(value = "SELECT * FROM products WHERE stock <= stock_edge AND store_id = :storeId", nativeQuery = true)
+    @Query(value = "SELECT * FROM products WHERE stock <= stock_edge AND store_id = :storeId AND need_stock = true", nativeQuery = true)
     List<Product> findLowStockProductsByStoreNative(@Param("storeId") Long storeId);
 
 }

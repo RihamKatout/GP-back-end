@@ -27,12 +27,13 @@ public class ProductController {
             @RequestParam(required = false) Boolean available, @RequestParam(required = false) Double minPrice,
             @RequestParam(required = false) Boolean customizable, @RequestParam(required = false) Boolean threeDModel,
             @RequestParam(required = false) Double maxPrice, @RequestParam(required = false) Double minRating, Long id,
-            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+            @RequestParam(required = false) Boolean is3dCustomizable
 
     ) {
         Pageable pageable = PageRequest.of(page, size);
         SearchProductParameters searchProductParameters = new SearchProductParameters(keyWord, categoryId, storeId,
-                storeCategoryId, available, threeDModel, customizable, minPrice, maxPrice, minRating, id);
+                storeCategoryId, available, threeDModel, is3dCustomizable, minPrice, maxPrice, minRating, id, customizable);
         return ResponseEntity.ok(productService.searchProducts(searchProductParameters, pageable));
     }
 

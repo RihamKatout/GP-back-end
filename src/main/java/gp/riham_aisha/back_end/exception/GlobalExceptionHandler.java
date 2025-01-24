@@ -58,8 +58,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({jakarta.validation.ValidationException.class})
     public ResponseEntity<Object> handleJakartaBadRequestException(RuntimeException ex, WebRequest request) {
-        if (ex instanceof jakarta.validation.ConstraintViolationException) {
-            jakarta.validation.ConstraintViolationException violationException = (jakarta.validation.ConstraintViolationException) ex;
+        if (ex instanceof ConstraintViolationException violationException) {
             List<String> errorMessages = violationException.getConstraintViolations().stream()
                     .map(ConstraintViolation::getMessage)
                     .toList();

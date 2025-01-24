@@ -25,7 +25,7 @@ spring:
   #    show-sql: true
   app:
     jwtSecret: hiImRiham12
-    jwtExpirationMs: 121800000
+    jwtExpirationMs: 3600000
 
 
 logging:

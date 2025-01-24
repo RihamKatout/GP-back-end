@@ -36,19 +36,19 @@ public class ProductSpecification {
         };
     }
 
-    public static Specification<Product> isCustomizable(Boolean isCustomizable) {
-        return (root, query, criteriaBuilder) -> isCustomizable == null ? null :
-                criteriaBuilder.equal(root.get("isCustomizable"), isCustomizable);
+    public static Specification<Product> is3dCustomizable(Boolean is3dCustomizable) {
+        return (root, query, criteriaBuilder) -> is3dCustomizable == null ? null :
+                criteriaBuilder.equal(root.get("is3dCustomizable"), is3dCustomizable);
     }
 
     public static Specification<Product> hasMinPrice(Double price) {
         return (root, query, criteriaBuilder) -> price == null ? null :
-                criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
+                criteriaBuilder.greaterThanOrEqualTo(root.get("basePrice"), price);
     }
 
     public static Specification<Product> hasMaxPrice(Double price) {
         return (root, query, criteriaBuilder) -> price == null ? null :
-                criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
+                criteriaBuilder.lessThanOrEqualTo(root.get("basePrice"), price);
     }
 
     public static Specification<Product> hasMinRating(Double rating) {
@@ -61,6 +61,10 @@ public class ProductSpecification {
                 criteriaBuilder.equal(root.get("id"), id);
     }
 
+    public static Specification<Product> isCustomizable(Boolean customizable) {
+        return (root, query, criteriaBuilder) -> customizable == null ? null :
+                criteriaBuilder.notEqual(root.get("defaultFeatures"), customizable);
+    }
 
     public static Specification<Product> hasKeyWord(String keyWord) {
         return (root, query, criteriaBuilder) -> keyWord == null ? null :

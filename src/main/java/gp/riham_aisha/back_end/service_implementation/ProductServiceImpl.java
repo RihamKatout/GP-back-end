@@ -201,11 +201,12 @@ public class ProductServiceImpl implements ProductService {
                 .and(ProductSpecification.hasStoreCategory(parameters.storeCategoryId()))
                 .and(ProductSpecification.isAvailable(parameters.isAvailable()))
                 .and(ProductSpecification.has3DModel(parameters.threeDModel()))
-                .and(ProductSpecification.isCustomizable(parameters.customizable()))
+                .and(ProductSpecification.is3dCustomizable(parameters.customizable()))
                 .and(ProductSpecification.hasMinPrice(parameters.minPrice()))
                 .and(ProductSpecification.hasMaxPrice(parameters.maxPrice()))
                 .and(ProductSpecification.hasMinRating(parameters.minRating()))
-                .and(ProductSpecification.hasId(parameters.id()));
+                .and(ProductSpecification.hasId(parameters.id()))
+                .and(ProductSpecification.isCustomizable(parameters.customizable()));
 
         Page<Product> productPage = productRepository.findAll(specification, pageable);
         return productPage.map(product ->

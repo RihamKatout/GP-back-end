@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public interface ProductService {
-    public Product getProductById(Long id);
+    Product getProductById(Long id);
 
     ProductDetailsDto getProductDetailsById(Long id);
 

@@ -1,7 +1,7 @@
-package gp.riham_aisha.back_end.model;
+package gp.riham_aisha.back_end.model.cart;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import gp.riham_aisha.back_end.enums.Size;
+import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,6 +10,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,8 +25,8 @@ public class CartItem implements Serializable {
     private Long id;
 
     private int quantity;
-    private Size size;
     private String details;
+    private String message;
     private Long storeId;
     private String storeName;
 
@@ -38,4 +40,7 @@ public class CartItem implements Serializable {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "cartItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConfigurationInstance> configurationInstances = new ArrayList<>();
 }

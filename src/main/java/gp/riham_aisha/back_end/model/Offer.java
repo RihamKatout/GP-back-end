@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
@@ -14,7 +15,7 @@ import java.sql.Timestamp;
 @Getter
 @NoArgsConstructor
 @Table(name = "offers")
-public class Offer {
+public class Offer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,13 +1,17 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.model.CartItem;
-import gp.riham_aisha.back_end.model.product_and_configuration.Product;
+import gp.riham_aisha.back_end.dto.cart.CartItemDto;
 import gp.riham_aisha.back_end.model.User;
+import gp.riham_aisha.back_end.model.cart.CartItem;
+import gp.riham_aisha.back_end.model.cart.ConfigurationInstance;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.repository.CartRepository;
 import gp.riham_aisha.back_end.service.CartService;
 import gp.riham_aisha.back_end.service.ProductService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,38 +34,67 @@ public class CartServiceImpl implements CartService {
     private CartItem isCartItemExists(User user, CartItem cartItem) {
         return cartItem.getId() != null ?
                 user.getCart().stream().filter(item ->
-                        item.getId().equals(cartItem.getId())).findFirst().orElse(null) :
-                user.getCart().stream().filter(item ->
-                        item.getProduct().getId().equals(cartItem.getProduct().getId())
-                                && item.getSize().equals(cartItem.getSize())).findFirst().orElse(null);
+                        item.getId().equals(cartItem.getId())).findFirst().orElseThrow(
+                        () -> new EntityNotFoundException("Item not found in the cart")) : null;
     }
 
     @Override
-    public List<CartItem> getUserCart() {
-        return getUser().getCart();
+    public List<CartItemDto> getUserCart() {
+        List<CartItem> cartItems = getUser().getCart();
+        return cartItems.stream().map(cartItem ->
+                new CartItemDto(cartItem, cartItem.getProduct().getConfigurations())
+        ).toList();
     }
 
     @Override
+    @Transactional
     public void addItemToCart(CartItem cartItem) {
+        // Retrieve the authenticated user
         User user = getUser();
-        if (isCartItemExists(user, cartItem) != null) {
-            throw new IllegalArgumentException("Item already exists in the cart");
-        }
         cartItem.setUser(user);
+
+        // Fetch the product and set its details to the cart item
         Product product = productService.getProductById(cartItem.getProduct().getId());
         cartItem.setProduct(product);
         cartItem.setStoreId(product.getStore().getId());
         cartItem.setStoreName(product.getStore().getName());
+
+        // Process the configuration instances before saving the cart item
+        List<ConfigurationInstance> configurationInstances = cartItem.getConfigurationInstances();
+        if (configurationInstances != null && !configurationInstances.isEmpty()) {
+            configurationInstances.forEach(configurationInstance -> {
+                // Link each configuration instance to the cart item
+                configurationInstance.setCartItem(cartItem);
+            });
+        }
+
+        // Save the cart item and cascade persist the configuration instances
         cartRepository.save(cartItem);
+
+        // Note: If cascade type is not configured for ConfigurationInstance,
+        // you may need to save configuration instances explicitly in their repository.
+    }
+
+
+    @Override
+    @Transactional
+    public CartItem updateCartItemQuantity(CartItem cartItem) {
+        CartItem item = cartRepository.findById(cartItem.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Item not found in the cart"));
+        item.setQuantity(cartItem.getQuantity());
+        return cartRepository.save(item);
     }
 
     @Override
-    public CartItem updateCartItemQuantity(CartItem cartItem) {
+    public CartItemDto updateCartItem(CartItem cartItem) {
         CartItem item = isCartItemExists(getUser(), cartItem);
         if (item != null) {
             item.setQuantity(cartItem.getQuantity());
+            item.setDetails(cartItem.getDetails());
+            item.setMessage(cartItem.getMessage());
+            item.setConfigurationInstances(cartItem.getConfigurationInstances());
             cartRepository.save(item);
-            return item;
+            return new CartItemDto(item, item.getProduct().getConfigurations());
         }
         throw new IllegalArgumentException("Item not found in the cart");
     }

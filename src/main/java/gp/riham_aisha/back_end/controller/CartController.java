@@ -1,7 +1,8 @@
 package gp.riham_aisha.back_end.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import gp.riham_aisha.back_end.model.CartItem;
+import gp.riham_aisha.back_end.dto.cart.CartItemDto;
+import gp.riham_aisha.back_end.model.cart.CartItem;
 import gp.riham_aisha.back_end.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseEntity<List<CartItem>> getCart() {
+    public ResponseEntity<List<CartItemDto>> getCart() {
         return new ResponseEntity<>(cartService.getUserCart(), HttpStatus.OK);
     }
 
@@ -30,6 +31,12 @@ public class CartController {
     @PutMapping
     public ResponseEntity<CartItem> updateItemQuantity(@RequestBody CartItem cartItem) {
         return new ResponseEntity<>(cartService.updateCartItemQuantity(cartItem), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CartItemDto> updateItem(@PathVariable Long id, @RequestBody CartItem cartItem) {
+        cartItem.setId(id);
+        return new ResponseEntity<>(cartService.updateCartItem(cartItem), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

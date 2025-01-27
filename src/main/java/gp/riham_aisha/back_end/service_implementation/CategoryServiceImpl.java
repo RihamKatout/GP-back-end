@@ -6,7 +6,9 @@ import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.repository.ProductCategoryRepository;
 import gp.riham_aisha.back_end.repository.StoreCategoryRepository;
+import gp.riham_aisha.back_end.repository.StoreRepository;
 import gp.riham_aisha.back_end.service.CategoryService;
+import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final StoreCategoryRepository storeCategoryRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final StoreRepository storeRepository;
     private static final String STORE_IS_NOT_FOUND = "Store category with id: {} is not found";
     private static final String PRODUCT_IS_NOT_FOUND = "Product category with id: {} is not found";
 
@@ -68,6 +71,15 @@ public class CategoryServiceImpl implements CategoryService {
         if (storeCategory.getId() == 1){
             throw new SecurityException("Cannot delete default category");
         }
+        StoreCategory defaultCategory = storeCategoryRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("Default StoreCategory not found"));
+        // Reassign product categories to the default category
+        storeCategory.getProductCategories().forEach(productCategory -> productCategory.setStoreCategory(defaultCategory));
+        productCategoryRepository.saveAll(storeCategory.getProductCategories());
+
+        // Reassign all stores to the default category
+        storeCategory.getStores().forEach(store -> store.setStoreCategory(defaultCategory));
+        storeRepository.saveAll(storeCategory.getStores());
         storeCategoryRepository.delete(storeCategory);
         log.info("Category deleted: {} by: {}", id, AuthUtil.getCurrentUser());
     }

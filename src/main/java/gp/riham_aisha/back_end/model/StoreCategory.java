@@ -32,12 +32,17 @@ public class StoreCategory implements Serializable {
     @NotEmpty(message = "empty store category")
     private String name;
 
-    @OneToMany(mappedBy = "storeCategory", orphanRemoval = true)
+    @OneToMany(mappedBy = "storeCategory", orphanRemoval = false)
     @ToString.Exclude
     @JsonIgnore
     private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
     private String imageurl;
+
+    @OneToMany(mappedBy = "storeCategory")
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Store> stores = new LinkedHashSet<>();
 
     public StoreCategory(String name, String imageurl) {
         this.name = name;

@@ -31,6 +31,11 @@ public class StoreServiceImpl implements StoreService {
     private static final String IS_NOT_FOUND = " is not found";
     private static final String NOT_FOUND = "Store with id: %d" + IS_NOT_FOUND;
 
+    @Override
+    public List<Store> getAllStores() {
+        return storeRepository.findAll();
+    }
+
     @Transactional
     @Override
     public Store addNewStore(AddStoreDto addStoreDto) {

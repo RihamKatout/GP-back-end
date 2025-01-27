@@ -7,6 +7,7 @@ import gp.riham_aisha.back_end.model.Store;
 import java.util.List;
 
 public interface StoreService {
+    List<Store> getAllStores();
     Store addNewStore(AddStoreDto addStoreDto);
 
     Store updateStore(Long id, AddStoreDto addStoreDto);

@@ -65,6 +65,9 @@ public class CategoryServiceImpl implements CategoryService {
         StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
         );
+        if (storeCategory.getId() == 1){
+            throw new SecurityException("Cannot delete default category");
+        }
         storeCategoryRepository.delete(storeCategory);
         log.info("Category deleted: {} by: {}", id, AuthUtil.getCurrentUser());
     }

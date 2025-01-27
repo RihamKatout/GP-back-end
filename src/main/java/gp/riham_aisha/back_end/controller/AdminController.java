@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     private final AdminService adminService;
 
+    @GetMapping("/stores")
+    public ResponseEntity<Object> getStores() {
+        return ResponseEntity.ok(adminService.getStores());
+    }
     @PostMapping("")
     public ResponseEntity<Object> addNewAdmin(@RequestBody RegistrationRequest request) {
         User newAdmin = adminService.addNewAdmin(request);

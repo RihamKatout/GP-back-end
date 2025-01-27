@@ -23,8 +23,7 @@ import java.util.Set;
 @Configuration
 public class DataLoader {
     @Bean
-    CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService,
-                             StoreService storeService, ProductService productService) {
+    CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService, StoreService storeService, ProductService productService) {
         return args -> {
             log.info("---------- The application has started on port 1218 ----------");
             addUsers(adminService, authenticationService);
@@ -38,13 +37,10 @@ public class DataLoader {
     private void addUsers(AdminService adminService, AuthenticationService authenticationService) {
         String password = "pass123456";
         // add main admin
-        adminService.addNewAdmin(new RegistrationRequest("rihamkatout", "Riham", "Katout",
-                "rihamkatm@gmail.com", password, "0599119482"));
+        adminService.addNewAdmin(new RegistrationRequest("rihamkatout", "Riham", "Katout", "rihamkatm@gmail.com", password, "0599119482"));
         // add users
-        authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout",
-                "siwar@gp.com", password, "0987654321"), Set.of(Role.CUSTOMER));
-        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh",
-                "reem@gp.com", password, "0987764321"), Set.of(Role.CUSTOMER));
+        authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout", "siwar@gp.com", password, "0987654321"), Set.of(Role.CUSTOMER));
+        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh", "reem@gp.com", password, "0987764321"), Set.of(Role.CUSTOMER));
 
     }
 
@@ -79,43 +75,32 @@ public class DataLoader {
         categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Candles", 5L, null));
         categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Mirrors", 5L, null));
         categoryService.addNewProductCategory(new ProductCategoryDTO(null, "Clocks", 5L, null));
-
     }
 
     private void addProducts(ProductService productService) {
         // cake
-        Product customizableCake = new Product(null, "3d cake", "Delicious cake, you can design it, choose topping and filling as you want!",
-                "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB", 15.0, 0, 0, false,
-                true, null, true, false, null, 0, null, null, null);
+        Product customizableCake = new Product(null, "3d cake", "Delicious cake, you can design it, choose topping and filling as you want!", "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB", 15.0, 0, 0, false, true, null, true, false, null, 0, null, null, null);
 
-        ConfigurationAttributes toppingAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR,
-                List.of(new Choice("Red", 0.0), new Choice("Blue", 1.0),
-                        new Choice("Green", 12.0)), null);
-        ConfigurationAttributes toppingFlavor = new ConfigurationAttributes(null, "Flavor", AttributeType.OTHER,
-                List.of(new Choice("Frosting", 2.0), new Choice("Fruit", 1.0),
-                        new Choice("Nuts", 12.0), new Choice("Chocolate ", 2.5)), null);
-        ConfigurationAttributes cakeAttributes = new ConfigurationAttributes(null, "Cake size", AttributeType.SIZE,
-                List.of(new Choice("S", 0.0), new Choice("M", 4.0),
-                        new Choice("L", 7.0)), null);
+        ConfigurationAttributes toppingAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("Red", 0.0), new Choice("Blue", 1.0), new Choice("Green", 12.0)), null);
+        ConfigurationAttributes toppingFlavor = new ConfigurationAttributes(null, "Flavor", AttributeType.OTHER, List.of(new Choice("Frosting", 2.0), new Choice("Fruit", 1.0), new Choice("Nuts", 12.0), new Choice("Chocolate ", 2.5)), null);
+        ConfigurationAttributes cakeAttributes = new ConfigurationAttributes(null, "Cake size", AttributeType.SIZE, List.of(new Choice("S", 0.0), new Choice("M", 4.0), new Choice("L", 7.0)), null);
         ProductConfiguration cakeTopping = new ProductConfiguration(null, "Topping", false, 0.0, null, List.of(toppingAttributes, toppingFlavor));
         ProductConfiguration cakeFilling = new ProductConfiguration(null, "Filling", false, 0.0, null, List.of(toppingAttributes));
         ProductConfiguration cakeSize = new ProductConfiguration(null, "Size", false, 0.0, null, List.of(cakeAttributes));
         productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
-        productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
 
+        // flower pot
+        Product customizableFlowerPot = new Product(null, "Flower Pot", "Beautiful flower pot, you can customize the color, size, and material to suit your needs!", "https://drive.google.com/thumbnail?id=17kU1y14U9miNE2KLq3iA6R4mLthDP_RQ", 20.0, 3, 5, true, true, null, false, false, null, 0, null, null, null);
+        // pot
+        ConfigurationAttributes potColorAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("White", 0.0), new Choice("Black", 1.5), new Choice("Green", 2.0), new Choice("Blue", 2.5)), null);
+        ConfigurationAttributes potSizeAttributes = new ConfigurationAttributes(null, "Size", AttributeType.SIZE, List.of(new Choice("Small", 0.0), new Choice("Medium", 3.0), new Choice("Large", 5.0)), null);
+        ConfigurationAttributes potMaterialAttributes = new ConfigurationAttributes(null, "Material", AttributeType.OTHER, List.of(new Choice("Ceramic", 0.0), new Choice("Plastic", 1.0), new Choice("Clay", 2.0), new Choice("Metal", 3.0)), null);
+        ProductConfiguration potConfigurations = new ProductConfiguration(null, "Pot Options", false, 0.0, null, List.of(potColorAttributes, potSizeAttributes, potMaterialAttributes));
+        // flower
+        ConfigurationAttributes flowerColorAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("White", 0.0), new Choice("Pink", 1.5), new Choice("Green", 2.0), new Choice("Yellow", 2.5)), null);
+        ConfigurationAttributes flowerTypeAttributes = new ConfigurationAttributes(null, "Type", AttributeType.OTHER, List.of(new Choice("Peonies", 0.0), new Choice("Rose", 1.0), new Choice("Alstroemeria", 2.0), new Choice("Chrysanthemum", 3.0)), null);
+        ProductConfiguration flowerConfigurations = new ProductConfiguration(null, "Flower Options", true, 2.0, null, List.of(flowerColorAttributes, flowerTypeAttributes));
+        productService.addProduct(new ProductManagementDto(customizableFlowerPot, 2L, List.of(potConfigurations, flowerConfigurations), 12L));
 
 //            // cookies
 //            productService.addProduct(new ProductDto("Classic cookies", "The best cookies ever", 1.0, 100,

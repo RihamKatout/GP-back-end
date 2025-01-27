@@ -3,15 +3,18 @@ package gp.riham_aisha.back_end.service_implementation;
 import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.exception.ValidationException;
+import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.AdminService;
 import gp.riham_aisha.back_end.service.AuthenticationService;
+import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,6 +24,11 @@ import java.util.Set;
 public class AdminServiceImpl implements AdminService {
     private final AuthenticationService authenticationService;
     private final UserService userService;
+    private final StoreService storeService;
+    @Override
+    public List<Store> getStores() {
+        return storeService.getAllStores();
+    }
 
     @Override
     public User addNewAdmin(RegistrationRequest request) {

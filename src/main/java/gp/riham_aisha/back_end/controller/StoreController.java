@@ -66,7 +66,7 @@ public class StoreController {
         storeService.deactivateStore(id);
     }
 
-    @PreAuthorize("hasAuthority('STORE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('STORE_MANAGER', 'ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteStore(@PathVariable Long id) {
         storeService.deleteStore(id);

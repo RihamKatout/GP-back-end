@@ -1,9 +1,11 @@
 package gp.riham_aisha.back_end.controller;
 
 import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.StoreCategoryDTO;
 import gp.riham_aisha.back_end.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +27,14 @@ public class CategoryController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<Object> addNewStoreCategory(@RequestBody String newCategoryName, @RequestBody String imageurl) {
-        return ResponseEntity.ok(storeCategoryService.addNewStoreCategory(newCategoryName, imageurl));
+    public ResponseEntity<Object> addNewStoreCategory(@RequestBody StoreCategoryDTO category) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(storeCategoryService.addNewStoreCategory(category.name(), category.imageurl()));
     }
 
     @PutMapping("/store/{id}")
-    public ResponseEntity<Object> updateStoreCategory(@PathVariable Long id, @RequestBody String newCategoryName) {
-        return ResponseEntity.ok(storeCategoryService.updateStoreCategory(id, newCategoryName));
+    public ResponseEntity<Object> updateStoreCategory(@PathVariable Long id, @RequestBody StoreCategoryDTO category) {
+        return ResponseEntity.ok(storeCategoryService.updateStoreCategory(id, category.name(), category.imageurl()));
     }
 
     @DeleteMapping("/store/{id}")

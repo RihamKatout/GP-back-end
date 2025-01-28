@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "store_categories",
         uniqueConstraints = {
-                @UniqueConstraint(name = "unique_store_category_name", columnNames = "categoryName"),
+                @UniqueConstraint(name = "unique_store_category_name", columnNames = "name"),
         }
 )
 public class StoreCategory implements Serializable {

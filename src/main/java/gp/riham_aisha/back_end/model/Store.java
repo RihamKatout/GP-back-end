@@ -60,6 +60,11 @@ public class Store implements Serializable {
         return storeCategory.getProductCategories();
     }
 
+    @JsonProperty("storeCategoryId")
+    public Long getStoreCategoryId() {
+        return storeCategory.getId();
+    }
+    
     public Store(AddStoreDto addStoreDto, StoreCategory storeCategory, User manager) {
         name = addStoreDto.name();
         description = addStoreDto.description();

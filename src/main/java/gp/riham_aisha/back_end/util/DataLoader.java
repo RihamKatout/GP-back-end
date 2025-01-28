@@ -79,7 +79,7 @@ public class DataLoader {
 
     private void addProducts(ProductService productService) {
         // cake
-        Product customizableCake = new Product(null, "3d cake", "Delicious cake, you can design it, choose topping and filling as you want!", "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB", 15.0, 0, 0, false, true, null, true, false, null, 0, null, null, null);
+        Product customizableCake = new Product(null, "3d cake", "Delicious cake, you can design it, choose topping and filling as you want!", "https://drive.google.com/thumbnail?id=1M4iDO8UnNY3dfdD8RvY7256H7V8it5sB", 15.0, 0, 0, false, true, null, true, false, null, 0, null, null, null, null);
 
         ConfigurationAttributes toppingAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("Red", 0.0), new Choice("Blue", 1.0), new Choice("Green", 12.0)), null);
         ConfigurationAttributes toppingFlavor = new ConfigurationAttributes(null, "Flavor", AttributeType.OTHER, List.of(new Choice("Frosting", 2.0), new Choice("Fruit", 1.0), new Choice("Nuts", 12.0), new Choice("Chocolate ", 2.5)), null);
@@ -90,7 +90,7 @@ public class DataLoader {
         productService.addProduct(new ProductManagementDto(customizableCake, 3L, List.of(cakeTopping, cakeFilling, cakeSize), 1L));
 
         // flower pot
-        Product customizableFlowerPot = new Product(null, "Flower Pot", "Beautiful flower pot, you can customize the color, size, and material to suit your needs!", "https://drive.google.com/thumbnail?id=17kU1y14U9miNE2KLq3iA6R4mLthDP_RQ", 20.0, 3, 5, true, true, null, false, false, null, 0, null, null, null);
+        Product customizableFlowerPot = new Product(null, "Flower Pot", "Beautiful flower pot, you can customize the color, size, and material to suit your needs!", "https://drive.google.com/thumbnail?id=17kU1y14U9miNE2KLq3iA6R4mLthDP_RQ", 20.0, 3, 5, true, true, null, false, false, null, 0, null, null, null, null);
         // pot
         ConfigurationAttributes potColorAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("White", 0.0), new Choice("Black", 1.5), new Choice("Green", 2.0), new Choice("Blue", 2.5)), null);
         ConfigurationAttributes potSizeAttributes = new ConfigurationAttributes(null, "Size", AttributeType.SIZE, List.of(new Choice("Small", 0.0), new Choice("Medium", 3.0), new Choice("Large", 5.0)), null);

@@ -110,8 +110,17 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    @Transactional
     public void deleteStore(Long id) {
-        User manager = AuthUtil.validateStoreOwner(getStore(id));
+        // check if the user is an admin and store still under review
+        Store store = getStore(id);
+        if (Boolean.TRUE.equals(AuthUtil.doesCurrentUserHasAuthority(Role.ADMIN))
+                && (store.getStatus() == StoreStatus.UNDER_REVIEW)) {
+            storeRepository.deleteById(id);
+            log.info("Store with id: {} is deleted successfully by: {}", id, AuthUtil.getCurrentUser());
+            return;
+        }
+        User manager = AuthUtil.validateStoreOwner(store);
         manager.removeStore();
         storeRepository.deleteById(id);
         log.info("Store with id: {} is deleted successfully by: {}", id, AuthUtil.getCurrentUser());
@@ -119,9 +128,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Store getStore(Long id) {
-        return storeRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format(NOT_FOUND, id))
-        );
+        return storeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format(NOT_FOUND, id)));
     }
 
     @Override
@@ -132,8 +139,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<GetStoresDto> getStoresByCategoryId(Long categoryId) {
         List<Store> stores;
-        stores = (categoryId == null) ? storeRepository.findAllByOrderByRatingDesc()
-                : storeRepository.findByStoreCategory_Id(categoryId);
+        stores = (categoryId == null) ? storeRepository.findAllByOrderByRatingDesc() : storeRepository.findByStoreCategory_Id(categoryId);
         return GetStoresDto.fromStores(stores);
     }
 

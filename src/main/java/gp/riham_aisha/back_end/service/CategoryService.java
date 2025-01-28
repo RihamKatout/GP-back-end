@@ -13,7 +13,7 @@ public interface CategoryService {
 
     StoreCategory addNewStoreCategory(String storeCategory, String imageurl);
 
-    StoreCategory updateStoreCategory(Long id, String storeCategory);
+    StoreCategory updateStoreCategory(Long id, String storeCategory, String imageurl);
 
     StoreCategory getStoreCategory(Long id);
 

@@ -46,11 +46,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public StoreCategory updateStoreCategory(Long id, String storeCategoryName) {
+    public StoreCategory updateStoreCategory(Long id, String storeCategoryName, String imageurl) {
+        if(id == 1){
+            throw new SecurityException("Cannot update default category");
+        }
         StoreCategory storeCategory = storeCategoryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format(STORE_IS_NOT_FOUND, id))
         );
         storeCategory.setName(storeCategoryName);
+        storeCategory.setImageurl(imageurl);
         storeCategoryRepository.save(storeCategory);
         log.info("Category updated: {} by: {}", storeCategory.getName(), AuthUtil.getCurrentUser());
         return storeCategory;

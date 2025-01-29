@@ -1,6 +1,5 @@
 package gp.riham_aisha.back_end.service;
 
-import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.User;
 

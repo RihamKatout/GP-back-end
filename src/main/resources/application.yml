@@ -14,7 +14,17 @@ spring:
     url: ${DATASOURCE_URL}
     username: ${DATASOURCE_USER}
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: market.craftopia@gmail.com
+    password: swbm lhcp mgiz lzgj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -35,4 +45,4 @@ logging:
         security: DEBUG
 
 web:
-    url: ${WEB_URL}
+  url: ${WEB_URL}

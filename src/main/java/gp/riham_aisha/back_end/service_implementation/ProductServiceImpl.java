@@ -1,6 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.SearchProductParameters;
+import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;

@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.service;
 
-import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
-import gp.riham_aisha.back_end.dto.StoreCategoryDTO;
+import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.store.StoreCategoryDTO;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.StoreCategory;
 

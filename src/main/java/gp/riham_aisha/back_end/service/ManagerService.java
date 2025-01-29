@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.service;
 
-import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
-import gp.riham_aisha.back_end.dto.store_manager.StoreAnalytics;
+import gp.riham_aisha.back_end.dto.store.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.StoreAnalytics;
 
 import java.util.List;
 

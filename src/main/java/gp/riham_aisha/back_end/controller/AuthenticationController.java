@@ -1,9 +1,8 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dto.AuthenticationResponse;
-import gp.riham_aisha.back_end.dto.LoginRequest;
-import gp.riham_aisha.back_end.dto.RegistrationRequest;
-import gp.riham_aisha.back_end.enums.Role;
+import gp.riham_aisha.back_end.dto.auth.AuthenticationResponse;
+import gp.riham_aisha.back_end.dto.auth.LoginRequest;
+import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.service.AuthenticationService;
 import gp.riham_aisha.back_end.util.Validator;
@@ -13,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor

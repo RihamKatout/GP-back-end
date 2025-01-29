@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dto.AddStoreDto;
+import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;

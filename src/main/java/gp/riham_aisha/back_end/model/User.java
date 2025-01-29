@@ -3,7 +3,7 @@ package gp.riham_aisha.back_end.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gp.riham_aisha.back_end.dto.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.cart.CartItem;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;

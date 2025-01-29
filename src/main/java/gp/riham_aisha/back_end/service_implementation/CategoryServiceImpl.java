@@ -1,14 +1,13 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
-import gp.riham_aisha.back_end.dto.StoreCategoryDTO;
+import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.store.StoreCategoryDTO;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.repository.ProductCategoryRepository;
 import gp.riham_aisha.back_end.repository.StoreCategoryRepository;
 import gp.riham_aisha.back_end.repository.StoreRepository;
 import gp.riham_aisha.back_end.service.CategoryService;
-import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

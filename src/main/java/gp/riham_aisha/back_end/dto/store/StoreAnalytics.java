@@ -1,4 +1,4 @@
-package gp.riham_aisha.back_end.dto.store_manager;
+package gp.riham_aisha.back_end.dto.store;
 
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;

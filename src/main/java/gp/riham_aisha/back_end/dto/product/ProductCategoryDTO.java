@@ -1,4 +1,4 @@
-package gp.riham_aisha.back_end.dto;
+package gp.riham_aisha.back_end.dto.product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

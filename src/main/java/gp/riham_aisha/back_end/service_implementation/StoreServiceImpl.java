@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.AddStoreDto;
-import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.AddStoreDto;
+import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import gp.riham_aisha.back_end.model.Store;

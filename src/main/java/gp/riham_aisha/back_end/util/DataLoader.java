@@ -1,11 +1,10 @@
 package gp.riham_aisha.back_end.util;
 
-import gp.riham_aisha.back_end.dto.AddStoreDto;
-import gp.riham_aisha.back_end.dto.ProductCategoryDTO;
-import gp.riham_aisha.back_end.dto.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.store.AddStoreDto;
+import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.enums.AttributeType;
-import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.product_and_configuration.Choice;
 import gp.riham_aisha.back_end.model.product_and_configuration.ConfigurationAttributes;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
@@ -20,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Configuration
@@ -44,13 +42,15 @@ public class DataLoader {
         String password = "pass123456";
         // add users
         authenticationService.register(new RegistrationRequest("rihamkatout", "Riham", "Katout", "rihamkatm@gmail.com", password, "0599119482"));
+        authenticationService.register(new RegistrationRequest("aisha_ishtayeh", "Aisha", "Ishtayeh", "aishaishtayeh112@gmail.com", password, "0568468298"));
         authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout", "siwar@gp.com", password, "0987654321"));
-        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh", "reem@gp.com", password, "0987764321"));
+        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh", "reem5sh.sh@gmail.com", password, "0987764321"));
         authenticationService.register(new RegistrationRequest("samaa_yasin", "Samaa", "Yasin", "samaa@gp.com", password, "0987794321"));
         // add main admin
         adminService.addNewAdmin(1L);
+        adminService.addNewAdmin(2L);
         // add support
-        adminService.addNewSupport(4L);
+        adminService.addNewSupport(5L);
     }
 
     private void addStoreCategories(CategoryService categoryService) {
@@ -87,8 +87,6 @@ public class DataLoader {
     }
 
     private void addProducts(ProductService productService) {
-        new ProductsLoader(productService).loadProducts();
-
         // flower pot
         Product customizableFlowerPot = new Product(null, "Flower Pot",
                 "Beautiful flower pot, you can customize the color, size, and material to suit your needs!",
@@ -102,6 +100,7 @@ public class DataLoader {
         ConfigurationAttributes flowerTypeAttributes = new ConfigurationAttributes(null, "Type", AttributeType.OTHER, List.of(new Choice("Peonies", 0.0), new Choice("Rose", 1.0), new Choice("Alstroemeria", 2.0), new Choice("Chrysanthemum", 3.0)), null);
         ProductConfiguration flowerConfigurations = new ProductConfiguration(null, "Flower Options", true, 2.0, null, List.of(flowerColorAttributes, flowerTypeAttributes));
         productService.addProduct(new ProductManagementDto(customizableFlowerPot, 2L, List.of(potConfigurations, flowerConfigurations), 12L));
+        new ProductsLoader(productService).loadProducts();
 
 //            // dolls
 //            productService.addProduct(new ProductDto("Doll", "Beautiful doll", 10.0, 150,

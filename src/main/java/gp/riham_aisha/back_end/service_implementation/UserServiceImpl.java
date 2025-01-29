@@ -86,10 +86,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addRoles(Long id, Role... roles) {
         User user = getUser(id);
-        for (Role r : roles)
+        for (Role r : roles){
+            if(Boolean.TRUE.equals(user.hasRole(r))){
+                throw new IllegalArgumentException("User already has role: " + r);
+            }
             user.addRole(r);
+
+        }
         userRepository.save(user);
         return user;
     }
 
+    @Override
+    public List<User> searchForUsers(String search) {
+        return userRepository.findByUsernameContainsIgnoreCaseOrFirstNameContainsIgnoreCase(search, search);
+    }
 }

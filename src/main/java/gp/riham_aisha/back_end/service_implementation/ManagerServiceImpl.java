@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
-import gp.riham_aisha.back_end.dto.store_manager.StoreAnalytics;
+import gp.riham_aisha.back_end.dto.store.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.StoreAnalytics;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.User;

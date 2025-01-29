@@ -1,4 +1,4 @@
-package gp.riham_aisha.back_end.dto.store_manager;
+package gp.riham_aisha.back_end.dto.store;
 
 import gp.riham_aisha.back_end.enums.StoreStatus;
 import gp.riham_aisha.back_end.model.Store;

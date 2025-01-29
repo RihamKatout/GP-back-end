@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dto.AddStoreDto;
-import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.AddStoreDto;
+import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.service.StoreService;
 import jakarta.validation.Valid;

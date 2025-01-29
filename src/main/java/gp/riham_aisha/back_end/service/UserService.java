@@ -28,4 +28,6 @@ public interface UserService {
     void removeRole(Long id, Role role);
 
     User addRoles(Long id, Role... roles);
+
+    List<User> searchForUsers(String keyWord);
 }

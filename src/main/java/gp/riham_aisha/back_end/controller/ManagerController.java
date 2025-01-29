@@ -1,7 +1,7 @@
 package gp.riham_aisha.back_end.controller;
 
 
-import gp.riham_aisha.back_end.dto.store_manager.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

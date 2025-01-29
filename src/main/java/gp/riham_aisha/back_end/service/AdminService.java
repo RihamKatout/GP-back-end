@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface AdminService {
     List<Store> getStores();
-    User addNewAdmin(RegistrationRequest request);
-    User addNewSupport(RegistrationRequest request);
+    List<User> getAdminsAndSupports();
+    User addNewAdmin(Long userId);
+    User addNewSupport(Long userId);
     void deleteSupport(Long id);
     void resetPassword(Long id, String newPassword);
 }

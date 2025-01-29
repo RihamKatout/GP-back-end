@@ -15,5 +15,5 @@ public interface AuthenticationService {
     AuthenticationResponse authenticate(LoginRequest request) throws AuthenticationException;
 
     @Transactional
-    AuthenticationResponse register(RegistrationRequest request, Set<Role> roles);
+    AuthenticationResponse register(RegistrationRequest request);
 }

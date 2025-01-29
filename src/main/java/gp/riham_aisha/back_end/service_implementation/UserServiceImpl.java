@@ -1,7 +1,8 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.model.product_and_configuration.Product;
+import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.User;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.repository.UserRepository;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
@@ -24,12 +25,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-        log.info("User with id: {} has been deleted by: {}", id, AuthUtil.getCurrentUser());
     }
 
     @Override
@@ -75,4 +70,26 @@ public class UserServiceImpl implements UserService {
     public boolean isProductInWishlist(String username, Long productId) {
         return getUserByUsername(username).isProductInWishlist(productId);
     }
+
+    @Override
+    public List<User> getAdminsAndSupports() {
+        return userRepository.findByRoles(Role.SUPPORT);
+    }
+
+    @Override
+    public void removeRole(Long id, Role role) {
+        User user = getUser(id);
+        user.removeRole(role);
+        userRepository.save(user);
+    }
+
+    @Override
+    public User addRoles(Long id, Role... roles) {
+        User user = getUser(id);
+        for (Role r : roles)
+            user.addRole(r);
+        userRepository.save(user);
+        return user;
+    }
+
 }

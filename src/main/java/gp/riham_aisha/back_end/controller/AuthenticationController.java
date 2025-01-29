@@ -31,7 +31,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegistrationRequest request, BindingResult result) {
         Validator.validateBody(result);
-        AuthenticationResponse response = authenticationService.register(request, Set.of(Role.CUSTOMER));
+        AuthenticationResponse response = authenticationService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Authorization", "Bearer " + response.token())
                 .body(response.user());

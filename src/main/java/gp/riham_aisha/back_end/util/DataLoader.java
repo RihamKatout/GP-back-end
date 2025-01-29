@@ -42,12 +42,15 @@ public class DataLoader {
 
     private void addUsers(AdminService adminService, AuthenticationService authenticationService) {
         String password = "pass123456";
-        // add main admin
-        adminService.addNewAdmin(new RegistrationRequest("rihamkatout", "Riham", "Katout", "rihamkatm@gmail.com", password, "0599119482"));
         // add users
-        authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout", "siwar@gp.com", password, "0987654321"), Set.of(Role.CUSTOMER));
-        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh", "reem@gp.com", password, "0987764321"), Set.of(Role.CUSTOMER));
-
+        authenticationService.register(new RegistrationRequest("rihamkatout", "Riham", "Katout", "rihamkatm@gmail.com", password, "0599119482"));
+        authenticationService.register(new RegistrationRequest("siwar_katout", "Siwar", "Katout", "siwar@gp.com", password, "0987654321"));
+        authenticationService.register(new RegistrationRequest("reem_ishtayeh", "Reem", "Ishtayeh", "reem@gp.com", password, "0987764321"));
+        authenticationService.register(new RegistrationRequest("samaa_yasin", "Samaa", "Yasin", "samaa@gp.com", password, "0987794321"));
+        // add main admin
+        adminService.addNewAdmin(1L);
+        // add support
+        adminService.addNewSupport(4L);
     }
 
     private void addStoreCategories(CategoryService categoryService) {

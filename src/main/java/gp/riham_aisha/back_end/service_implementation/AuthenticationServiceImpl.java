@@ -57,10 +57,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Transactional
     @Override
-    public AuthenticationResponse register(RegistrationRequest request, Set<Role> roles) {
+    public AuthenticationResponse register(RegistrationRequest request) {
         User user = new User(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roles);
+        user.setRoles(Set.of(Role.CUSTOMER));
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         log.info("Registering a user with username: " + request.username());

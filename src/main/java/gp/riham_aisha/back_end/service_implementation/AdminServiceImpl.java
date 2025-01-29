@@ -1,6 +1,5 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.RegistrationRequest;
 import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.exception.ValidationException;
 import gp.riham_aisha.back_end.model.Store;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -25,21 +23,27 @@ public class AdminServiceImpl implements AdminService {
     private final AuthenticationService authenticationService;
     private final UserService userService;
     private final StoreService storeService;
+
     @Override
     public List<Store> getStores() {
         return storeService.getAllStores();
     }
 
     @Override
-    public User addNewAdmin(RegistrationRequest request) {
-        User newAdmin = (User) authenticationService.register(request, Set.of(Role.ADMIN, Role.SUPPORT, Role.CUSTOMER)).user();
+    public List<User> getAdminsAndSupports() {
+        return userService.getAdminsAndSupports();
+    }
+
+    @Override
+    public User addNewAdmin(Long userId) {
+        User newAdmin = userService.addRoles(userId, Role.ADMIN, Role.SUPPORT);
         log.info("Adding a new admin with username: {} by: {}", newAdmin.getUsername(), AuthUtil.getCurrentUser());
         return newAdmin;
     }
 
     @Override
-    public User addNewSupport(RegistrationRequest request) {
-        User newSupport = (User) authenticationService.register(request, Set.of(Role.SUPPORT, Role.CUSTOMER)).user();
+    public User addNewSupport(Long userId) {
+        User newSupport = userService.addRoles(userId, Role.SUPPORT);
         log.info("Adding a new support with username: {} by: {}", newSupport.getUsername(), AuthUtil.getCurrentUser());
         return newSupport;
     }
@@ -49,8 +53,8 @@ public class AdminServiceImpl implements AdminService {
         User support = userService.getUser(id);
         if (Boolean.FALSE.equals(support.hasRole(Role.ADMIN))
                 && Boolean.TRUE.equals(support.hasRole(Role.SUPPORT))) {
-            userService.deleteUser(id);
-            log.info("Deleting support with id: {} by: {}", id, AuthUtil.getCurrentUser());
+            userService.removeRole(id, Role.SUPPORT);
+            log.info("Removing support with id: {} by: {}", id, AuthUtil.getCurrentUser());
             return;
         }
         throw new ValidationException(Map.of("error", "User is not a support"));

@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.service;
 
+import gp.riham_aisha.back_end.enums.Role;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import gp.riham_aisha.back_end.model.User;
 
@@ -7,8 +8,6 @@ import java.util.List;
 
 public interface UserService {
     User getUser(Long id);
-
-    void deleteUser(Long id);
 
     void resetPassword(Long id, String newPassword);
 
@@ -23,4 +22,10 @@ public interface UserService {
     void clearWishlist(String username);
 
     boolean isProductInWishlist(String username, Long productId);
+
+    List<User> getAdminsAndSupports();
+
+    void removeRole(Long id, Role role);
+
+    User addRoles(Long id, Role... roles);
 }

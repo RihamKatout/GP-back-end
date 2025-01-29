@@ -18,21 +18,24 @@ public class AdminController {
     public ResponseEntity<Object> getStores() {
         return ResponseEntity.ok(adminService.getStores());
     }
+
+    @GetMapping("")
+    public ResponseEntity<Object> getAdminsAndSupports() {
+        return ResponseEntity.ok(adminService.getAdminsAndSupports());
+    }
     @PostMapping("")
-    public ResponseEntity<Object> addNewAdmin(@RequestBody RegistrationRequest request) {
-        User newAdmin = adminService.addNewAdmin(request);
+    public ResponseEntity<Object> addNewAdmin(@RequestBody Long userId) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(newAdmin);
+                .body(adminService.addNewAdmin(userId));
     }
 
     @PostMapping("/support")
-    public ResponseEntity<Object> addNewSupport(@RequestBody RegistrationRequest request) {
-        User newAdmin = adminService.addNewSupport(request);
+    public ResponseEntity<Object> addNewSupport(@RequestBody Long userId) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(newAdmin);
+                .body(adminService.addNewSupport(userId));
     }
 
-    @DeleteMapping("/support/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteSupport(@PathVariable Long id) {
         adminService.deleteSupport(id);
         return ResponseEntity.ok().build();

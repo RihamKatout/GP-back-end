@@ -39,7 +39,8 @@ public class StoreServiceImpl implements StoreService {
     @Transactional
     @Override
     public Store addNewStore(AddStoreDto addStoreDto) {
-        Long managerId = addStoreDto.managerId();
+        String managerUsername = AuthUtil.getCurrentUser();
+        Long managerId = managerUsername.equals("System") ? 1L : userService.getUserByUsername(managerUsername).getId();
         User manager = userService.getUser(managerId);
         manager.addRole(Role.STORE_MANAGER);
         Long categoryId = addStoreDto.categoryId();

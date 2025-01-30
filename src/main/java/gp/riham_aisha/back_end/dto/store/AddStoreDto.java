@@ -17,9 +17,6 @@ public record AddStoreDto(
         String logoURL,
         String coverURL,
 
-        @NotNull(message = "Manager ID cannot be null")
-        Long managerId,
-
         @NotNull(message = "Category ID cannot be null")
         Long categoryId
 ) {

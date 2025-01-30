@@ -62,9 +62,9 @@ public class DataLoader {
     }
 
     private void addStores(StoreService storeService) {
-        storeService.addNewStore(new AddStoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 1L, 4L));
-        storeService.addNewStore(new AddStoreDto("Riham Store", "bla bla bla bla", null, null, 1L, 5L));
-        storeService.addNewStore(new AddStoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 1L, 2L));
+        storeService.addNewStore(new AddStoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 4L));
+        storeService.addNewStore(new AddStoreDto("Riham Store", "bla bla bla bla", null, null, 5L));
+        storeService.addNewStore(new AddStoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 2L));
     }
 
     private void addProductCategories(CategoryService categoryService) {

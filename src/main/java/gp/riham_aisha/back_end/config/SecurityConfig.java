@@ -34,10 +34,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/store/**").permitAll()
+                        .requestMatchers("/api/store/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
-                        .requestMatchers("/api/store/**").authenticated()
                         .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers("/api/cart/**").hasAnyAuthority(Role.CUSTOMER.name())
                         .requestMatchers("/api/category/**").hasAnyAuthority(Role.ADMIN.name(), Role.SUPPORT.name())

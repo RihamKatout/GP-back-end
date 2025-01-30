@@ -2,6 +2,7 @@ package gp.riham_aisha.back_end.controller;
 
 import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.dto.store.GetStoresDto;
+import gp.riham_aisha.back_end.dto.store.StoreBasicInfoDto;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.service.StoreService;
 import jakarta.validation.Valid;
@@ -25,20 +26,20 @@ public class StoreController {
     }
 
     @GetMapping("")
-    public List<GetStoresDto> getStoreByCategoryId(@RequestParam(required = false) Long storeCategoryId){
+    public List<GetStoresDto> getStoreByCategoryId(@RequestParam(required = false) Long storeCategoryId) {
         return storeService.getStoresByCategoryId(storeCategoryId);
     }
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPPORT')")
+
     @PostMapping("")
-    public ResponseEntity<Store> createStore(@Valid @RequestBody AddStoreDto addStoreDto) {
-        Store store = storeService.addNewStore(addStoreDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(store);
+    public ResponseEntity<Void> createStore(@Valid @RequestBody AddStoreDto addStoreDto) {
+        StoreBasicInfoDto.fromStore(storeService.addNewStore(addStoreDto));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAuthority('STORE_MANAGER')")
     @PutMapping("/{id}")
-    public ResponseEntity<Store> updateStore(@PathVariable Long id, @Valid @RequestBody AddStoreDto addStoreDto) {
-        Store updatedStore = storeService.updateStore(id, addStoreDto);
+    public ResponseEntity<StoreBasicInfoDto> updateStore(@PathVariable Long id, @Valid @RequestBody AddStoreDto addStoreDto) {
+        StoreBasicInfoDto updatedStore = StoreBasicInfoDto.fromStore(storeService.updateStore(id, addStoreDto));
         return ResponseEntity.ok(updatedStore);
     }
 

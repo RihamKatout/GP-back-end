@@ -9,6 +9,8 @@ public class ProductsLoader {
 
     public void loadProducts() {
         new SweetTouchesProducts(productService).loadProducts();
+        new RihamStoreProducts(productService).loadProducts();
+        new SiwarStoreProducts(productService).loadProducts();
     }
 
 }

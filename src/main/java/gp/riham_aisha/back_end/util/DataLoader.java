@@ -87,7 +87,7 @@ public class DataLoader {
     }
 
     private void addProducts(ProductService productService) {
-        new ProductsLoader(productService).loadProducts();
+
 
         // flower pot
         Product customizableFlowerPot = new Product(null, "Flower Pot",
@@ -102,6 +102,7 @@ public class DataLoader {
         ConfigurationAttributes flowerTypeAttributes = new ConfigurationAttributes(null, "Type", AttributeType.OTHER, List.of(new Choice("Peonies", 0.0), new Choice("Rose", 1.0), new Choice("Alstroemeria", 2.0), new Choice("Chrysanthemum", 3.0)), null);
         ProductConfiguration flowerConfigurations = new ProductConfiguration(null, "Flower Options", true, 2.0, null, List.of(flowerColorAttributes, flowerTypeAttributes));
         productService.addProduct(new ProductManagementDto(customizableFlowerPot, 2L, List.of(potConfigurations, flowerConfigurations), 12L));
+        new ProductsLoader(productService).loadProducts();
 
 //            // dolls
 //            productService.addProduct(new ProductDto("Doll", "Beautiful doll", 10.0, 150,

@@ -1,15 +1,17 @@
 package gp.riham_aisha.back_end.service;
 
+import gp.riham_aisha.back_end.dto.OfferDto;
 import gp.riham_aisha.back_end.model.Offer;
 
 import java.util.List;
 
 public interface OfferService {
-    List<Offer> getAllPublicOffers();
-    List<Offer> getOffersForStore(Long storeId);
+    List<OfferDto> getAllPublicOffers();
+    List<OfferDto> getOffersForStore(Long storeId);
     Offer getOfferById(Long offerId);
-    Offer addOffer(Offer offer);
-    Offer updateOffer(Offer offer);
-    Offer addProductsToOffer(Long offerId, Long ... productId);
+    OfferDto addOffer(OfferDto offerDto, Boolean isPublic);
+    OfferDto updateOffer(Long id, OfferDto offerDto);
+    void addProductsToOffer(Long offerId, Long ... productId);
+    void removeProductsFromOffer(Long offerId, Long ... productId);
     void deleteOffer(Long offerId);
 }

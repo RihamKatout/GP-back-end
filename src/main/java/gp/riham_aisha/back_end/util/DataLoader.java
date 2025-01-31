@@ -1,9 +1,10 @@
 package gp.riham_aisha.back_end.util;
 
-import gp.riham_aisha.back_end.dto.store.AddStoreDto;
-import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
+import gp.riham_aisha.back_end.dto.OfferDto;
 import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
+import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
+import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.enums.AttributeType;
 import gp.riham_aisha.back_end.model.product_and_configuration.Choice;
 import gp.riham_aisha.back_end.model.product_and_configuration.ConfigurationAttributes;
@@ -27,7 +28,8 @@ public class DataLoader {
     private DataSource dataSource;
 
     @Bean
-    CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService, StoreService storeService, ProductService productService) {
+    CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService,
+                             StoreService storeService, ProductService productService, OfferService offerService) {
         return args -> {
             log.info("---------- The application has started on port 1218 ----------");
             addUsers(adminService, authenticationService);
@@ -35,6 +37,7 @@ public class DataLoader {
             addStores(storeService);
             addProductCategories(categoryService);
             addProducts(productService);
+            addOffers(offerService);
         };
     }
 
@@ -91,7 +94,7 @@ public class DataLoader {
         Product customizableFlowerPot = new Product(null, "Flower Pot",
                 "Beautiful flower pot, you can customize the color, size, and material to suit your needs!",
                 "https://drive.google.com/thumbnail?id=17kU1y14U9miNE2KLq3iA6R4mLthDP_RQ", 20.0, 3, 5,
-                true, true, null, false, false, null, 0, null, null, null, null);
+                true, true, null, false, false, null, 0, null, null, null, null, null);
         ConfigurationAttributes potColorAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("White", 0.0), new Choice("Black", 1.5), new Choice("Green", 2.0), new Choice("Blue", 2.5)), null);
         ConfigurationAttributes potSizeAttributes = new ConfigurationAttributes(null, "Size", AttributeType.SIZE, List.of(new Choice("Small", 0.0), new Choice("Medium", 3.0), new Choice("Large", 5.0)), null);
         ConfigurationAttributes potMaterialAttributes = new ConfigurationAttributes(null, "Material", AttributeType.OTHER, List.of(new Choice("Ceramic", 0.0), new Choice("Plastic", 1.0), new Choice("Clay", 2.0), new Choice("Metal", 3.0)), null);
@@ -119,5 +122,11 @@ public class DataLoader {
 //            productService.addProduct(new ProductDto("Vase", "Beautiful pink vase", 20.0, 50,
 //                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
 //                    true, true, null, 12L, 75, 2L, List.of("pink"), null));
+    }
+
+    private void addOffers(OfferService offerService) {
+        offerService.addOffer(new OfferDto(null, true, "Summer Sale", "Get 20% off on all products",
+                "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 20.0, null, null), true);
+        offerService.addProductsToOffer(1L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
     }
 }

@@ -1,5 +1,10 @@
 package gp.riham_aisha.back_end.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import gp.riham_aisha.back_end.dto.OfferDto;
+import gp.riham_aisha.back_end.dto.store.StoreBasicInfoDto;
+import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +13,8 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @ToString
@@ -29,7 +36,36 @@ public class Offer implements Serializable {
     private Timestamp endDate;
 
     @ToString.Exclude
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "store_id", nullable = false)
+    @OneToMany(mappedBy = "offer", orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
+
+    @JsonIgnore
+    @ToString.Exclude
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "store_id")
     private Store store;
+
+    @JsonProperty("store_info")
+    public StoreBasicInfoDto getStoreBasicInfoDto() {
+        return store == null ? null
+                : new StoreBasicInfoDto(store.getId(), store.getName(), store.getLogoURL());
+    }
+
+    public Offer(OfferDto offerDto) {
+        this.publicOffer = offerDto.publicOffer();
+        this.title = offerDto.title();
+        this.description = offerDto.description();
+        this.imageurl = offerDto.imageurl();
+        this.discount = offerDto.discount();
+        this.endDate = offerDto.endDate();
+    }
+
+    public void update(OfferDto offerDto) {
+        this.publicOffer = offerDto.publicOffer();
+        this.title = offerDto.title();
+        this.description = offerDto.description();
+        this.imageurl = offerDto.imageurl();
+        this.discount = offerDto.discount();
+        this.endDate = offerDto.endDate();
+    }
 }

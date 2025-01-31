@@ -13,9 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @ToString
@@ -54,6 +52,10 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Product> products = new LinkedHashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Offer> offers = new ArrayList<>();
 
     @JsonProperty("productCategories")
     public Set<ProductCategory> getProductCategories() {

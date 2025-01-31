@@ -1,14 +1,15 @@
 package gp.riham_aisha.back_end.service_implementation;
 
-import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
+import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
+import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.Store;
-import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfiguration;
 import gp.riham_aisha.back_end.model.product_and_configuration.ConfigurationAttributes;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
+import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfiguration;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ConfigurationAttributesRepository;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ConfigurationRepository;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ProductRepository;
@@ -21,13 +22,13 @@ import gp.riham_aisha.back_end.util.AuthUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -108,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductManagementDto updateProduct(Long id, ProductManagementDto productDto) {
         // 1- Get the existed product by id
         Product existedProduct = getProductById(id);
-        if(productDto == null) {
+        if (productDto == null) {
             return ProductManagementDto.fromProduct(existedProduct);
         }
         // 2- Validate store owner
@@ -217,6 +218,28 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> lowStockProducts(Long storeId) {
         return productRepository.findLowStockProductsByStoreNative(storeId);
+    }
+
+    @Override
+    public void addProductToOffer(Long productId, Offer offer) {
+        Product product = getProductById(productId);
+        AuthUtil.validateStoreOwner(product.getStore());
+        if (product.getOffer() != null) {
+            throw new IllegalArgumentException("Product with id " + productId + " already has an offer");
+        }
+        product.setOffer(offer);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void removeProductFromOffer(Long productId, Offer offer) {
+        Product product = getProductById(productId);
+        AuthUtil.validateStoreOwner(product.getStore());
+        if (product.getOffer() == null || !product.getOffer().getId().equals(offer.getId())) {
+            throw new IllegalArgumentException("Product with id " + productId + " doesn't have an offer");
+        }
+        product.setOffer(null);
+        productRepository.save(product);
     }
 
 }

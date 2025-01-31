@@ -3,6 +3,7 @@ package gp.riham_aisha.back_end.model.product_and_configuration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
+import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.ProductCategory;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.cart.CartItem;
@@ -79,11 +80,20 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
+
     @JsonProperty("categoryId")
     public Long getCategoryId() {
         return productCategory != null ? productCategory.getId() : null;
     }
 
+    @JsonProperty("discount")
+    public Double getDiscount() {
+        return offer != null ? offer.getDiscount() : 0;
+    }
     // ------------------ Product configurations ------------------
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)

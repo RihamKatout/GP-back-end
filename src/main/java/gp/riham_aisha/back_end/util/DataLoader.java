@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.util;
 
+
 import gp.riham_aisha.back_end.dto.OfferDto;
 import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
 import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
@@ -13,19 +14,15 @@ import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfigurat
 import gp.riham_aisha.back_end.service.*;
 import gp.riham_aisha.back_end.util.migrations.ProductsLoader;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Slf4j
 @Configuration
 public class DataLoader {
-    @Autowired
-    private DataSource dataSource;
 
     @Bean
     CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService,
@@ -90,6 +87,8 @@ public class DataLoader {
     }
 
     private void addProducts(ProductService productService) {
+
+
         // flower pot
         Product customizableFlowerPot = new Product(null, "Flower Pot",
                 "Beautiful flower pot, you can customize the color, size, and material to suit your needs!",
@@ -104,24 +103,6 @@ public class DataLoader {
         ProductConfiguration flowerConfigurations = new ProductConfiguration(null, "Flower Options", true, 2.0, null, List.of(flowerColorAttributes, flowerTypeAttributes));
         productService.addProduct(new ProductManagementDto(customizableFlowerPot, 2L, List.of(potConfigurations, flowerConfigurations), 12L));
         new ProductsLoader(productService).loadProducts();
-
-//            // dolls
-//            productService.addProduct(new ProductDto("Doll", "Beautiful doll", 10.0, 150,
-//                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-//                    true, true, null, 9L, 100, 1L, List.of("pink", "blue", "yellow", "green"), null));
-//
-//            productService.addProduct(new ProductDto("Plush Toy", "Beautiful plush toy", 6.0, 50,
-//                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-//                    true, false, null, 10L, 60, 1L, List.of("pink"), Map.of(Size.S, 6.0, Size.M, 8.0, Size.L, 10.0)));
-//
-//            // home decor
-//            productService.addProduct(new ProductDto("Wall Art", "Beautiful art", 20.0, 50,
-//                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-//                    true, true, null, 11L, 50, 2L, List.of("pink", "blue", "yellow", "green", "brown"), null));
-//
-//            productService.addProduct(new ProductDto("Vase", "Beautiful pink vase", 20.0, 50,
-//                    "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L",
-//                    true, true, null, 12L, 75, 2L, List.of("pink"), null));
     }
 
     private void addOffers(OfferService offerService) {

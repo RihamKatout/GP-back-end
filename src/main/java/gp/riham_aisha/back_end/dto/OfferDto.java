@@ -4,6 +4,7 @@ import gp.riham_aisha.back_end.model.Offer;
 import jakarta.annotation.Nullable;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public record OfferDto(Long id,
                        Boolean publicOffer,
@@ -11,8 +12,7 @@ public record OfferDto(Long id,
                        String description,
                        String imageurl,
                        Double discount,
-                       Timestamp endDate,
-                       @Nullable
+                       LocalDateTime endDate,
                        Long storeId) {
     public static OfferDto fromOffer(Offer offer) {
         return new OfferDto(offer.getId(), offer.getPublicOffer(), offer.getTitle(),

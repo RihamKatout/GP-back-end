@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Offer implements Serializable {
     private String description;
     private String imageurl;
     private Double discount;
-    private Timestamp endDate;
+    private LocalDateTime endDate;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "offer", orphanRemoval = true)

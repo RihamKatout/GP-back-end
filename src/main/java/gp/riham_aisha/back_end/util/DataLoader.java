@@ -18,6 +18,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -107,7 +108,20 @@ public class DataLoader {
 
     private void addOffers(OfferService offerService) {
         offerService.addOffer(new OfferDto(null, true, "Summer Sale", "Get 20% off on all products",
-                "https://drive.google.com/thumbnail?id=1BK2xFWIPilz8qoY5OXvyiI2j0pYv3d9L", 20.0, null, null), true);
-        offerService.addProductsToOffer(1L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
+                "https://drive.google.com/thumbnail?id=1txV0kYd63v2Kc29wi0BtdRzMYCzgGcaa", 20.0, null, null), true);
+        offerService.addProductsToOffer(1L, 1L, 13L, 16L, 7L, 24L);
+
+
+        offerService.addOffer(new OfferDto(null, true, "Ramadan Kareem", "25% discount on traditional and spiritual gifts",
+                "https://drive.google.com/thumbnail?id=1M6jH3kk3jdGopbzvA0dtKDtlUpaGp1cC", 25.0, LocalDateTime.parse("2025-04-30T23:59:59"), 1L), false);
+        offerService.addProductsToOffer(2L, 29L, 30L, 32L, 33L, 34L, 35L, 36L, 39L);
+
+        offerService.addOffer(new OfferDto(null, true, "Eid Al-Fitr Celebration", "30% discount on Eid gift sets and sweets",
+                "https://drive.google.com/thumbnail?id=1Jvc36U1E1642Zv76vOU10YwqljKMpIm2", 30.0, LocalDateTime.parse("2025-05-03T23:59:59"), null), true);
+        offerService.addProductsToOffer(3L, 22L, 40L, 41L, 37L);
+
+        offerService.addOffer(new OfferDto(null, true, "Spring Sale", "10% discount on handmade decor and crafts",
+                "https://drive.google.com/thumbnail?id=1_24zHJAy-7_2pHc7K3De3yMCZoRK1rMa", 10.0, LocalDateTime.parse("2025-03-21T23:59:59"), null), true);
+        offerService.addProductsToOffer(4L, 4L, 17L, 18L, 28L, 31L);
     }
 }

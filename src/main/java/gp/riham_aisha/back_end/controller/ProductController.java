@@ -1,11 +1,11 @@
 package gp.riham_aisha.back_end.controller;
 
-import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
+import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
 import gp.riham_aisha.back_end.service.ProductService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,9 +46,12 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> addProduct(@RequestBody @Valid ProductManagementDto productDto) {
+    public ResponseEntity<Long> addProduct(
+            @RequestPart("image") MultipartFile image,
+            @RequestPart("request") String requestJson) throws IOException {
+        ProductManagementDto productDto = new ObjectMapper().readValue(requestJson, ProductManagementDto.class);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(productService.addProduct(productDto));
+                .body(productService.addProduct(productDto, image));
     }
 
     @PutMapping("/{id}")

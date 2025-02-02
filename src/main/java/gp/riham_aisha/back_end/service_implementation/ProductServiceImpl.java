@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
+import gp.riham_aisha.back_end.dto.CloudinaryResponse;
 import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
@@ -13,10 +14,7 @@ import gp.riham_aisha.back_end.model.product_and_configuration.ProductConfigurat
 import gp.riham_aisha.back_end.repository.product_and_configuration.ConfigurationAttributesRepository;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ConfigurationRepository;
 import gp.riham_aisha.back_end.repository.product_and_configuration.ProductRepository;
-import gp.riham_aisha.back_end.service.CategoryService;
-import gp.riham_aisha.back_end.service.ProductService;
-import gp.riham_aisha.back_end.service.StoreService;
-import gp.riham_aisha.back_end.service.UserService;
+import gp.riham_aisha.back_end.service.*;
 import gp.riham_aisha.back_end.service.specification.ProductSpecification;
 import gp.riham_aisha.back_end.util.AuthUtil;
 import jakarta.persistence.EntityManager;
@@ -29,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ConfigurationRepository configurationRepository;
     private final ConfigurationAttributesRepository configurationAttributesRepository;
-
+    private final CloudinaryService cloudinaryService;
     private final StoreService storeService;
     private final CategoryService categoryService;
     private final UserService userService;
@@ -67,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Long addProduct(ProductManagementDto productDto) {
+    public Long addProduct(ProductManagementDto productDto, MultipartFile... image) {
         // 1- validate store owner
         Store store = storeService.getStore(productDto.storeId());
         AuthUtil.validateStoreOwner(store);
@@ -77,6 +76,15 @@ public class ProductServiceImpl implements ProductService {
 
         // 3- create product
         Product product = new Product(productDto, store, category);
+
+        // 4- add image
+        if (image != null && image.length > 0) {
+            CloudinaryResponse response = cloudinaryService.uploadFile(image[0], String.valueOf(product.getId()));
+            System.out.println(response.getUrl());
+            if (response != null) {
+                product.setMainImageURL(response.getUrl());
+            }
+        }
         productRepository.save(product);
 
         // Add configurations

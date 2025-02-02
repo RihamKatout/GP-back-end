@@ -8,6 +8,7 @@ import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ProductService {
 
     ProductDetailsDto getProductDetailsById(Long id);
 
-    Long addProduct(ProductManagementDto product);
+    Long addProduct(ProductManagementDto product, MultipartFile ... image);
 
     ProductManagementDto updateProduct(Long id, ProductManagementDto product);
 

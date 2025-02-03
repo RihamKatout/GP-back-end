@@ -48,7 +48,7 @@ public class Offer implements Serializable {
     @JsonProperty("store_info")
     public StoreBasicInfoDto getStoreBasicInfoDto() {
         return store == null ? null
-                : new StoreBasicInfoDto(store.getId(), store.getName(), store.getLogoURL());
+                : StoreBasicInfoDto.fromStore(store);
     }
 
     public Offer(OfferDto offerDto) {

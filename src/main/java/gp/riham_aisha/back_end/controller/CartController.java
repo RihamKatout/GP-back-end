@@ -24,8 +24,9 @@ public class CartController {
     }
 
     @PostMapping
-    public void addItemToCart(@RequestBody CartItem cartItem) {
+    public ResponseEntity<Void> addItemToCart(@RequestBody CartItem cartItem) {
         cartService.addItemToCart(cartItem);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping

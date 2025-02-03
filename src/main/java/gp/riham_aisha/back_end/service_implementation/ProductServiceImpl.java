@@ -80,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
         // 4- add image
         if (image != null && image.length > 0) {
             CloudinaryResponse response = cloudinaryService.uploadFile(image[0], String.valueOf(product.getId()));
-            System.out.println(response.getUrl());
             if (response != null) {
                 product.setMainImageURL(response.getUrl());
             }

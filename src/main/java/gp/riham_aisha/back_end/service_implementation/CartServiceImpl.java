@@ -11,7 +11,9 @@ import gp.riham_aisha.back_end.service.CartService;
 import gp.riham_aisha.back_end.service.ProductService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final UserService userService;
     private final CartRepository cartRepository;
     private final ProductService productService;
@@ -93,16 +98,24 @@ public class CartServiceImpl implements CartService {
                     )
             );
 
+            // if configuration instance id is < 0, then it's a new configuration instance
+            cartItem.getConfigurationInstances().stream().filter(instance -> instance.getId() <= 0).forEach(instance -> {
+                instance.setCartItem(item);
+                instance.setChoices(instance.getChoices());
+                configurationInstanceRepository.save(instance);
+            });
             // update existed configuration instances
-            cartItem.getConfigurationInstances().forEach((instance) ->
-                    {
+            cartItem.getConfigurationInstances().stream()
+                    .filter(instance -> instance.getId() > 0)
+                    .forEach(instance -> {
                         ConfigurationInstance configurationInstance = configurationInstanceRepository.findById(instance.getId()).orElseThrow(
                                 () -> new EntityNotFoundException("Configuration instance not found"));
                         configurationInstance.setChoices(instance.getChoices());
                         configurationInstanceRepository.save(configurationInstance);
-                    }
-            );
+                    });
             cartRepository.save(item);
+            entityManager.flush();
+            entityManager.refresh(item);
             return new CartItemDto(item, item.getProduct().getConfigurations());
         }
         throw new EntityNotFoundException(CART_ITEM_NOT_FOUND);

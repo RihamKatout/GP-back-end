@@ -1,6 +1,9 @@
 package gp.riham_aisha.back_end.service_implementation;
 
 import gp.riham_aisha.back_end.dto.OfferDto;
+import gp.riham_aisha.back_end.dto.OfferWithProducts;
+import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
+import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
 import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.repository.OfferRepository;
@@ -11,6 +14,9 @@ import gp.riham_aisha.back_end.util.AuthUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +43,15 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer getOfferById(Long offerId) {
-        return offerRepository.findById(offerId).orElseThrow(
+    public OfferWithProducts getOfferById(Long offerId) {
+        Offer offer = offerRepository.findById(offerId).orElseThrow(
                 () -> new EntityNotFoundException("Offer with id " + offerId + " not found"));
+        Pageable pageable = PageRequest.of(0, 100000);
+        Page<ProductWithStoreDto> products = productService.searchProducts(new SearchProductParameters
+                (null, null, null, null, null, null, null,
+                        null, null, null, null, null, offerId), pageable);
+        List<ProductWithStoreDto> finalProducts = products.stream().toList();
+        return new OfferWithProducts(offer, finalProducts);
     }
 
     @Transactional
@@ -64,7 +76,7 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @Override
     public OfferDto updateOffer(Long id, OfferDto offerDto) {
-        Offer offer = getOfferById(id);
+        Offer offer = getOfferById(id).offer();
         if(Boolean.FALSE.equals(offerDto.publicOffer()))
             AuthUtil.validateStoreOwner(offer.getStore());
         offer.update(offerDto);
@@ -76,7 +88,7 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @Override
     public void addProductsToOffer(Long offerId, Long... productId) {
-        Offer offer = getOfferById(offerId);
+        Offer offer = getOfferById(offerId).offer();
         for (Long id : productId) {
             productService.addProductToOffer(id, offer);
         }
@@ -86,7 +98,7 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @Override
     public void removeProductsFromOffer(Long offerId, Long... productId) {
-        Offer offer = getOfferById(offerId);
+        Offer offer = getOfferById(offerId).offer();
         for (Long id : productId) {
             productService.removeProductFromOffer(id, offer);
         }

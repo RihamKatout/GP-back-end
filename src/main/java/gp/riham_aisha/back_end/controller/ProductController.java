@@ -36,7 +36,7 @@ public class ProductController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         SearchProductParameters searchProductParameters = new SearchProductParameters(keyWord, categoryId, storeId,
-                storeCategoryId, available, threeDModel, is3dCustomizable, minPrice, maxPrice, minRating, id, customizable);
+                storeCategoryId, available, threeDModel, is3dCustomizable, minPrice, maxPrice, minRating, id, customizable, null);
         return ResponseEntity.ok(productService.searchProducts(searchProductParameters, pageable));
     }
 

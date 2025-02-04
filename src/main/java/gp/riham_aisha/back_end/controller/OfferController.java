@@ -1,6 +1,7 @@
 package gp.riham_aisha.back_end.controller;
 
 import gp.riham_aisha.back_end.dto.OfferDto;
+import gp.riham_aisha.back_end.dto.OfferWithProducts;
 import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.service.OfferService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class OfferController {
     private final OfferService offerService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Offer> getOfferById(@PathVariable Long id){
+    public ResponseEntity<OfferWithProducts> getOfferById(@PathVariable Long id){
         return ResponseEntity.ok(offerService.getOfferById(id));
     }
 

@@ -3,6 +3,7 @@ package gp.riham_aisha.back_end.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.OfferDto;
+import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.dto.store.StoreBasicInfoDto;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import jakarta.persistence.*;
@@ -35,6 +36,7 @@ public class Offer implements Serializable {
     private Double discount;
     private LocalDateTime endDate;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private List<Product> products = new ArrayList<>();

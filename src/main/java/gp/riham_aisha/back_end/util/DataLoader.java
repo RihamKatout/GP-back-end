@@ -65,9 +65,9 @@ public class DataLoader {
     }
 
     private void addStores(StoreService storeService) {
-        storeService.addNewStore(new AddStoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", null, null, 4L));
-        storeService.addNewStore(new AddStoreDto("Riham Store", "bla bla bla bla", null, null, 5L));
-        storeService.addNewStore(new AddStoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", null, 2L));
+        storeService.addNewStore(new AddStoreDto("Siwar Store", "Siwar is the most beautiful girl in the world", "https://drive.google.com/thumbnail?id=16So_Oj6UWipKH5IsFdfdkTmEe_hnQhLU", "https://drive.google.com/thumbnail?id=1hbWRAunkWE1PY1nkBRW9SvdMF9CDY02I", 4L));
+        storeService.addNewStore(new AddStoreDto("Riham Store", "Home Living & Furnishings", "https://drive.google.com/thumbnail?id=1eoqtVploNwJAvSBFqkmkMwYCJGJCUvbq", "https://drive.google.com/thumbnail?id=1jeLoNjH56fe1pr0SAo8PyEE9hXALfHC2", 5L));
+        storeService.addNewStore(new AddStoreDto("Sweet Touches", "They have the best cookies ever", "https://drive.google.com/thumbnail?id=1dZkmsrJjKo8k5D6pAKtrHmiJE60AGjQo", "https://drive.google.com/thumbnail?id=19rM_-AC-T-mMOYNBbI95m5q3QKsWDCrk", 2L));
     }
 
     private void addProductCategories(CategoryService categoryService) {

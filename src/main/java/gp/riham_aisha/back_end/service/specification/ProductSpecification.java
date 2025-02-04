@@ -73,4 +73,9 @@ public class ProductSpecification {
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%" + keyWord.toLowerCase() + "%")
                 );
     }
+
+    public static Specification<Product> hasOffer(Long offerId){
+        return (root, query, criteriaBuilder) -> offerId == null ? null :
+                criteriaBuilder.equal(root.get("offer").get("id"), offerId);
+    }
 }

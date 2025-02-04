@@ -34,7 +34,7 @@ public class RihamStoreProducts {
                 "Elegant and modern white wall clock with customizable options for color and size to perfectly match your space.",
                 "https://drive.google.com/thumbnail?id=1AP8RBjk8icLw8z9XrY9q7iM27J8yErn7",
                 15.0, // Base price for White Clock Wall
-                1, 3, false, true, null, false, true, null, 0, null, null, null, null, null
+                1, 3, false, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes clockColors = new ConfigurationAttributes(
@@ -89,7 +89,7 @@ public class RihamStoreProducts {
                 "Modern and stylish dark gray wall clock with customizable color and size options to complement any space.",
                 "https://drive.google.com/thumbnail?id=1L4-x_bmgXZM_86re9Z8mPnqE45g7jwlz",
                 15.0, // Base price for Dark Gray Clock Wall
-                1, 3, false, true, null, false, true, null, 0, null, null, null, null, null
+                1, 3, false, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes availableClockColors = new ConfigurationAttributes(
@@ -144,7 +144,7 @@ public class RihamStoreProducts {
                 "Elegant and artistic resin wall clock with customizable base and secondary colors, along with decorative toppings like glitter and jewels.",
                 "https://drive.google.com/thumbnail?id=14tcKmpKOb-oXFB5vvqjL1bhkcREz0tD7",
                 20.0, // Base price for Resin Custom Clock
-                1, 3, false, true, null, false, false, null, 0, null, null, null, null, null
+                1, 3, false, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
 
@@ -185,7 +185,7 @@ public class RihamStoreProducts {
 
         ProductConfiguration baseColorConfig = new ProductConfiguration(
                 null, "Color", true, 0.0, null,
-                List.of(baseColorOptions , secondaryColorOptions)
+                List.of(baseColorOptions, secondaryColorOptions)
         );
 
         ProductConfiguration decorationConfig = new ProductConfiguration(
@@ -197,7 +197,7 @@ public class RihamStoreProducts {
                 new ProductManagementDto(
                         resinCustomClock,
                         2L,
-                        List.of(baseColorConfig,  decorationConfig),
+                        List.of(baseColorConfig, decorationConfig),
                         16L
                 )
         );
@@ -210,7 +210,7 @@ public class RihamStoreProducts {
                 "Elegant and artistic resin wall clock with customizable base and secondary colors, along with decorative toppings like glitter and jewels.",
                 "https://drive.google.com/thumbnail?id=10Uxo4E5fLijP3qUmE9R_p1W8nxbDVPUc",
                 20.0, // Base price for White & Blue Resin Custom Clock
-                1, 3, false, true, null, false, false, null, 0, null, null, null, null, null
+                1, 3, false, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes baseColorOptions2 = new ConfigurationAttributes(
@@ -280,7 +280,7 @@ public class RihamStoreProducts {
                 "Elegant and minimalistic white vase with customizable color, size, material, and flower options to perfectly match your decor.",
                 "https://drive.google.com/thumbnail?id=1nesuNF1G6MkPEF3j2jHmiNGHUc0W0CLe",
                 25.0, // Base price for White Vase
-                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null
+                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes vaseColorAttributes = new ConfigurationAttributes(
@@ -369,7 +369,7 @@ public class RihamStoreProducts {
                 "Modern and stylish green vase with customizable size, material, and flower options to perfectly match your space.",
                 "https://drive.google.com/thumbnail?id=1haIR3sv8YUYJSWGNndQid0-km5xq0ZNh", // Replace with actual image URL
                 28.0, // Base price for Green Vase
-                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null
+                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes vaseSizeAttributes1 = new ConfigurationAttributes(
@@ -439,14 +439,14 @@ public class RihamStoreProducts {
                         12L
                 )
         );
-       //----------------Green & White Vase-------------
+        //----------------Green & White Vase-------------
         Product greenWhiteVase = new Product(
                 null,
                 "Green & White Vase",
                 "Elegant and modern green and white vase with a smooth artistic finish. Customize the size, material, and optional flower arrangements.",
                 "https://drive.google.com/thumbnail?id=1hQMKM9QNIEdW_Fms-ZqivRlQhNQjtKQ4", // Replace with actual image URL
                 30.0, // Base price for Green & White Vase
-                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null
+                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
 
@@ -528,7 +528,7 @@ public class RihamStoreProducts {
                 "Minimalist and elegant black vase with a matte finish. Customizable in different colors, sizes, and flower arrangements.",
                 "https://drive.google.com/thumbnail?id=1Fmkwz0pZkvHNnFIMrEjC5EbjilPkneJa", // Replace with actual image URL
                 28.0, // Base price for Black Vase
-                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null
+                3, 5, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes vaseColorAttributes3 = new ConfigurationAttributes(
@@ -625,7 +625,7 @@ public class RihamStoreProducts {
                 "Soft and cozy heart-shaped rug, perfect for adding a warm and stylish touch to any space. Available in various colors and sizes.",
                 "https://drive.google.com/thumbnail?id=1EwuxuZwT9uYdy7huQBUQ93jSXvvsYQlr", // Replace with actual image URL
                 35.0, // Base price for Heart Shape Rug
-                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes shapeOptions = new ConfigurationAttributes(
@@ -697,7 +697,7 @@ public class RihamStoreProducts {
                 "A soft and fun rug with unique shapes! Customize the shape, size, and facial expressions to match your vibe.",
                 "https://drive.google.com/thumbnail?id=1snN37uVh4c4cdbOGeQDmZVL3crLspOeF", // Replace with actual image URL
                 30.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
 
@@ -763,7 +763,7 @@ public class RihamStoreProducts {
                 new ProductManagementDto(
                         eggRug,
                         2L,
-                        List.of(shapeConfigurations, emojiConfigurations,rugSizeConfigurations ),
+                        List.of(shapeConfigurations, emojiConfigurations, rugSizeConfigurations),
                         13L
                 )
         );
@@ -776,7 +776,7 @@ public class RihamStoreProducts {
                 "A cozy rug with fun fruit shapes! Customize the shape, seed style, and face expression to add some playful vibes to your space.",
                 "https://drive.google.com/thumbnail?id=1luWpsCqo8RWgML60FiEFi1RBsUFyBRsZ", // Replace with actual image URL
                 35.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes fruitShapeOptions = new ConfigurationAttributes(
@@ -839,11 +839,10 @@ public class RihamStoreProducts {
                 new ProductManagementDto(
                         fruitRug,
                         2L,
-                        List.of(fruitShapeConfig,  fruitEmojiFaceConfig, rugSizeConfig),
+                        List.of(fruitShapeConfig, fruitEmojiFaceConfig, rugSizeConfig),
                         13L
                 )
         );
-
 
 
     }
@@ -857,7 +856,7 @@ public class RihamStoreProducts {
                 "A stylish mirror with customizable suit configurations to match your personal style. Choose the frame style, mirror shape, and suit color!",
                 "https://drive.google.com/thumbnail?id=1Rb1ncXI6ZPt3Q6F6tg8eugcpGy9-4Dph", // 1Rb1ncXI6ZPt3Q6F6tg8eugcpGy9-4Dph
                 50.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes frameStyleOptions = new ConfigurationAttributes(
@@ -917,7 +916,7 @@ public class RihamStoreProducts {
                 new ProductManagementDto(
                         mirrorProduct,
                         2L,
-                        List.of(frameStyleConfig, mirrorShapeConfig,  mirrorSizeConfig),
+                        List.of(frameStyleConfig, mirrorShapeConfig, mirrorSizeConfig),
                         15L
                 )
         );
@@ -928,7 +927,7 @@ public class RihamStoreProducts {
                 "A stylish mirror with customizable suit configurations to match your personal style. Choose the frame style, mirror shape, and suit color!",
                 "https://drive.google.com/thumbnail?id=11XpBp3eYYBJ8-DdzZfzlvKCM2BNntHPx", // Example thumbnail ID
                 45.0, // Base price
-                1, 4, true, true, null, false, true, null, 0, null, null, null, null, null
+                1, 4, true, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes materialOptions = new ConfigurationAttributes(
@@ -1002,7 +1001,7 @@ public class RihamStoreProducts {
                 "A beautifully shaped candle in modern designs! Choose your favorite shape, scent, size, and color for the perfect ambiance.",
                 "https://drive.google.com/thumbnail?id=1Siv2HJXCGUdENldaKzPGhpY-DtFcQxaB", // 1Siv2HJXCGUdENldaKzPGhpY-DtFcQxaB
                 20.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes candleShapeOptions = new ConfigurationAttributes(
@@ -1099,7 +1098,7 @@ public class RihamStoreProducts {
                 new ProductManagementDto(
                         shapedCandle,
                         2L,
-                        List.of(candleShapeConfig, candleScentConfig, candleSizeConfig, candleColorConfig , toppingDecorationConfig),
+                        List.of(candleShapeConfig, candleScentConfig, candleSizeConfig, candleColorConfig, toppingDecorationConfig),
                         14L
                 )
         );
@@ -1111,7 +1110,7 @@ public class RihamStoreProducts {
                 "A customizable candle in a cup with a creamy topping and decorative elements. Choose your favorite cup style, topping, and decoration to create a personalized candle experience.",
                 "https://drive.google.com/thumbnail?id=1spAX52qpyHJpgb8pM42o7obqePjFlSSq", // 1spAX52qpyHJpgb8pM42o7obqePjFlSSq
                 25.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes cupStyleOptions = new ConfigurationAttributes(
@@ -1133,7 +1132,7 @@ public class RihamStoreProducts {
                 List.of(
                         new Choice("None", 0.0),
                         new Choice("Vanilla Cream", 2.0),  // Default
-                        new Choice("Chocolate Cream",2.0),
+                        new Choice("Chocolate Cream", 2.0),
                         new Choice("Strawberry Cream", 2.0),
                         new Choice("Caramel Cream", 2.0),
                         new Choice("Coconut Cream", 2.0),
@@ -1221,7 +1220,7 @@ public class RihamStoreProducts {
                 "A classic candle with customizable color, size, and scent to fit your preference. Choose from a variety of options for a perfect candle experience.",
                 "https://drive.google.com/thumbnail?id=1a_1Nrk1ao3BNTtmfvTaCfBm8rODB4e5B", // 1a_1Nrk1ao3BNTtmfvTaCfBm8rODB4e5B
                 15.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes candleColorCustomization = new ConfigurationAttributes(
@@ -1286,7 +1285,6 @@ public class RihamStoreProducts {
                         14L
                 )
         );
-
 
 
     }

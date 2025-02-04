@@ -31,7 +31,7 @@ public class SiwarStoreProducts {
                 "A soft and adorable mushroom plush toy! Customize its color and size for a unique and cozy companion.",
                 "https://drive.google.com/thumbnail?id=1xFDxhJs1DhuaPcRiOdcAOiXny9TERCGV", // 1xFDxhJs1DhuaPcRiOdcAOiXny9TERCGV
                 25.0, // Base price
-                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes plushColorCustomization = new ConfigurationAttributes(
@@ -90,7 +90,7 @@ public class SiwarStoreProducts {
                 "A fun and unique buzzed toy! Customize its color and size to make it perfect for you.",
                 "https://drive.google.com/thumbnail?id=1YPDI5R68rm7dpiRsBBmU5jwBrU8Ftn5g", // Replace with actual image URL
                 20.0, // Base price
-                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, true, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes buzzedColorCustomization = new ConfigurationAttributes(
@@ -147,7 +147,7 @@ public class SiwarStoreProducts {
                 "A handmade custom yarn toy! Choose your favorite color, size, character, and suit style for a fully personalized experience.",
                 "https://drive.google.com/thumbnail?id=1qwWQb_AdAZ3juMQZiu03IJqI7vo97IuI", // Replace with actual image URL
                 30.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes yarnColorCustomization = new ConfigurationAttributes(
@@ -241,7 +241,7 @@ public class SiwarStoreProducts {
                 "A handmade custom yarn decoration! Choose your favorite shape, color, size, and an optional emoji face for a fun and unique design.",
                 "https://drive.google.com/thumbnail?id=1fhkXD7FNm6t8Cc-qTILPdEo8Gkw72TUM", // Replace with actual image URL
                 22.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
         ConfigurationAttributes yarnShapeCustomization1 = new ConfigurationAttributes(
@@ -346,7 +346,7 @@ public class SiwarStoreProducts {
                 "A beautiful handmade girl doll! Customize the hair, eyes, outfit, skin tone, and size to create your perfect doll.",
                 "https://drive.google.com/thumbnail?id=1RcV3I0KTFXhraPTv3C2fAub3009mDWVm", // Replace with actual image URL
                 35.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
 // Hair Style Customization
@@ -482,7 +482,7 @@ public class SiwarStoreProducts {
                 "A beautiful handmade girl doll! Customize the hair, eyes, outfit, skin tone, and size to create your perfect doll.",
                 "https://drive.google.com/thumbnail?id=16psD5iWeukSpUKsWrWrk09NRVzaeogDJ", // Replace with actual image URL
                 35.0, // Base price
-                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null
+                2, 6, true, true, null, false, false, null, 0, null, null, null, null, null, null
         );
 
 // Hair Style Customization

@@ -1,6 +1,7 @@
 package gp.riham_aisha.back_end.util;
 
 
+import gp.riham_aisha.back_end.dto.AddReviewDto;
 import gp.riham_aisha.back_end.dto.OfferDto;
 import gp.riham_aisha.back_end.dto.auth.RegistrationRequest;
 import gp.riham_aisha.back_end.dto.product.ProductCategoryDTO;
@@ -27,7 +28,7 @@ public class DataLoader {
 
     @Bean
     CommandLineRunner initDB(AdminService adminService, CategoryService categoryService, AuthenticationService authenticationService,
-                             StoreService storeService, ProductService productService, OfferService offerService) {
+                             StoreService storeService, ProductService productService, OfferService offerService, ReviewService reviewService) {
         return args -> {
             log.info("---------- The application has started on port 1218 ----------");
             addUsers(adminService, authenticationService);
@@ -36,6 +37,7 @@ public class DataLoader {
             addProductCategories(categoryService);
             addProducts(productService);
             addOffers(offerService);
+            addReviews(reviewService);
         };
     }
 
@@ -94,7 +96,7 @@ public class DataLoader {
         Product customizableFlowerPot = new Product(null, "Flower Pot",
                 "Beautiful flower pot, you can customize the color, size, and material to suit your needs!",
                 "https://drive.google.com/thumbnail?id=17kU1y14U9miNE2KLq3iA6R4mLthDP_RQ", 20.0, 3, 5,
-                true, true, null, false, false, null, 0, null, null, null, null, null);
+                true, true, null, false, false, null, 0, null, null, null, null, null, null);
         ConfigurationAttributes potColorAttributes = new ConfigurationAttributes(null, "Color", AttributeType.COLOR, List.of(new Choice("White", 0.0), new Choice("Black", 1.5), new Choice("Green", 2.0), new Choice("Blue", 2.5)), null);
         ConfigurationAttributes potSizeAttributes = new ConfigurationAttributes(null, "Size", AttributeType.SIZE, List.of(new Choice("Small", 0.0), new Choice("Medium", 3.0), new Choice("Large", 5.0)), null);
         ConfigurationAttributes potMaterialAttributes = new ConfigurationAttributes(null, "Material", AttributeType.OTHER, List.of(new Choice("Ceramic", 0.0), new Choice("Plastic", 1.0), new Choice("Clay", 2.0), new Choice("Metal", 3.0)), null);
@@ -123,5 +125,71 @@ public class DataLoader {
         offerService.addOffer(new OfferDto(null, true, "Spring Sale", "10% discount on handmade decor and crafts",
                 "https://drive.google.com/thumbnail?id=1_24zHJAy-7_2pHc7K3De3yMCZoRK1rMa", 10.0, LocalDateTime.parse("2025-03-21T23:59:59"), null), true);
         offerService.addProductsToOffer(4L, 4L, 17L, 18L, 28L, 31L);
+    }
+
+    private void addReviews(ReviewService reviewService) {
+        // ---------- store reviews
+        reviewService.addReview(new AddReviewDto(
+                "The store has a friendly staff and great customer service.",
+                4, false, null, 1L));
+        reviewService.addReview(new AddReviewDto(
+                "The store needs better communication channels. Slow response to inquiries.",
+                2, false, null, 1L));
+        reviewService.addReview(new AddReviewDto(
+                "The store has limited product options. Needs improvement.",
+                3, false, null, 2L));
+        reviewService.addReview(new AddReviewDto(
+                "The store offered a great discount on my purchase. Happy customer!",
+                5, false, null, 3L));
+        reviewService.addReview(new AddReviewDto(
+                "The store needs to work on faster shipping times.",
+                2, false, null, 1L));
+        reviewService.addReview(new AddReviewDto(
+                "The store website is user-friendly and easy to navigate.",
+                4, false, null, 2L));
+        reviewService.addReview(new AddReviewDto(
+                "The store staff was rude when I contacted customer support.",
+                1, false, null, 3L));
+        reviewService.addReview(new AddReviewDto(
+                "Excellent store experience. Will definitely shop again!",
+                5, false, null, 1L));
+        reviewService.addReview(new AddReviewDto(
+                "Fast delivery and secure packaging. Highly recommend this store!",
+                5, false, null, 2L));
+        reviewService.addReview(new AddReviewDto(
+                "Helpful staff and quick issue resolution. Great store!",
+                4, false, null, 3L));
+
+        // ---------- product reviews
+        reviewService.addReview(new AddReviewDto(
+                "The product broke after a week of use. Disappointing quality.",
+                1, true, 1L, null));
+        reviewService.addReview(new AddReviewDto(
+                "Amazing product! High quality and matches the description perfectly.",
+                5, true, 2L, null));
+        reviewService.addReview(new AddReviewDto(
+                "The product looks good but lacks durability.",
+                3, true, 3L, null));
+        reviewService.addReview(new AddReviewDto(
+                "This product exceeded my expectations. Fantastic value for money.",
+                5, true, 1L, null));
+            reviewService.addReview(new AddReviewDto(
+                "Stylish and well-designed product, but expensive.",
+                4, true, 1L, null));
+        reviewService.addReview(new AddReviewDto(
+                "High-performance product. Excellent for professional use.",
+                5, true, 1L, null));
+        reviewService.addReview(new AddReviewDto(
+                "Received a defective product, but the return process was easy.",
+                3, true, 2L, null));
+        reviewService.addReview(new AddReviewDto(
+                "Absolutely love this product! I’ll be purchasing more soon.",
+                5, true, 2L, null));
+        reviewService.addReview(new AddReviewDto(
+                "Good product overall, but it arrived with minor scratches.",
+                3, true, 3L, null));
+        reviewService.addReview(new AddReviewDto(
+                "This product is a game changer! Highly recommended.",
+                5, true, 3L, null));
     }
 }

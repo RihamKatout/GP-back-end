@@ -7,6 +7,7 @@ import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.dto.product.SearchProductParameters;
 import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.ProductCategory;
+import gp.riham_aisha.back_end.model.Review;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.product_and_configuration.ConfigurationAttributes;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;

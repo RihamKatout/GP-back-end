@@ -5,6 +5,7 @@ import gp.riham_aisha.back_end.dto.product.ProductDetailsDto;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.dto.product.ProductWithStoreDto;
 import gp.riham_aisha.back_end.model.Offer;
+import gp.riham_aisha.back_end.model.Review;
 import gp.riham_aisha.back_end.model.product_and_configuration.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

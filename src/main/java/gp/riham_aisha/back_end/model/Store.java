@@ -57,6 +57,9 @@ public class Store implements Serializable {
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Offer> offers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+    private transient List<Review> reviews = new ArrayList<>();
+
     @JsonProperty("productCategories")
     public Set<ProductCategory> getProductCategories() {
         return storeCategory.getProductCategories();
@@ -66,7 +69,7 @@ public class Store implements Serializable {
     public Long getStoreCategoryId() {
         return storeCategory.getId();
     }
-    
+
     public Store(AddStoreDto addStoreDto, StoreCategory storeCategory, User manager) {
         name = addStoreDto.name();
         description = addStoreDto.description();
@@ -74,5 +77,9 @@ public class Store implements Serializable {
         coverURL = addStoreDto.coverURL();
         this.storeCategory = storeCategory;
         this.manager = manager;
+    }
+    public void addReview(Review review) {
+        this.numberOfReviews++;
+        rating = (rating * (numberOfReviews - 1) + review.getRating()) / numberOfReviews;
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import gp.riham_aisha.back_end.dto.product.ProductManagementDto;
 import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.ProductCategory;
+import gp.riham_aisha.back_end.model.Review;
 import gp.riham_aisha.back_end.model.Store;
 import gp.riham_aisha.back_end.model.cart.CartItem;
 import jakarta.persistence.*;
@@ -85,6 +86,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
     @JsonProperty("categoryId")
     public Long getCategoryId() {
         return productCategory != null ? productCategory.getId() : null;
@@ -141,5 +146,10 @@ public class Product implements Serializable {
         // Rating and reviews information
         this.rating = (productDto.product().getRating() != null) ? productDto.product().getRating() : this.rating;
         this.numberOfReviews = productDto.product().getNumberOfReviews() != null ? productDto.product().getNumberOfReviews() : this.numberOfReviews;
+    }
+
+    public void addNewReview(Review review){
+        numberOfReviews++;
+        rating = (rating * (numberOfReviews - 1) + review.getRating()) / numberOfReviews;
     }
 }

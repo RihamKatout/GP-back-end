@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.service_implementation;
 
+import gp.riham_aisha.back_end.dto.CloudinaryResponse;
 import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.enums.Role;
@@ -9,6 +10,7 @@ import gp.riham_aisha.back_end.model.StoreCategory;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.repository.StoreRepository;
 import gp.riham_aisha.back_end.service.CategoryService;
+import gp.riham_aisha.back_end.service.CloudinaryService;
 import gp.riham_aisha.back_end.service.StoreService;
 import gp.riham_aisha.back_end.service.UserService;
 import gp.riham_aisha.back_end.util.AuthUtil;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
     private final CategoryService storeCategoryService;
     private final UserService userService;
+    private final CloudinaryService cloudinaryService;
 
     private static final String IS_NOT_FOUND = " is not found";
     private static final String NOT_FOUND = "Store with id: %d" + IS_NOT_FOUND;
@@ -38,7 +42,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Transactional
     @Override
-    public Store addNewStore(AddStoreDto addStoreDto) {
+    public Store addNewStore(AddStoreDto addStoreDto, MultipartFile... images) {
         String managerUsername = AuthUtil.getCurrentUser();
         Long managerId = managerUsername.equals("System") ? 1L : userService.getUserByUsername(managerUsername).getId();
         User manager = userService.getUser(managerId);
@@ -48,6 +52,18 @@ public class StoreServiceImpl implements StoreService {
         Store store = new Store(addStoreDto, category, manager);
         storeRepository.save(store);
         manager.addStore();
+        if (images != null && images.length > 0) {
+            CloudinaryResponse response = cloudinaryService.uploadFile(images[0], String.valueOf(store.getId()));
+            if (response != null) {
+                store.setLogoURL(response.getUrl());
+            }
+        }
+        if (images != null && images.length > 1) {
+            CloudinaryResponse response = cloudinaryService.uploadFile(images[1], String.valueOf(store.getId()));
+            if (response != null) {
+                store.setCoverURL(response.getUrl());
+            }
+        }
         log.info("Store with id: {} is added successfully by: {}", store.getId(), AuthUtil.getCurrentUser());
         return store;
     }

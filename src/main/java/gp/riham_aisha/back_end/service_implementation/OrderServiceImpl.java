@@ -1,7 +1,10 @@
 package gp.riham_aisha.back_end.service_implementation;
 
+import gp.riham_aisha.back_end.enums.OrderStatusEnum;
+import gp.riham_aisha.back_end.model.Offer;
 import gp.riham_aisha.back_end.model.User;
 import gp.riham_aisha.back_end.model.order.Order;
+import gp.riham_aisha.back_end.model.order.SubOrder;
 import gp.riham_aisha.back_end.repository.order.OrderRepository;
 import gp.riham_aisha.back_end.repository.order.ProductOrderConfigurationsRepo;
 import gp.riham_aisha.back_end.repository.order.SubOrderRepository;
@@ -45,6 +48,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getUserOrders() {
         return orderRepository.findByUser_Username(AuthUtil.getCurrentUser());
+    }
+
+    @Override
+    public List<Order> getStoreOrders(Long id) {
+        return orderRepository.findBySubOrders_Store_Id(id);
+    }
+
+    @Override
+    public void updateOrder(Long id, String status) {
+        SubOrder sub =  subOrderRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("SubOrder not found")
+        );
+        sub.setStatus(OrderStatusEnum.valueOf(status));
+        subOrderRepository.save(sub);
     }
 
 

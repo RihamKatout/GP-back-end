@@ -3,12 +3,13 @@ package gp.riham_aisha.back_end.service;
 import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.model.Store;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface StoreService {
     List<Store> getAllStores();
-    Store addNewStore(AddStoreDto addStoreDto);
+    Store addNewStore(AddStoreDto addStoreDto, MultipartFile ... images);
 
     Store updateStore(Long id, AddStoreDto addStoreDto);
 

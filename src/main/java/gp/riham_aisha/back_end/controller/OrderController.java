@@ -24,4 +24,15 @@ public class OrderController {
         orderService.addOrder(order);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/store/{id}")
+    public ResponseEntity<List<Order>> getStoreOrders(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getStoreOrders(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateOrder(@PathVariable Long id, String status) {
+        orderService.updateOrder(id, status);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -1,5 +1,6 @@
 package gp.riham_aisha.back_end.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gp.riham_aisha.back_end.dto.store.AddStoreDto;
 import gp.riham_aisha.back_end.dto.store.GetStoresDto;
 import gp.riham_aisha.back_end.dto.store.StoreBasicInfoDto;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -31,8 +34,12 @@ public class StoreController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> createStore(@Valid @RequestBody AddStoreDto addStoreDto) {
-        StoreBasicInfoDto.fromStore(storeService.addNewStore(addStoreDto));
+    public ResponseEntity<Void> createStore(
+            @RequestPart("logo") MultipartFile logo,
+            @RequestPart("cover") MultipartFile cover,
+            @RequestPart("request") String requestJson) throws IOException {
+        AddStoreDto addStoreDto = new ObjectMapper().readValue(requestJson, AddStoreDto.class);
+        StoreBasicInfoDto.fromStore(storeService.addNewStore(addStoreDto, logo, cover));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

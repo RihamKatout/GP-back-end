@@ -169,7 +169,7 @@ public class DataLoader {
                 5, true, 2L, null));
         reviewService.addReview(new AddReviewDto(
                 "The product looks good but lacks durability.",
-                3, true, 3L, null));
+                3, true, 48L, null));
         reviewService.addReview(new AddReviewDto(
                 "This product exceeded my expectations. Fantastic value for money.",
                 5, true, 1L, null));
@@ -187,9 +187,9 @@ public class DataLoader {
                 5, true, 2L, null));
         reviewService.addReview(new AddReviewDto(
                 "Good product overall, but it arrived with minor scratches.",
-                3, true, 3L, null));
+                3, true, 4L, null));
         reviewService.addReview(new AddReviewDto(
                 "This product is a game changer! Highly recommended.",
-                5, true, 3L, null));
+                5, true, 4L, null));
     }
 }
